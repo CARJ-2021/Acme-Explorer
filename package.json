@@ -1,0 +1,25 @@
+{
+  "name": "acme-explorer",
+  "version": "1.0.0",
+  "description": "Repository for Acme Explorer project of Software as a Service Architecture",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CARJ-2021/Acme-Explorer.git"
+  },
+  "author": "CARJ-2021",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CARJ-2021/Acme-Explorer/issues"
+  },
+  "homepage": "https://github.com/CARJ-2021/Acme-Explorer#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.17"
+  }
+}

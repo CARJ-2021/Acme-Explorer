@@ -1,23 +1,25 @@
 {
-  "name": "l01-s01",
+  "name": "acme-explorer",
   "version": "1.0.0",
-  "description": "ACMEMarket REST API",
-  "main": "app.js",
+  "description": "Repository for Acme Explorer project of Software as a Service Architecture",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "npm install",
+    "start": "node index.js",
+    "test": "npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alejandrofdez-us/ACME-Market.git"
+    "url": "git+https://github.com/CARJ-2021/Acme-Explorer.git"
   },
-  "author": "afdez@us.es, cmuller@us.es",
+  "author": "CARJ-2021",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alejandrofdez-us/ACME-Market/issues"
+    "url": "https://github.com/CARJ-2021/Acme-Explorer/issues"
   },
-  "homepage": "https://github.com/alejandrofdez-us/ACME-Market#readme",
+  "homepage": "https://github.com/CARJ-2021/Acme-Explorer#readme",
   "dependencies": {
-    "express": "^4.16.4",
-    "mongoose": "^5.8.7"
+    "express": "^4.17.1",
+    "mongoose": "^5.11.17"
   }
 }

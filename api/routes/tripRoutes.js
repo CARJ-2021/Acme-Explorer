@@ -1,14 +1,13 @@
-'use strict';
+"use strict";
 
-module.exports = function(app) {
-    var trips = require('../controllers/tripController');
-  
-    app.route('/trips')
-          .get(trips.listAllTrips)
-          .post(trips.createTrip);
-  
-    app.route('/trips/:tripId')
-      .get(trips.readTrip)
-        .put(trips.updateTrip)
-      .delete(trips.deleteTrip);
-  };
+module.exports = function (app) {
+  var trips = require("../controllers/tripController");
+
+  app.route("/trips").get(trips.list_all_trips).post(trips.create_a_trip);
+
+  app
+    .route("/trips/:tripId")
+    .get(trips.read_a_trip)
+    .put(trips.update_a_trip)
+    .delete(trips.delete_a_trip);
+};

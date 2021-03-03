@@ -3,6 +3,24 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+var StageSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: "Kindly enter the stage title",
+    },
+    description: {
+      type: String,
+      required: "Kindly enter the stage description",
+    },
+    price: {
+      type: Number,
+      required: "Kindly enter the stage price",
+    },
+  },
+  { strict: false }
+);
+
 var TripSchema = new Schema(
   {
     ticker: {
@@ -39,6 +57,11 @@ var TripSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: "manager id is required",
     },
+    published: {
+      type: Boolean,
+      required: "Published status is required",
+      default: true,
+    },
     stages: [
       {
         type: StageSchema,
@@ -47,29 +70,12 @@ var TripSchema = new Schema(
     ],
     pictures: [
       {
-        type: URL,
+        data: Buffer,
+        contentType: String,
       },
     ],
     reason: {
       type: String,
-    },
-  },
-  { strict: false }
-);
-
-var StageSchema = new Schema(
-  {
-    title: {
-      type: String,
-      required: "Kindly enter the stage title",
-    },
-    description: {
-      type: String,
-      required: "Kindly enter the stage description",
-    },
-    price: {
-      type: Number,
-      required: "Kindly enter the stage price",
     },
   },
   { strict: false }

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/CARJ-2021/Acme-Explorer#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dateformat": "^4.5.1",
     "express": "^4.17.1",
     "mongoose": "^5.11.17",

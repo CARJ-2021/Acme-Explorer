@@ -3,6 +3,8 @@
 var mongoose = require("mongoose"),
   Actor = mongoose.model("Actors");
 
+const bcrypt = require("bcrypt");
+
 exports.list_all_actors = function (req, res) {
   Actor.find({}, function (err, actors) {
     if (err) {
@@ -16,6 +18,8 @@ exports.list_all_actors = function (req, res) {
 exports.create_an_actor = function (req, res) {
   var new_actor = new Actor(req.body);
   //If the user us not authenticated, he or she may register as a Explorer
+  var new_actor = new Actor(req.body);
+  new_actor.password = bcrypt.hashSync(new_actor.password, 10);
   new_actor.save(function (err, actor) {
     if (err) {
       res.send(err);

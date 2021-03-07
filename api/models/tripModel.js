@@ -53,7 +53,7 @@ var TripSchema = new Schema(
       type: Date,
       required: "Kindly enter the trip end date",
     },
-    maanger: {
+    manager: {
       type: Schema.Types.ObjectId,
       required: "manager id is required",
     },

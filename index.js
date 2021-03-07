@@ -4,6 +4,8 @@ var express = require("express"),
   mongoose = require("mongoose"),
   Trip = require("./api/models/tripModel"),
   Actor = require("./api/models/actorModel"),
+  Sponsorship = require("./api/models/sponsorshipModel"),
+  Application = require("./api/models/applicationModel"),
   //   Item = require('./api/models/itemModel'),
   //   Order = require('./api/models/orderModel'),
   bodyParser = require("body-parser");
@@ -31,11 +33,15 @@ app.use(bodyParser.json());
 
 var routesTrips = require("./api/routes/tripRoutes");
 var routesActors = require("./api/routes/actorRoutes");
+var routesSponsorships = require("./api/routes/sponsorshipRoutes");
+var routesApplications = require("./api/routes/applicationRoutes");
 // var routesItems = require('./api/routes/itemRoutes');
 // var routesOrders = require('./api/routes/orderRoutes');
 
 routesTrips(app);
 routesActors(app);
+routesSponsorships(app);
+routesApplications(app);
 // routesItems(app);
 // routesOrders(app);
 

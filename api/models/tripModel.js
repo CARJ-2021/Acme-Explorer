@@ -26,6 +26,7 @@ var TripSchema = new Schema(
     ticker: {
       type: String,
       required: "Kindly enter the trip tricker",
+      unique: true, //Ticker must be unique
     },
     name: {
       type: String,

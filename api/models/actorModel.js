@@ -2,6 +2,11 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+var validateEmail = function (email) {
+  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return re.test(email);
+};
+
 var ActorSchema = new Schema(
   {
     name: {
@@ -14,7 +19,8 @@ var ActorSchema = new Schema(
     },
     email: {
       type: String,
-      required: "Kindly enter the actor email"
+      required: "Kindly enter the actor email",
+      validate: [validateEmail, "Please fill a valid email address"],
     },
     password: {
       type: String,
@@ -51,5 +57,13 @@ var ActorSchema = new Schema(
   },
   { strict: false }
 );
+
+// Delete the password from the return
+ActorSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  return userObject;
+};
 
 module.exports = mongoose.model("Actors", ActorSchema);

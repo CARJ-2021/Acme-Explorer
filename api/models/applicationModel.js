@@ -8,13 +8,11 @@ var ApplicationSchema = new Schema(
       type: Date,
       required: "Kindly enter the date of the Application",
     },
-    status: [
-      {
-        type: String,
-        required: "Kindly enter the application status",
-        enum: ["PENDING", "REJECT", "DUE", "ACCEPTED", "CANCELLED"],
-      },
-    ],
+    status: {
+      type: String,
+      required: "Kindly enter the application status",
+      enum: ["PENDING", "REJECT", "DUE", "ACCEPTED", "CANCELLED"],
+    },
     comments: {
       type: String
     },

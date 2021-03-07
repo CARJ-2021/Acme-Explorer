@@ -15,6 +15,7 @@ exports.list_all_applications = function (req, res) {
 
 exports.create_an_application = function (req, res) {
     var new_application = new Application(req.body);
+    new_application.status = 'PENDING';
     new_application.save(function (err, application) {
         if (err) {
             res.send(err);

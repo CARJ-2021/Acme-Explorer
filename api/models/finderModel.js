@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var FinderSchema = new Schema(
   {
     keyword: {
-      type: Date,
+      type: String,
     },
     minPrice: {
       type: Number,

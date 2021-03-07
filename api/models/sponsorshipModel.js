@@ -11,16 +11,16 @@ var SponsorshipSchema = new Schema(
     },
     //Image
     banner: {
-      type: URL,
+      type: String,
       required: "Kindly enter the sposorship banner",
     },
     link: {
-      type: URL,
+      type: String,
       required: "Kindly enter the sponsorship link",
     },
     sponsor: {
       type: Schema.Types.ObjectId,
-      required: "sponsor id is required",
+      required: "Sponsor id is required",
     },
   },
   { strict: false }

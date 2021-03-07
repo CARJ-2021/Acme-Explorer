@@ -6,9 +6,9 @@ var ApplicationSchema = new Schema(
   {
     date: {
       type: Date,
-      required: "Kindly enter the date of the Category",
+      required: "Kindly enter the date of the Application",
     },
-    role: [
+    status: [
       {
         type: String,
         required: "Kindly enter the application status",
@@ -16,19 +16,18 @@ var ApplicationSchema = new Schema(
       },
     ],
     comments: {
-      data: Buffer,
-      contentType: String,
+      type: String
     },
-    reason: {
-      type: String,
+    rejectReason: {
+      type: String
     },
     trip: {
       type: Schema.Types.ObjectId,
-      required: "trip id is required",
+      required: "Trip id is required",
     },
     explorer: {
       type: Schema.Types.ObjectId,
-      required: "explorer id is required",
+      required: "Explorer id is required",
     },
   },
   { strict: false }

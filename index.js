@@ -7,6 +7,7 @@ var express = require("express"),
   Sponsorship = require("./api/models/sponsorshipModel"),
   Application = require("./api/models/applicationModel"),
   Finder = require("./api/models/finderModel"),
+  Configuration = require("./api/models/configurationModel"),
   bodyParser = require("body-parser");
 
 // MongoDB URI building
@@ -35,15 +36,42 @@ var routesActors = require("./api/routes/actorRoutes");
 var routesSponsorships = require("./api/routes/sponsorshipRoutes");
 var routesApplications = require("./api/routes/applicationRoutes");
 var routesFinders = require("./api/routes/finderRoutes");
+var routesConfiguration = require("./api/routes/configurationRoutes")
 
 routesTrips(app);
 routesActors(app);
 routesSponsorships(app);
 routesApplications(app);
 routesFinders(app);
+routesConfiguration(app);
 
 console.log("Connecting DB to: " + mongoDBURI);
 mongoose.connection.on("open", function (err, conn) {
+
+  Configuration.exists({ id: 'mainConfig' }, function (err, exists) {
+    if (err) {
+      console.error('Error finding initial config', err)
+    } else {
+      if (!exists) {
+        var new_configuration = new Configuration({
+          'id': 'mainConfig'
+        });
+        new_configuration.save(function (err, configuration) {
+          if (err) {
+            console.error('Error creating initial config', err)
+          } else {
+            console.log('Successfully created initial config')
+          }
+        });
+      } else {
+        console.log('Configuration already exists. ')
+      }
+
+    }
+  });
+
+
+
   app.listen(port, function () {
     console.log("Acme-Explorer RESTful API server started on: " + port);
   });

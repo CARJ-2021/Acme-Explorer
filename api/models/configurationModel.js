@@ -3,7 +3,13 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ConfigurationSchema = new Schema(
-  {
+  {  
+    id: {
+    type: String,
+    required: "Kindly enter the config id",
+    default: 'mainConfig',
+    unique: true
+  },
     //In hours
     finderTime: {
       type: Number,

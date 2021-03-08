@@ -70,25 +70,28 @@ exports.update_a_trip = function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
 
   Trip.findById(req.params.tripId, function (err, trip) {
-    console.log(trip);
-    if (!trip.published) {
-      req.body.ticker = trip.ticker;
-      Trip.findOneAndUpdate(
-        { _id: req.params.tripId },
-        req.body,
-        { new: true },
-        function (err, trip) {
-          if (err) {
-            res.send(err);
-          } else {
-            res.json(trip);
-          }
-        }
-      );
+    if (err) {
+      res.send(err);
     } else {
-      res.send({
-        message: "Trip can't be updated due it is already published",
-      });
+      if (!trip.published) {
+        req.body.ticker = trip.ticker;
+        Trip.findOneAndUpdate(
+          { _id: req.params.tripId },
+          req.body,
+          { new: true },
+          function (err, trip) {
+            if (err) {
+              res.send(err);
+            } else {
+              res.json(trip);
+            }
+          }
+        );
+      } else {
+        res.send({
+          message: "Trip can't be updated due it is already published",
+        });
+      }
     }
   });
 };
@@ -96,18 +99,22 @@ exports.update_a_trip = function (req, res) {
 exports.delete_a_trip = function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
   Trip.findById(req.params.tripId, function (err, trip) {
-    if (!trip.published) {
-      Trip.deleteOne({ _id: req.params.tripId }, function (err, trip) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.json({ message: "Trip successfully deleted" });
-        }
-      });
+    if (err) {
+      res.send(err);
     } else {
-      res.send({
-        message: "Trip can't be deleted due it is already published",
-      });
+      if (!trip.published) {
+        Trip.deleteOne({ _id: req.params.tripId }, function (err, trip) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.json({ message: "Trip successfully deleted" });
+          }
+        });
+      } else {
+        res.send({
+          message: "Trip can't be deleted due it is already published",
+        });
+      }
     }
   });
 };

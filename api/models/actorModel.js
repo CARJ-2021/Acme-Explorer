@@ -33,11 +33,9 @@ var ActorSchema = new Schema(
     },
     phone: {
       type: String,
-      required: "Kindly enter the phone number",
     },
     address: {
       type: String,
-      required: "Kindly enter the address",
     },
     role: [
       {
@@ -49,10 +47,6 @@ var ActorSchema = new Schema(
     banned: {
       type: Boolean,
       default: false,
-    },
-    created: {
-      type: Date,
-      default: Date.now,
     },
   },
   { strict: false }

@@ -28,9 +28,9 @@ var TripSchema = new Schema(
       required: "Kindly enter the trip tricker",
       unique: true, //Ticker must be unique
     },
-    name: {
+    title: {
       type: String,
-      required: "Kindly enter the trip name",
+      required: "Kindly enter the trip title",
     },
     description: {
       type: String,
@@ -75,7 +75,7 @@ var TripSchema = new Schema(
         contentType: String,
       },
     ],
-    reason: {
+    rejectReason: {
       type: String,
     },
   },

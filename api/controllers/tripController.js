@@ -70,6 +70,7 @@ exports.update_a_trip = function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
 
   Trip.findById(req.params.tripId, function (err, trip) {
+    console.log(trip);
     if (!trip.published) {
       req.body.ticker = trip.ticker;
       Trip.findOneAndUpdate(
@@ -84,6 +85,10 @@ exports.update_a_trip = function (req, res) {
           }
         }
       );
+    } else {
+      res.send({
+        message: "Trip can't be updated due it is already published",
+      });
     }
   });
 };
@@ -98,6 +103,10 @@ exports.delete_a_trip = function (req, res) {
         } else {
           res.json({ message: "Trip successfully deleted" });
         }
+      });
+    } else {
+      res.send({
+        message: "Trip can't be deleted due it is already published",
       });
     }
   });

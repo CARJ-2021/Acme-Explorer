@@ -1,0 +1,670 @@
+{
+	"info": {
+		"_postman_id": "b7b9fc40-8e63-43d4-8125-f45a72c0e6e9",
+		"name": "ASS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "GET All trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/trips",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6044a329370cc225c0a70217\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/trips",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET A TRIP",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trips",
+								"60466a0d141e8a5afc8aeaa8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test trip edited\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\",\r\n        \"Requirement 3\",\r\n        \"Requirement 4\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6044a329370cc225c0a70217\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trips",
+								"60466a0d141e8a5afc8aeaa8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trips",
+								"60466a0d141e8a5afc8aeaa8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sponsorships",
+			"item": [
+				{
+					"name": "POST Sponsorship",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paid\": false,\r\n    \"banner\": \"http://banner1.com\",\r\n    \"link\": \"http://bannerlink1.com\",\r\n    \"sponsor\": \"60435d4d2460a83a44472fc4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/sponsorships",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"sponsorships"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All sponsorships",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/sponsorships",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"sponsorships"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Sponsorship by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/sponsorships/60435d682460a83a44472fc5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"sponsorships",
+								"60435d682460a83a44472fc5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Sponsorship",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paid\": false,\r\n    \"banner\": \"http://banner1.com\",\r\n    \"link\": \"http://bannerlink1-updated.com\",\r\n    \"sponsor\": \"60435d4d2460a83a44472fc4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/sponsorships/60449f7ed81b2601c0f5daf9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"sponsorships",
+								"60449f7ed81b2601c0f5daf9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Sponsorship",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/sponsorships/60449f7ed81b2601c0f5daf9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"sponsorships",
+								"60449f7ed81b2601c0f5daf9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Applications",
+			"item": [
+				{
+					"name": "POST Application",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"comments\": \"Amazing trip bro\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/applications",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All applications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/applications",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Application by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"applications",
+								"6044a4e713c82e38102e7cda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Application",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"status\": [\r\n        \"PENDING\"\r\n    ],\r\n    \"comments\": \"Amazing trip bro, haha yes\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"applications",
+								"6044a4e713c82e38102e7cda"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Application",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"applications",
+								"6044a4e713c82e38102e7cda"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Actors",
+			"item": [
+				{
+					"name": "GET All actors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Sponsor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Explorer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Explorer1\",\r\n    \"surname\": \"Explorer1\",\r\n    \"email\": \"explorer1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Explorer1 Address\",\r\n    \"role\": [\r\n        \"EXPLORER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Manager",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Manager1\",\r\n    \"surname\": \"Manager1\",\r\n    \"email\": \"manager1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Manager1 Address\",\r\n    \"role\": [\r\n        \"MANAGER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET AN ACTOR",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors",
+								"6046648ebad8300b9c50e353"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT AN ACTOR",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors",
+								"6046648ebad8300b9c50e353"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE AN ACTOR",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors",
+								"6046648ebad8300b9c50e353"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Finder",
+			"item": [
+				{
+					"name": "POST Finder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 1,\r\n    \"maxPrice\": 6,\r\n    \"minDate\": \"2021-04-01 17:00:00\",\r\n    \"maxDate\": \"2021-04-01 17:00:00\",\r\n    \"explorer\": \"6044a329370cc225c0a70217\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/finders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"finders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All finders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/finders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"finders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Finder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/finder/60451abf110c061eb4630415",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"finder",
+								"60451abf110c061eb4630415"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Finder by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/finders/60451ad3110c061eb4630417",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"finders",
+								"60451ad3110c061eb4630417"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Finder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"trips\": [],\r\n    \"_id\": \"60451ad3110c061eb4630417\",\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 22,\r\n    \"explorer\": \"6044a329370cc225c0a70217\",\r\n    \"__v\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/finders/60451ad3110c061eb4630417",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"finders",
+								"60451ad3110c061eb4630417"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

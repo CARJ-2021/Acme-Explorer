@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "63c40707-55a1-4490-9c14-cb57002aa48e",
+		"_postman_id": "5d42ea2d-250c-4178-9207-b4af3c8e96bb",
 		"name": "ASS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -124,8 +124,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Sponsorships",
@@ -246,8 +245,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Applications",
@@ -326,7 +324,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"status\": [\r\n        \"PENDING\"\r\n    ],\r\n    \"comments\": \"Amazing trip bro, haha yes\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
+							"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"status\": \"PENDING\",\r\n    \"comments\": \"Amazing trip bro, haha yes\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -334,7 +332,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
+							"raw": "localhost:8080/v1/applications/6046721c3e89932bac4cd733",
 							"host": [
 								"localhost"
 							],
@@ -342,7 +340,7 @@
 							"path": [
 								"v1",
 								"applications",
-								"6044a4e713c82e38102e7cda"
+								"6046721c3e89932bac4cd733"
 							]
 						}
 					},
@@ -368,8 +366,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Actors",
@@ -478,6 +475,34 @@
 					"response": []
 				},
 				{
+					"name": "POST ADMINISTRATOR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Admin1\",\r\n    \"surname\": \"Admin1\",\r\n    \"email\": \"admin1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Admin1 Address\",\r\n    \"role\": [\r\n        \"ADMINISTRATOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GET AN ACTOR",
 					"request": {
 						"method": "GET",
@@ -546,8 +571,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Finder",
@@ -600,26 +624,6 @@
 					"response": []
 				},
 				{
-					"name": "DELETE Finder",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/finder/60451abf110c061eb4630415",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"finder",
-								"60451abf110c061eb4630415"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "GET Finder by id",
 					"request": {
 						"method": "GET",
@@ -646,7 +650,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"trips\": [],\r\n    \"_id\": \"60451ad3110c061eb4630417\",\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 22,\r\n    \"explorer\": \"6044a329370cc225c0a70217\",\r\n    \"__v\": 0\r\n}",
+							"raw": "{\r\n    \"trips\": [],\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 22\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -654,7 +658,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/v1/finders/60451ad3110c061eb4630417",
+							"raw": "localhost:8080/v1/finders/604674693e89932bac4cd73d",
 							"host": [
 								"localhost"
 							],
@@ -662,14 +666,33 @@
 							"path": [
 								"v1",
 								"finders",
-								"60451ad3110c061eb4630417"
+								"604674693e89932bac4cd73d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Finder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/finders/604673023e89932bac4cd73a",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"finders",
+								"604673023e89932bac4cd73a"
 							]
 						}
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Configuration",
@@ -735,9 +758,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

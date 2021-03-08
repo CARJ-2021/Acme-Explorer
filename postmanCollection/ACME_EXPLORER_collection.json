@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b7b9fc40-8e63-43d4-8125-f45a72c0e6e9",
+		"_postman_id": "63c40707-55a1-4490-9c14-cb57002aa48e",
 		"name": "ASS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -124,7 +124,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Sponsorships",
@@ -245,7 +246,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Applications",
@@ -366,7 +368,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Actors",
@@ -543,7 +546,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Finder",
@@ -664,7 +668,76 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Configuration",
+			"item": [
+				{
+					"name": "PUT CONFIGURATION ",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"mainConfig\",\r\n\"finderTime\": 25,\r\n\"findResult\": 10,\r\n\"sponsorshipFlatRate\": 15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CONFIGURATION",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"configuration"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

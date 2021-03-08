@@ -23,6 +23,12 @@ var ConfigurationSchema = new Schema(
       max: 100,
       required: "Kindly enter the finder's result number",
     },
+    sponsorshipFlatRate: {
+      type: Number,
+      default: 10,
+      max: 99999,
+      required: "Kindly enter the sponsorship flat rate",
+    },
   },
   { strict: false }
 );

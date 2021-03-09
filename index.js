@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var express = require("express"),
   app = express(),
   port = process.env.PORT || 8080,
@@ -11,11 +13,23 @@ var express = require("express"),
   bodyParser = require("body-parser");
 
 // MongoDB URI building
+var mongoDBUser = process.env.mongoDBUser || "";
+var mongoDBPass = process.env.mongoDBPass || "";
+var mongoDBCredentials =
+  mongoDBUser && mongoDBPass ? mongoDBUser + ":" + mongoDBPass + "@" : "";
+
 var mongoDBHostname = process.env.mongoDBHostname || "localhost";
 var mongoDBPort = process.env.mongoDBPort || "27017";
 var mongoDBName = process.env.mongoDBName || "Acme-Explorer";
+
 var mongoDBURI =
-  "mongodb://" + mongoDBHostname + ":" + mongoDBPort + "/" + mongoDBName;
+  "mongodb://" +
+  mongoDBCredentials +
+  mongoDBHostname +
+  ":" +
+  mongoDBPort +
+  "/" +
+  mongoDBName;
 
 console.log(mongoDBURI);
 mongoose.connect(mongoDBURI, {
@@ -36,7 +50,7 @@ var routesActors = require("./api/routes/actorRoutes");
 var routesSponsorships = require("./api/routes/sponsorshipRoutes");
 var routesApplications = require("./api/routes/applicationRoutes");
 var routesFinders = require("./api/routes/finderRoutes");
-var routesConfiguration = require("./api/routes/configurationRoutes")
+var routesConfiguration = require("./api/routes/configurationRoutes");
 
 routesTrips(app);
 routesActors(app);
@@ -47,30 +61,26 @@ routesConfiguration(app);
 
 console.log("Connecting DB to: " + mongoDBURI);
 mongoose.connection.on("open", function (err, conn) {
-
-  Configuration.exists({ id: 'mainConfig' }, function (err, exists) {
+  Configuration.exists({ id: "mainConfig" }, function (err, exists) {
     if (err) {
-      console.error('Error finding initial config', err)
+      console.error("Error finding initial config", err);
     } else {
       if (!exists) {
         var new_configuration = new Configuration({
-          'id': 'mainConfig'
+          id: "mainConfig",
         });
         new_configuration.save(function (err, configuration) {
           if (err) {
-            console.error('Error creating initial config', err)
+            console.error("Error creating initial config", err);
           } else {
-            console.log('Successfully created initial config')
+            console.log("Successfully created initial config");
           }
         });
       } else {
-        console.log('Configuration already exists. ')
+        console.log("Configuration already exists. ");
       }
-
     }
   });
-
-
 
   app.listen(port, function () {
     console.log("Acme-Explorer RESTful API server started on: " + port);

@@ -48,7 +48,7 @@ var TripSchema = new Schema(
     ],
     startDate: {
       type: Date,
-      required: "Kindly enter the trip start date",
+      required: [dateChecker, 'Start date must be lower or equal than end date']
     },
     endDate: {
       type: Date,
@@ -56,7 +56,8 @@ var TripSchema = new Schema(
     },
     manager: {
       type: Schema.Types.ObjectId,
-      required: "manager id is required",
+      required: "Manager id is required",
+      ref: 'Actors'
     },
     published: {
       type: Boolean,
@@ -76,10 +77,20 @@ var TripSchema = new Schema(
       },
     ],
     rejectReason: {
-      type: String,
+      type: String, // If this property is not null, then the trip is cancelled
     },
   },
   { strict: false }
 );
+
+TripSchema.index({manager: 1});
+TripSchema.index({deleted: 1});
+TripSchema.index({published: 1});
+TripSchema.index({title: 'text', description: 'text', ticker: 'text'});
+TripSchema.index({price: 1});
+
+function dateChecker(value){
+  return this.startDate <= value;
+}
 
 module.exports = mongoose.model("Trips", TripSchema);

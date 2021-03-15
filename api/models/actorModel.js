@@ -53,6 +53,9 @@ var ActorSchema = new Schema(
   { strict: false }
 );
 
+ActorSchema.index({ banned: 1 });
+ActorSchema.index({ role: 'text' });
+
 // Delete the password from the return
 ActorSchema.methods.toJSON = function () {
   const user = this;

@@ -22,13 +22,20 @@ var ApplicationSchema = new Schema(
     trip: {
       type: Schema.Types.ObjectId,
       required: "Trip id is required",
+      ref: 'Trips'
     },
     explorer: {
       type: Schema.Types.ObjectId,
       required: "Explorer id is required",
+      ref: 'Actors'
     },
   },
   { strict: false }
 );
+
+ApplicationSchema.index({date: 1});
+ApplicationSchema.index({trip: 1})
+ApplicationSchema.index({explorer: 1});
+ApplicationSchema.index({explorer: 1, status: 'text'});
 
 module.exports = mongoose.model("Application", ApplicationSchema);

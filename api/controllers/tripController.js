@@ -7,6 +7,8 @@ var mongoose = require("mongoose"),
 var dateFormat = require("dateformat");
 var randomstring = require("randomstring");
 
+const configurationController = require("./configurationController");
+
 exports.list_all_trips = function (req, res) {
   Trip.find({}, function (err, trips) {
     if (err) {
@@ -119,7 +121,8 @@ exports.delete_a_trip = function (req, res) {
   });
 };
 
-exports.search = function (req, res) {
+exports.search = async function (req, res) {
+  const configuration = await configurationController.get_configuration();
   const searchCriteria = {
     minPrice: req.query.minPrice ? req.query.minPrice : 0,
     maxPrice: req.query.maxPrice ? req.query.maxPrice : Infinity,
@@ -132,12 +135,11 @@ exports.search = function (req, res) {
     price: { $gte: searchCriteria.minPrice, $lte: searchCriteria.maxPrice },
     startDate: { $gte: searchCriteria.minDate, $lte: searchCriteria.maxDate },
     endDate: { $gte: searchCriteria.minDate, $lte: searchCriteria.maxDate },
-    $or: [
-      { ticker: { $regex: searchCriteria.keyword } },
-      { title: { $regex: searchCriteria.keyword } },
-      { description: { $regex: searchCriteria.keyword } }
-    ]
-  }, function (err, searchResult) {
+    $text: { $search: searchCriteria.keyword}
+  })
+  .sort()
+  .limit(configuration.findResult)
+  .exec(function (err, searchResult) {
     if (err) {
       res.send(err);
     } else {

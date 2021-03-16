@@ -120,14 +120,22 @@ exports.delete_a_trip = function (req, res) {
 };
 
 exports.search = function (req, res) {
+  const searchCriteria = {
+    minPrice: req.query.minPrice ? req.query.minPrice : 0,
+    maxPrice: req.query.maxPrice ? req.query.maxPrice : Infinity,
+    minDate: req.query.minDate ? req.query.minDate : "1900-01-00:00:00.000Z",
+    maxDate: req.query.maxDate ? req.query.maxDate : "2200-01-00:00:00.000Z",
+    keyword: req.query.keyword ? req.query.keyword : ""
+  }
+
   Trip.find({
-    price: { $gte: req.query.minPrice, $lte: req.query.maxPrice },
-    startDate: { $gte: req.query.minDate, $lte: req.query.maxDate },
-    endDate: { $gte: req.query.minDate, $lte: req.query.maxDate },
+    price: { $gte: searchCriteria.minPrice, $lte: searchCriteria.maxPrice },
+    startDate: { $gte: searchCriteria.minDate, $lte: searchCriteria.maxDate },
+    endDate: { $gte: searchCriteria.minDate, $lte: searchCriteria.maxDate },
     $or: [
-      { ticker: { $regex: req.query.keyword } },
-      { title: { $regex: req.query.keyword } },
-      { description: { $regex: req.query.keyword } }
+      { ticker: { $regex: searchCriteria.keyword } },
+      { title: { $regex: searchCriteria.keyword } },
+      { description: { $regex: searchCriteria.keyword } }
     ]
   }, function (err, searchResult) {
     if (err) {

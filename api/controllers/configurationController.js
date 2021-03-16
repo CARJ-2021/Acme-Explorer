@@ -29,3 +29,15 @@ exports.update_configuration = function (req, res) {
         }
     );
 };
+
+exports.get_configuration = () => {
+    return new Promise((resolve, reject) => {    
+        Configuration.find({id: 'mainConfig'}, function (err, configuration) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(configuration)
+            }
+        });
+    })
+};

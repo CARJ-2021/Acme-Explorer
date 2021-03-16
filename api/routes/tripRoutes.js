@@ -10,4 +10,9 @@ module.exports = function (app) {
     .get(trips.read_a_trip)
     .put(trips.update_a_trip)
     .delete(trips.delete_a_trip);
+
+    
+  app
+      .route("/v1/search")
+      .get(trips.search);
 };

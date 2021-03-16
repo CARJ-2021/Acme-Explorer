@@ -118,3 +118,22 @@ exports.delete_a_trip = function (req, res) {
     }
   });
 };
+
+exports.search = function (req, res) {
+  Trip.find({
+    price: { $gte: req.query.minPrice, $lte: req.query.maxPrice },
+    startDate: { $gte: req.query.minDate, $lte: req.query.maxDate },
+    endDate: { $gte: req.query.minDate, $lte: req.query.maxDate },
+    $or: [
+      { ticker: { $regex: req.query.keyword } },
+      { title: { $regex: req.query.keyword } },
+      { description: { $regex: req.query.keyword } }
+    ]
+  }, function (err, searchResult) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(searchResult);
+    }
+  });
+};

@@ -49,12 +49,15 @@ var ActorSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    customToken: {
+      type: String,
+    },
   },
   { strict: false }
 );
 
 ActorSchema.index({ banned: 1 });
-ActorSchema.index({ role: 'text' });
+ActorSchema.index({ role: "text" });
 
 // Delete the password from the return
 ActorSchema.methods.toJSON = function () {

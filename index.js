@@ -12,6 +12,9 @@ var express = require("express"),
   Configuration = require("./api/models/configurationModel"),
   bodyParser = require("body-parser");
 
+var admin = require("firebase-admin");
+var serviceAccount = require("./acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json");
+
 // MongoDB URI building
 var mongoDBUser = process.env.mongoDBUser || "";
 var mongoDBPass = process.env.mongoDBPass || "";
@@ -51,6 +54,12 @@ var routesSponsorships = require("./api/routes/sponsorshipRoutes");
 var routesApplications = require("./api/routes/applicationRoutes");
 var routesFinders = require("./api/routes/finderRoutes");
 var routesConfiguration = require("./api/routes/configurationRoutes");
+var routesLogin = require("./api/routes/loginRoutes");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://acme-explorer-carj-2021.firebaseapp.com",
+});
 
 routesTrips(app);
 routesActors(app);
@@ -58,6 +67,7 @@ routesSponsorships(app);
 routesApplications(app);
 routesFinders(app);
 routesConfiguration(app);
+routesLogin(app);
 
 console.log("Connecting DB to: " + mongoDBURI);
 mongoose.connection.on("open", function (err, conn) {

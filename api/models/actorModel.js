@@ -22,6 +22,7 @@ var ActorSchema = new Schema(
       type: String,
       required: "Kindly enter the actor email",
       validate: [validateEmail, "Please fill a valid email address"],
+      unique: true,
     },
     password: {
       type: String,

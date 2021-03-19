@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5d42ea2d-250c-4178-9207-b4af3c8e96bb",
+		"_postman_id": "67880802-d486-4c18-934c-997f5910c4c3",
 		"name": "ASS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6044a329370cc225c0a70217\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6054f50ad017c85950fab48f\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -251,120 +251,290 @@
 			"name": "Applications",
 			"item": [
 				{
-					"name": "POST Application",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"comments\": \"Amazing trip bro\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "V1",
+					"item": [
+						{
+							"name": "POST Application",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"comments\": \"Amazing trip bro\",\r\n    \"trip\": \"6054f56ad017c85950fab491\",\r\n    \"explorer\": \"6054f617d017c85950fab494\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/applications",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"applications"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/applications",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"applications"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET All applications",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/applications",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"applications"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Application by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"applications",
-								"6044a4e713c82e38102e7cda"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Application",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"status\": \"PENDING\",\r\n    \"comments\": \"Amazing trip bro, haha yes\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "GET All applications",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/applications",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"applications"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/applications/6046721c3e89932bac4cd733",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"applications",
-								"6046721c3e89932bac4cd733"
-							]
+						{
+							"name": "GET Application by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"applications",
+										"6044a4e713c82e38102e7cda"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Application",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"status\": \"PENDING\",\r\n    \"comments\": \"Amazing trip bro, haha yes\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/applications/6046721c3e89932bac4cd733",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"applications",
+										"6046721c3e89932bac4cd733"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Application",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"applications",
+										"6044a4e713c82e38102e7cda"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "DELETE Application",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/applications/6044a4e713c82e38102e7cda",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"applications",
-								"6044a4e713c82e38102e7cda"
-							]
+					"name": "V2",
+					"item": [
+						{
+							"name": "Get trip's Applications",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE4MDYyMCwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTYxODA2MjAsImV4cCI6MTYxNjE4NDIyMCwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.REMErNO0RBXwV8C6MN8SxBqdMrN2pI2zzoEbktcNpDtof6PjpVqHRHU7sjn9ByxvMysS3cVJ34Y7rjREaarKMYFyscUXSbcGTP3reUETw4lD3Lv5PCetC0TSMNzQy5y-OQbr_weprNh2tvA1vSFVEUGcF_o2ES11f-tsS66KeLL-YvJBJoB63gZ4Das2fruSa8TPbki__6Q44QjpegERUcjdozYAY_DfjEjyqyTmfcdz8JS2IzVohO_bRVxA8WmxFo2OZNYD8OzWv3OCZzKimLo6ZT6XPOFchM_uWH7Ro0Jb43DKsfvMk2r6gSVjDMdtYpujBgZGC6F4dL3Rh5LeBw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"comments\": \"Amazing trip bro\",\r\n    \"trip\": \"6044a3b3987719302c59b92a\",\r\n    \"explorer\": \"6044a248370cc225c0a70216\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/trips/6054f56ad017c85950fab491/applications",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"6054f56ad017c85950fab491",
+										"applications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all my Applications",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE4MDg1MywidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE4MDg1MywiZXhwIjoxNjE2MTg0NDUzLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.OOatAYKHYU-4JXFtQzJHLVXRXXYRuUyh2qFlUeuMCPCJG_dYeb7DCPggfMMmPeuXHdEEdG_I-WktenAvNDaFLdOrWSFgCoUdu-1oReZxRQnaDddcT5pSv_n1Taw_SbfGfI7jkeyKSdnrwlYb472lj08bc262qQafFoW8rQMzsVR325hq-ycA5NBw0VAYQ8_USt9lxUMsy9vyF6l1HmwAOfSoddIyNNjbLTFEzuU0RVo_QGI_i7SHXetmtwSvIwxz9lIfpoE4iFPQm12QtbWJ700C7ZWsJq9aqturaZ4nYZ0UVujkAqK_2tLUpQfbdeMEq_Q7PSyJiv1IaoHTSiXA4Q",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/applications",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"applications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get an Application",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE4MTU3NSwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTYxODE1NzUsImV4cCI6MTYxNjE4NTE3NSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.GwG8A7U3PnIYVomHErDWTvFM0Yd13vzCCCOXO5LPnXfy06mPITvASsZwvfqdOF1eK2acsdkQzHTuJ4TjP_6qD0r3jL2aHc3w-nQgJXrzBnvVtw9eftlNpTK0OFUyFbwHM-tAxoheDlYMLfQzIo_aOtSytfg5t8wSst7X0PXea0WFZuSZ5Tbpig9SzNwmO61aPS4TeckKyQys688uq0nN8aCaCQlrfM-jCyB0Gr7hbl5ksWhWrTjToaXrPvhYYDi2YoNQuKrBDPdvpeIu-569C8gXeBNKqjb7b87hBs2-9TekpvRzpjHLkXpQ74dX31Zu7L2FaXZ8VE7EhjXe-o6ILw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/applications/6054f626d017c85950fab495",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"applications",
+										"6054f626d017c85950fab495"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put an Application",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE4MjY4MywidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE4MjY4MywiZXhwIjoxNjE2MTg2MjgzLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.jVYYf4SKRIYgYwVMvDXhsh69cxnM1QKMCyYR2-poe9UhwsKNUV39WZM-xYd8QJf_u_tATkLzcWc69eBNjM7TN7bREog5jwfBhqdykU_RQeQGRxMFrHIv8PFHLeWIJ89ThV7uNhCfTtbunOYEAO3Wt9M2lmkHWVYBfONQnod5GlDcReqUkZiAgVs7-vghbf4AOpxTB6zZ2KTHek4DFfmodbwERWKzAseoEvhM5oPPG-CWPho15i0HFYQR0Fqe_eApAQ0-IqB8rarssrYBqwtPhdqTcobrArjyKGEjsfoFa45D4LT0zyqzgd3hjHzqS8ivGAlAcsgdDuUb4slNWR_mCA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/applications/6054f626d017c85950fab495",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"applications",
+										"6054f626d017c85950fab495"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete an Application",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE4MDYyMCwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTYxODA2MjAsImV4cCI6MTYxNjE4NDIyMCwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.REMErNO0RBXwV8C6MN8SxBqdMrN2pI2zzoEbktcNpDtof6PjpVqHRHU7sjn9ByxvMysS3cVJ34Y7rjREaarKMYFyscUXSbcGTP3reUETw4lD3Lv5PCetC0TSMNzQy5y-OQbr_weprNh2tvA1vSFVEUGcF_o2ES11f-tsS66KeLL-YvJBJoB63gZ4Das2fruSa8TPbki__6Q44QjpegERUcjdozYAY_DfjEjyqyTmfcdz8JS2IzVohO_bRVxA8WmxFo2OZNYD8OzWv3OCZzKimLo6ZT6XPOFchM_uWH7Ro0Jb43DKsfvMk2r6gSVjDMdtYpujBgZGC6F4dL3Rh5LeBw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/applications/6054f633d017c85950fab496",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"applications",
+										"6054f633d017c85950fab496"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -372,204 +542,513 @@
 			"name": "Actors",
 			"item": [
 				{
-					"name": "GET All actors",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/actors",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST Sponsor",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "V1",
+					"item": [
+						{
+							"name": "GET All actors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/actors",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST Explorer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Explorer1\",\r\n    \"surname\": \"Explorer1\",\r\n    \"email\": \"explorer1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Explorer1 Address\",\r\n    \"role\": [\r\n        \"EXPLORER\"\r\n    ],\r\n    \"banned\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "POST Sponsor",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/actors",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST Manager",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Manager1\",\r\n    \"surname\": \"Manager1\",\r\n    \"email\": \"manager1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Manager1 Address\",\r\n    \"role\": [\r\n        \"MANAGER\"\r\n    ],\r\n    \"banned\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "POST Explorer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Explorer1\",\r\n    \"surname\": \"Explorer1\",\r\n    \"email\": \"explorer1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Explorer1 Address\",\r\n    \"role\": [\r\n        \"EXPLORER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/actors",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST ADMINISTRATOR",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Admin1\",\r\n    \"surname\": \"Admin1\",\r\n    \"email\": \"admin1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Admin1 Address\",\r\n    \"role\": [\r\n        \"ADMINISTRATOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "POST Manager",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Manager1\",\r\n    \"surname\": \"Manager1\",\r\n    \"email\": \"manager1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Manager1 Address\",\r\n    \"role\": [\r\n        \"MANAGER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/actors",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET AN ACTOR",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors",
-								"6046648ebad8300b9c50e353"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT AN ACTOR",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "POST Administrator",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Admin1\",\r\n    \"surname\": \"Admin1\",\r\n    \"email\": \"admin1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Admin1 Address\",\r\n    \"role\": [\r\n        \"ADMINISTRATOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors",
-								"6046648ebad8300b9c50e353"
-							]
+						{
+							"name": "PUT AN ACTOR",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors",
+										"6046648ebad8300b9c50e353"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET AN ACTOR",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/actors/6044bc4b5deaec3320cc6614",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors",
+										"6044bc4b5deaec3320cc6614"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE AN ACTOR",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors",
+										"6046648ebad8300b9c50e353"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "DELETE AN ACTOR",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/actors/6046648ebad8300b9c50e353",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"actors",
-								"6046648ebad8300b9c50e353"
-							]
+					"name": "V2",
+					"item": [
+						{
+							"name": "LOGIN",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/login/?email=sponsor1@yopmail.com&password=12345",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"login",
+										""
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "sponsor1@yopmail.com"
+										},
+										{
+											"key": "password",
+											"value": "12345"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "BAN AN ACTOR",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE3NTEyMiwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE3NTEyMiwiZXhwIjoxNjE2MTc4NzIyLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.Rt2nT22L_iEG5orhnqcJJfWbh-i1zB9ePQH0tGSBMllah0LMZ9V-8octTin45lHjzOdxTgEoj5poUFPnDd5aN-qyuxe0p7ZdBDudpAHsxYyC3-HyZ69GTE9dAGP9owTWKbi4anNPEyMRL57kTmx0xQntgPeyWFrbuNhbqMBPcbQQ2N7vXZssIvT4X-AIaclBVdV_Z5EtsOBY-vukL0i3UKz_NhDwZyj8RIn16ipS4IOh5Y-TvgjDBm11WYQkW7ErKSMYTk0_digndHVhCP7OzyNLA2w865XXGZvVIPBerLuL2TXh6_0wMaecJS5WVP-vx19X4w_70EQotmVl-XQOEw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v1/actors/ban/6044bc4b5deaec3320cc6614",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors",
+										"ban",
+										"6044bc4b5deaec3320cc6614"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UNBAN AN ACTOR",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE3NTEyMiwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE3NTEyMiwiZXhwIjoxNjE2MTc4NzIyLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.Rt2nT22L_iEG5orhnqcJJfWbh-i1zB9ePQH0tGSBMllah0LMZ9V-8octTin45lHjzOdxTgEoj5poUFPnDd5aN-qyuxe0p7ZdBDudpAHsxYyC3-HyZ69GTE9dAGP9owTWKbi4anNPEyMRL57kTmx0xQntgPeyWFrbuNhbqMBPcbQQ2N7vXZssIvT4X-AIaclBVdV_Z5EtsOBY-vukL0i3UKz_NhDwZyj8RIn16ipS4IOh5Y-TvgjDBm11WYQkW7ErKSMYTk0_digndHVhCP7OzyNLA2w865XXGZvVIPBerLuL2TXh6_0wMaecJS5WVP-vx19X4w_70EQotmVl-XQOEw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v1/actors/unban/6044bc4b5deaec3320cc6614",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors",
+										"unban",
+										"6044bc4b5deaec3320cc6614"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE AN ACTOR",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE3NTQ2MCwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE3NTQ2MCwiZXhwIjoxNjE2MTc5MDYwLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.nvCzfDqaSDm_p5CU5gdV-eEU37Jfq0qsA-QocJAoIvyHUSKAsarxc2yZFg_FMvyeFUxJLYugws42qhPbkmH7V-eQKRhR1Uhi6fkRX8935T6-LaFBsDzVUvO7kVt7gOIt7aLfNPJRpFvhZ-0pEu5mzIrUvBsWNRgPXiL8HV-sZ9IlhzeQLV5x9tbgw1ULDM8DEGZI3BQc0HuCYbptazNnwv58gQEvYv2vuda_vaiZOb9-ATHa33Nsv5gfpy5nO3J599g4gRRAK41q8994RI0k02ec-Bmjqst8yjqjp6uDZjDxfgZ9kJoCZLlHT1ZQ1lHjS1fjNQWzDSQTfgUrVNIezQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"preferredLanguage\": \"en\",\r\n        \"role\": [\r\n            \"ADMINISTRATOR\"\r\n        ],\r\n        \"banned\": false,\r\n        \"name\": \"AdminUpdated\",\r\n        \"surname\": \"Admin1\",\r\n        \"email\": \"admin1@yopmail.com\",\r\n        \"phone\": \"12345\",\r\n        \"address\": \"Admin1 Address\",\r\n        \"__v\": 0\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/actors/604672e93e89932bac4cd738",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"actors",
+										"604672e93e89932bac4cd738"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET AN ACTOR",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v2/actors/6054e3dcec7fda3ffc36ea8d",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"actors",
+										"6054e3dcec7fda3ffc36ea8d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE AN ACTOR",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE3NjcyNSwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE3NjcyNSwiZXhwIjoxNjE2MTgwMzI1LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.ReTNiZJCEQQkrktXDURWY3VrA6-odYHTO12DHRVMMFsbiZmdp4V5aBmL7fCq1LRlTiLXnRONV4XtBkAEgn94fCrDpZb4NkVYrYh2eZ-4cc51GgTUO__ANlFXvm-7MIEtpBjG_XZ6rf77gWzT0k0SBEqHUXUQrEvUiqFFDMPuepngl7McdDCewSkMYO8NkeVJFCObfFkzF04MQhnPR0aLd2YFjk61vRrudfDyb1PX3YzqiSRF_aVFl2FoWtrbBNf1IGdSimJiEmutKZWbO06R3brvKF4aCEjgDvU2tZXd3KmNdbN4tpD0aCKqDWFEcDE0hsH6disO-yTVf32wERaHkQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "localhost:8080/v2/actors/6054e63992117d13ac0bda47",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"actors",
+										"6054e63992117d13ac0bda47"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Explorer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Explorer1\",\r\n    \"surname\": \"Explorer1\",\r\n    \"email\": \"explorer1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Explorer1 Address\",\r\n    \"role\": [\r\n        \"EXPLORER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Sponsor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE3NjcyNSwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE3NjcyNSwiZXhwIjoxNjE2MTgwMzI1LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.ReTNiZJCEQQkrktXDURWY3VrA6-odYHTO12DHRVMMFsbiZmdp4V5aBmL7fCq1LRlTiLXnRONV4XtBkAEgn94fCrDpZb4NkVYrYh2eZ-4cc51GgTUO__ANlFXvm-7MIEtpBjG_XZ6rf77gWzT0k0SBEqHUXUQrEvUiqFFDMPuepngl7McdDCewSkMYO8NkeVJFCObfFkzF04MQhnPR0aLd2YFjk61vRrudfDyb1PX3YzqiSRF_aVFl2FoWtrbBNf1IGdSimJiEmutKZWbO06R3brvKF4aCEjgDvU2tZXd3KmNdbN4tpD0aCKqDWFEcDE0hsH6disO-yTVf32wERaHkQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Manager",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE3NjcyNSwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE3NjcyNSwiZXhwIjoxNjE2MTgwMzI1LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.ReTNiZJCEQQkrktXDURWY3VrA6-odYHTO12DHRVMMFsbiZmdp4V5aBmL7fCq1LRlTiLXnRONV4XtBkAEgn94fCrDpZb4NkVYrYh2eZ-4cc51GgTUO__ANlFXvm-7MIEtpBjG_XZ6rf77gWzT0k0SBEqHUXUQrEvUiqFFDMPuepngl7McdDCewSkMYO8NkeVJFCObfFkzF04MQhnPR0aLd2YFjk61vRrudfDyb1PX3YzqiSRF_aVFl2FoWtrbBNf1IGdSimJiEmutKZWbO06R3brvKF4aCEjgDvU2tZXd3KmNdbN4tpD0aCKqDWFEcDE0hsH6disO-yTVf32wERaHkQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Manager1\",\r\n    \"surname\": \"Manager1\",\r\n    \"email\": \"manager1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Manager1 Address\",\r\n    \"role\": [\r\n        \"MANAGER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Administrator",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjE3NjcyNSwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjE3NjcyNSwiZXhwIjoxNjE2MTgwMzI1LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.ReTNiZJCEQQkrktXDURWY3VrA6-odYHTO12DHRVMMFsbiZmdp4V5aBmL7fCq1LRlTiLXnRONV4XtBkAEgn94fCrDpZb4NkVYrYh2eZ-4cc51GgTUO__ANlFXvm-7MIEtpBjG_XZ6rf77gWzT0k0SBEqHUXUQrEvUiqFFDMPuepngl7McdDCewSkMYO8NkeVJFCObfFkzF04MQhnPR0aLd2YFjk61vRrudfDyb1PX3YzqiSRF_aVFl2FoWtrbBNf1IGdSimJiEmutKZWbO06R3brvKF4aCEjgDvU2tZXd3KmNdbN4tpD0aCKqDWFEcDE0hsH6disO-yTVf32wERaHkQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Admin1\",\r\n    \"surname\": \"Admin1\",\r\n    \"email\": \"admin1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Admin1 Address\",\r\n    \"role\": [\r\n        \"ADMINISTRATOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"actors"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},

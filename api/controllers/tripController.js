@@ -178,6 +178,46 @@ exports.delete_a_trip = function (req, res) {
   });
 };
 
+exports.publish_a_trip = async function (req, res) {
+  // A manager can only publish a trip that has been created by him/her
+  var idToken = req.headers['idtoken'];
+	var authenticatedUserId = await authController.getUserId(idToken);
+  Trip.findOne( {_id: req.params.tripId}, function (err, trip) {
+    if (!trip) {
+      res.status(404).send({
+        message: "Trip not found"
+      });
+      return;
+    }
+
+    if (trip.manager != authenticatedUserId) {
+      res.status(403).send({
+        message: "Cannot publish a trip managed by a different manager"
+      });
+      return;
+    }
+
+    if (err) {
+      res.send(err);
+    } else {
+      if (!trip.published) {
+        trip.published = true;
+        trip.save(function (err, publishedTrip) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.send(publishedTrip);
+          }
+        });
+      } else {
+        res.send({
+          message: "The trip has already been published",
+        });
+      }
+    }
+  });
+};
+
 exports.search = async function (req, res) {
   const configuration = await configurationController.get_configuration();
   const searchCriteria = {

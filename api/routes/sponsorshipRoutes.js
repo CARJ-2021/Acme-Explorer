@@ -45,7 +45,7 @@ module.exports = function (app) {
     );
 
   app
-    .route("/api/v2/sponsorships/:sponsorshipId/pay")
+    .route("/v2/sponsorships/:sponsorshipId/pay")
     .put(
       authController.verifyUser(["SPONSOR"]),
       sponsorships.pay_a_sponsorship

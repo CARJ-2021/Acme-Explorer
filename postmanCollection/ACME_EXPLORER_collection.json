@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "67880802-d486-4c18-934c-997f5910c4c3",
+		"_postman_id": "223dc42d-78e7-4eda-ba9a-0705d5a2ef11",
 		"name": "ASS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -8,6 +8,32 @@
 		{
 			"name": "Trips",
 			"item": [
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Publish a trip",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v2/trips/605796fcd372d23aeceb9c29/publish",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"605796fcd372d23aeceb9c29",
+										"publish"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "GET All trips",
 					"request": {

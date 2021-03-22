@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "223dc42d-78e7-4eda-ba9a-0705d5a2ef11",
+		"_postman_id": "3f682c84-b7a6-4676-b9fe-d99ab5e09634",
 		"name": "ASS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,7 +15,13 @@
 							"name": "Publish a trip",
 							"request": {
 								"method": "PUT",
-								"header": [],
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQzODgxNywidXNlcl9pZCI6Im1hbmFnZXIyQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjJAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTY0Mzg4MTcsImV4cCI6MTYxNjQ0MjQxNywiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.N5XMdce1ZSy86AzOiy6hyH5aMWDs_P2Hr4I_gZil5qfvA8xdRSmZdjoCUu1_KYD2qwhQtOwWwHEThkoCdq9bebX51yEJt35SNFuLFNPabx5MeL97RV2NLVfqCiBolpMMcmliiov8G3Dm9XSfNhTecyVrQCzNC1FwWq845kqYIgF1o-oufAdAS5nItlJaX0uP8EhOg4GSGJFdLvGpM8vNUXWujbPdoEI5-xG0z6ltbCM_fSDodU0wqovkTydV-2rIa1gQPjAwDqHNjFeFwcNDidJ8uKxm4ri1QyY_ZX9EgbOfQNhuUaDSiF6HVBZUwSO5T7tp-w2lkMe-f1VNIXEp-A",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "localhost:8080/v2/trips/605796fcd372d23aeceb9c29/publish",
 									"host": [
@@ -27,6 +33,40 @@
 										"trips",
 										"605796fcd372d23aeceb9c29",
 										"publish"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Trip",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQzODgxNywidXNlcl9pZCI6Im1hbmFnZXIyQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjJAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTY0Mzg4MTcsImV4cCI6MTYxNjQ0MjQxNywiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.N5XMdce1ZSy86AzOiy6hyH5aMWDs_P2Hr4I_gZil5qfvA8xdRSmZdjoCUu1_KYD2qwhQtOwWwHEThkoCdq9bebX51yEJt35SNFuLFNPabx5MeL97RV2NLVfqCiBolpMMcmliiov8G3Dm9XSfNhTecyVrQCzNC1FwWq845kqYIgF1o-oufAdAS5nItlJaX0uP8EhOg4GSGJFdLvGpM8vNUXWujbPdoEI5-xG0z6ltbCM_fSDodU0wqovkTydV-2rIa1gQPjAwDqHNjFeFwcNDidJ8uKxm4ri1QyY_ZX9EgbOfQNhuUaDSiF6HVBZUwSO5T7tp-w2lkMe-f1VNIXEp-A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"asd\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/trips",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips"
 									]
 								}
 							},
@@ -1348,6 +1388,78 @@
 								"v1",
 								"finders",
 								"604673023e89932bac4cd73a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND TRIPS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "idtoken",
+								"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQzODU2OSwidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjQzODU2OSwiZXhwIjoxNjE2NDQyMTY5LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.FvJkZsVe6Bd11dP3CjtKIHvZakz7YNEn4Fju_xnowGUzQgDKttp9kcNtPYJ3tMvOK06u37TlZl-O8iFmy0X-XQlYVnY-5B_aJoiKCAHBU12ZK_4JGZj339AdECiZFPduas8Rd3r7ygR8-VphzDLkBvCdwYt-G-XUOgR_hxWBrjPVhSIBJ-j4nPE725J0L45wSvfM9MojnuMn1k2XmTZrdKoBak-wmF9L7AzIGIhTjpgVdUFF9AfhAsXfi2NxbPd5VQCCl9Rahwl-P_HHN2G5B3uRIudFivB9oHy9gd0CyGUv8vMvVHY2x6lDK0mcnI2Fj0pkyT-M7rc5MmH8xrTivQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v2/find?minPrice=40&maxPrice=10000&minDate=2021-03-01T15:00:00.000Z&maxDate=2021-06-01T15:00:00.000Z&keyword=210307BYFX",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v2",
+								"find"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "40"
+								},
+								{
+									"key": "maxPrice",
+									"value": "10000"
+								},
+								{
+									"key": "minDate",
+									"value": "2021-03-01T15:00:00.000Z"
+								},
+								{
+									"key": "maxDate",
+									"value": "2021-06-01T15:00:00.000Z"
+								},
+								{
+									"key": "keyword",
+									"value": "210307BYFX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH TRIPS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v2/search?keyword=210307BYFX",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v2",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "210307BYFX"
+								}
 							]
 						}
 					},

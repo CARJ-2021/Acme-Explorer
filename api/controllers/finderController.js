@@ -1,7 +1,9 @@
 "use strict";
+
 /*---------------FINDER----------------------*/
 var mongoose = require("mongoose"),
-    Finder = mongoose.model("Finder");
+    Finder = mongoose.model("Finder"),
+    tripController = require("./tripController");
 
 exports.list_all_finders = function (req, res) {
     Finder.find({}, function (err, finders) {
@@ -47,6 +49,26 @@ exports.update_a_finder = function (req, res) {
             }
         }
     );
+};
+
+exports.find = function (req, res) {
+    tripController.searchFinder(req.query).then((searchResult) => {
+        res.send(searchResult);
+        Finder.findOneAndUpdate(
+            { _id: req.params.finderId },
+            req.body,
+            { new: true },
+            function (err, finder) {
+                if (err) {
+                    //res.send(err);
+                } else {
+                    //res.json(finder);
+                }
+            }
+        );
+    }).catch(err => {
+        res.send(err);
+    });    
 };
 
 exports.delete_a_finder = function (req, res) {

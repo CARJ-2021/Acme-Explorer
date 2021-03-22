@@ -227,6 +227,13 @@ exports.create_a_trip_v2 = async function (req, res) {
   new_trip.manager = authenticatedUserId;
   new_trip.ticker = ticker;
 
+  let trip_price = 0;
+  new_trip.stages.forEach(function (item, index) {
+    trip_price += item.price;
+  });
+  
+  new_trip.price = trip_price;
+
   try {
     let saved_trip = await new_trip.save();
     res.json(saved_trip);

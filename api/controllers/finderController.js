@@ -4,7 +4,8 @@
 var mongoose = require("mongoose"),
     Finder = mongoose.model("Finder"),
     tripController = require("./tripController"),
-    authController = require("./authController");
+    authController = require("./authController"),
+    configurationController = require("./configurationController");
 
 exports.list_all_finders = function (req, res) {
     Finder.find({}, function (err, finders) {
@@ -52,6 +53,17 @@ exports.update_a_finder = function (req, res) {
     );
 };
 
+exports.delete_a_finder = function (req, res) {
+    Finder.deleteOne({ _id: req.params.finderId }, function (err, finder) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json({ message: "Finder successfully deleted" });
+        }
+    });
+};
+
+
 // -------------------------------------- V2 --------------------------------------
 
 exports.read_my_finder = async function (req, res) {
@@ -63,6 +75,8 @@ exports.read_my_finder = async function (req, res) {
             if (err) {
                 res.send(err);
             } else {
+                // Remove trips if expired and return
+                finder.expirationDate < new Date() && (finder.trips = []);
                 res.json(finder);
             }
         });
@@ -70,33 +84,29 @@ exports.read_my_finder = async function (req, res) {
 
 
 exports.find = async function (req, res) {
-    var idToken = req.headers["idtoken"];
-    var authenticatedUserId = await authController.getUserId(idToken);
+    const idToken = req.headers["idtoken"];
+    const authenticatedUserId = await authController.getUserId(idToken);
+    let configuration = await configurationController.get_configuration();
+    configuration = configuration[0];
+
     tripController.searchFinder(req.query).then((searchResult) => {
         res.send(searchResult);
         Finder.findOneAndUpdate(
             { explorer: authenticatedUserId },
-            req.query,
+            {... req.query,
+                expirationDate: new Date(Date.now() + 60 * 60 * 1000 * (configuration?.finderTime || 1)),
+                trips: searchResult
+            },
             { new: true },
             function (err, finder) {
                 if (err) {
-                    //res.send(err);
+                    console.log(err);
                 } else {
-                    //res.json(finder);
+                    console.log("Finder saved for explorer", authenticatedUserId);
                 }
             }
         );
     }).catch(err => {
         res.send(err);
     });    
-};
-
-exports.delete_a_finder = function (req, res) {
-    Finder.deleteOne({ _id: req.params.finderId }, function (err, finder) {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json({ message: "Finder successfully deleted" });
-        }
-    });
 };

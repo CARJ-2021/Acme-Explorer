@@ -40,6 +40,9 @@ var FinderSchema = new Schema(
         ref: 'Trips'
       },
     ],
+    expirationDate: {
+      type: Date,
+    }
   },
   { strict: false }
 );

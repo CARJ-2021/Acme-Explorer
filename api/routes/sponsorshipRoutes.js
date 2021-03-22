@@ -48,6 +48,6 @@ module.exports = function (app) {
     .route("/v2/sponsorships/:sponsorshipId/pay")
     .put(
       authController.verifyUser(["SPONSOR"]),
-      sponsorships.pay_a_sponsorship
+      //sponsorships.pay_a_sponsorship
     );
 };

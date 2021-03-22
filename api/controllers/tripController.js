@@ -227,12 +227,7 @@ exports.create_a_trip_v2 = async function (req, res) {
   new_trip.manager = authenticatedUserId;
   new_trip.ticker = ticker;
 
-  let trip_price = 0;
-  new_trip.stages.forEach(function (item, index) {
-    trip_price += item.price;
-  });
-  
-  new_trip.price = trip_price;
+  new_trip.price = calculateTripPrice(new_trip.stages);
 
   try {
     let saved_trip = await new_trip.save();
@@ -305,3 +300,18 @@ exports.searchFinder = (finderParams) => {
     }
   });
 };
+
+/**
+ * Receives an array of stages and calculates the price of a trip
+ * 
+ * @param {*} stages 
+ * @returns 
+ */
+function calculateTripPrice(stages) {
+  let tripPrice = 0;
+  stages.forEach(function (item, index) {
+    tripPrice += item.price;
+  });
+
+  return tripPrice;
+}

@@ -218,6 +218,23 @@ exports.publish_a_trip = async function (req, res) {
   });
 };
 
+exports.create_a_trip_v2 = async function (req, res) {
+  var idToken = req.headers['idtoken'];
+	var authenticatedUserId = await authController.getUserId(idToken);
+  let ticker = await generate_ticker();
+
+  var new_trip = new Trip(req.body);
+  new_trip.manager = authenticatedUserId;
+  new_trip.ticker = ticker;
+
+  try {
+    let saved_trip = await new_trip.save();
+    res.json(saved_trip);
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 exports.searchUnauth = async function (req, res) {
   const configuration = await configurationController.get_configuration();
   const searchParams = {};

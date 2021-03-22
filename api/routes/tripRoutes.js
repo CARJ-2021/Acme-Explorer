@@ -30,7 +30,7 @@ module.exports = function (app) {
   app
   .route("/v2/trips")
   .get(authController.verifyUser([ADMINISTRATOR]), trips.list_all_trips)
-  .post(authController.verifyUser([MANAGER]), trips.create_a_trip);
+  .post(authController.verifyUser([MANAGER]), trips.create_a_trip_v2);
 
   app.route("/v2/trips/:tripId/publish")
   .put(authController.verifyUser([MANAGER]), trips.publish_a_trip);

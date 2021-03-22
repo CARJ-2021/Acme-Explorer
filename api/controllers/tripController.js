@@ -190,7 +190,7 @@ exports.publish_a_trip = async function (req, res) {
       return;
     }
 
-    if (trip.manager != authenticatedUserId) {
+    if (JSON.stringify(trip.manager) !== JSON.stringify(authenticatedUserId)) {
       res.status(403).send({
         message: "Cannot publish a trip managed by a different manager"
       });

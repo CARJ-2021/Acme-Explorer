@@ -2,11 +2,12 @@
 
 /*---------------TRIPS----------------------*/
 var mongoose = require("mongoose"),
-  Trip = mongoose.model("Trips");
+  Trip = mongoose.model("Trips"),
+  Sponsorship = mongoose.model("Sponsorship");
 
 var dateFormat = require("dateformat");
 var randomstring = require("randomstring");
-var authController = require('./authController');
+var authController = require("./authController");
 
 const configurationController = require("./configurationController");
 
@@ -20,9 +21,8 @@ exports.list_all_trips = function (req, res) {
   });
 };
 
-
 exports.list_managed_trips = async function (req, res) {
-  var idToken = req.headers['idtoken'];
+  var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
   Trip.find({ manager: authenticatedUserId }, function (err, trips) {
     if (err) {
@@ -83,15 +83,17 @@ exports.read_a_trip = function (req, res) {
 };
 
 exports.read_a_trip_v2 = function (req, res) {
-  Trip.findOne({ '_id': req.params.tripId, 'published': true }, function (err, trip) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(trip);
+  Trip.findOne(
+    { _id: req.params.tripId, published: true },
+    function (err, trip) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(trip);
+      }
     }
-  });
+  );
 };
-
 
 exports.update_a_trip = function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
@@ -123,36 +125,38 @@ exports.update_a_trip = function (req, res) {
   });
 };
 
-
 exports.update_a_trip_v2 = async function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
-  var idToken = req.headers['idtoken'];
+  var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
-  Trip.findOne({ _id: req.params.tripId, manager: authenticatedUserId }, function (err, trip) {
-    if (err) {
-      res.send(err);
-    } else {
-      if (!trip.published) {
-        req.body.ticker = trip.ticker;
-        Trip.findOneAndUpdate(
-          { _id: req.params.tripId },
-          req.body,
-          { new: true },
-          function (err, trip) {
-            if (err) {
-              res.send(err);
-            } else {
-              res.json(trip);
-            }
-          }
-        );
+  Trip.findOne(
+    { _id: req.params.tripId, manager: authenticatedUserId },
+    function (err, trip) {
+      if (err) {
+        res.send(err);
       } else {
-        res.send({
-          message: "Trip can't be updated due it is already published",
-        });
+        if (!trip.published) {
+          req.body.ticker = trip.ticker;
+          Trip.findOneAndUpdate(
+            { _id: req.params.tripId },
+            req.body,
+            { new: true },
+            function (err, trip) {
+              if (err) {
+                res.send(err);
+              } else {
+                res.json(trip);
+              }
+            }
+          );
+        } else {
+          res.send({
+            message: "Trip can't be updated due it is already published",
+          });
+        }
       }
     }
-  });
+  );
 };
 
 exports.delete_a_trip = function (req, res) {
@@ -180,19 +184,19 @@ exports.delete_a_trip = function (req, res) {
 
 exports.publish_a_trip = async function (req, res) {
   // A manager can only publish a trip that has been created by him/her
-  var idToken = req.headers['idtoken'];
-	var authenticatedUserId = await authController.getUserId(idToken);
-  Trip.findOne( {_id: req.params.tripId}, function (err, trip) {
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
+  Trip.findOne({ _id: req.params.tripId }, function (err, trip) {
     if (!trip) {
       res.status(404).send({
-        message: "Trip not found"
+        message: "Trip not found",
       });
       return;
     }
 
     if (JSON.stringify(trip.manager) !== JSON.stringify(authenticatedUserId)) {
       res.status(403).send({
-        message: "Cannot publish a trip managed by a different manager"
+        message: "Cannot publish a trip managed by a different manager",
       });
       return;
     }
@@ -219,8 +223,8 @@ exports.publish_a_trip = async function (req, res) {
 };
 
 exports.create_a_trip_v2 = async function (req, res) {
-  var idToken = req.headers['idtoken'];
-	var authenticatedUserId = await authController.getUserId(idToken);
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
   let ticker = await generate_ticker();
 
   var new_trip = new Trip(req.body);
@@ -242,7 +246,8 @@ exports.searchUnauth = async function (req, res) {
   const searchParams = {};
 
   // Add search if keyword
-  if (req.query.keyword && req.query.keyword !== '') searchParams['$text'] = { $search: req.query.keyword };
+  if (req.query.keyword && req.query.keyword !== "")
+    searchParams["$text"] = { $search: req.query.keyword };
 
   Trip.find(searchParams)
     .sort()
@@ -256,32 +261,41 @@ exports.searchUnauth = async function (req, res) {
     });
 };
 
-
 exports.searchFinder = (finderParams) => {
   return new Promise(async (resolve, reject) => {
     try {
       const configuration = await configurationController.get_configuration();
-      console.log(finderParams)
+      console.log(finderParams);
       // Configure search params and limits
       const searchParams = {
         price: {
           $gte: finderParams.minPrice ? finderParams.minPrice : 0,
-          $lte: finderParams.maxPrice ? finderParams.maxPrice : Infinity
+          $lte: finderParams.maxPrice ? finderParams.maxPrice : Infinity,
         },
         startDate: {
-          $gte: finderParams.minDate ? finderParams.minDate : "1900-01-00:00:00.000Z",
-          $lte: finderParams.maxDate ? finderParams.maxDate : "2200-01-00:00:00.000Z"
+          $gte: finderParams.minDate
+            ? finderParams.minDate
+            : "1900-01-00:00:00.000Z",
+          $lte: finderParams.maxDate
+            ? finderParams.maxDate
+            : "2200-01-00:00:00.000Z",
         },
         endDate: {
-          $gte: finderParams.minDate ? finderParams.minDate : "1900-01-00:00:00.000Z",
-          $lte: finderParams.maxDate ? finderParams.maxDate : "2200-01-00:00:00.000Z"
-        }
+          $gte: finderParams.minDate
+            ? finderParams.minDate
+            : "1900-01-00:00:00.000Z",
+          $lte: finderParams.maxDate
+            ? finderParams.maxDate
+            : "2200-01-00:00:00.000Z",
+        },
       };
 
-      console.log(searchParams)
+      console.log(searchParams);
 
       // Add $text if keyword
-      if (finderParams.keyword && finderParams.keyword !== '') { searchParams['$text'] = { $search: finderParams.keyword } };
+      if (finderParams.keyword && finderParams.keyword !== "") {
+        searchParams["$text"] = { $search: finderParams.keyword };
+      }
 
       // Execute query
       Trip.find(searchParams)
@@ -303,9 +317,9 @@ exports.searchFinder = (finderParams) => {
 
 /**
  * Receives an array of stages and calculates the price of a trip
- * 
- * @param {*} stages 
- * @returns 
+ *
+ * @param {*} stages
+ * @returns
  */
 function calculateTripPrice(stages) {
   let tripPrice = 0;
@@ -315,3 +329,24 @@ function calculateTripPrice(stages) {
 
   return tripPrice;
 }
+
+exports.get_random_sponsorship = async function (req, res) {
+  const tripId = req.params.tripId;
+  // Add search if keyword
+  console.log(tripId);
+  if (tripId && tripId !== "") {
+    var id = mongoose.Types.ObjectId(tripId);
+
+    Sponsorship.find({
+      trips: { $in: [id] },
+    }).then((sponsorships) => {
+      var random_sponsorship =
+        sponsorships[Math.floor(Math.random() * sponsorships.length)];
+      res.status(200);
+      res.send(random_sponsorship);
+    });
+  } else {
+    res.status(404);
+    res.send("Trip not found");
+  }
+};

@@ -58,7 +58,7 @@ var routesLogin = require("./api/routes/loginRoutes");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://acme-explorer-carj-2021.firebaseapp.com",
+  databaseURL: "https://acme-explorer-carj-2021-default-rtdb.europe-west1.firebasedatabase.app",
 });
 
 routesTrips(app);

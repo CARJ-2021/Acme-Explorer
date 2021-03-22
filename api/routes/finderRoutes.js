@@ -1,6 +1,7 @@
 "use strict";
 module.exports = function (app) {
-    var finders = require("../controllers/finderController");
+    var finders = require("../controllers/finderController"),
+        authController = require("../controllers/authController");
 
     app
         .route("/v1/finders")
@@ -12,4 +13,7 @@ module.exports = function (app) {
         .get(finders.read_a_finder)
         .put(finders.update_a_finder)
         .delete(finders.delete_a_finder);
+
+    app.route("/v1/find")
+        .get(authController.verifyUser(["EXPLORER"]), finders.find)
 };

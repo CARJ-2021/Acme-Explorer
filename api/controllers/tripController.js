@@ -23,8 +23,8 @@ exports.list_all_trips = function (req, res) {
 
 exports.list_managed_trips = async function (req, res) {
   var idToken = req.headers['idtoken'];
-	var authenticatedUserId = await authController.getUserId(idToken);
-  Trip.find({manager: authenticatedUserId}, function (err, trips) {
+  var authenticatedUserId = await authController.getUserId(idToken);
+  Trip.find({ manager: authenticatedUserId }, function (err, trips) {
     if (err) {
       res.send(err);
     } else {
@@ -83,7 +83,7 @@ exports.read_a_trip = function (req, res) {
 };
 
 exports.read_a_trip_v2 = function (req, res) {
-  Trip.findOne({'_id': req.params.tripId, 'published': true}, function (err, trip) {
+  Trip.findOne({ '_id': req.params.tripId, 'published': true }, function (err, trip) {
     if (err) {
       res.send(err);
     } else {
@@ -127,8 +127,8 @@ exports.update_a_trip = function (req, res) {
 exports.update_a_trip_v2 = async function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
   var idToken = req.headers['idtoken'];
-	var authenticatedUserId = await authController.getUserId(idToken);
-  Trip.findOne( {_id: req.params.tripId, manager: authenticatedUserId}, function (err, trip) {
+  var authenticatedUserId = await authController.getUserId(idToken);
+  Trip.findOne({ _id: req.params.tripId, manager: authenticatedUserId }, function (err, trip) {
     if (err) {
       res.send(err);
     } else {
@@ -178,29 +178,66 @@ exports.delete_a_trip = function (req, res) {
   });
 };
 
-exports.search = async function (req, res) {
+exports.searchUnauth = async function (req, res) {
   const configuration = await configurationController.get_configuration();
-  const searchCriteria = {
-    minPrice: req.query.minPrice ? req.query.minPrice : 0,
-    maxPrice: req.query.maxPrice ? req.query.maxPrice : Infinity,
-    minDate: req.query.minDate ? req.query.minDate : "1900-01-00:00:00.000Z",
-    maxDate: req.query.maxDate ? req.query.maxDate : "2200-01-00:00:00.000Z",
-    keyword: req.query.keyword ? req.query.keyword : ""
-  }
+  const searchParams = {};
 
-  Trip.find({
-    price: { $gte: searchCriteria.minPrice, $lte: searchCriteria.maxPrice },
-    startDate: { $gte: searchCriteria.minDate, $lte: searchCriteria.maxDate },
-    endDate: { $gte: searchCriteria.minDate, $lte: searchCriteria.maxDate },
-    $text: { $search: searchCriteria.keyword}
-  })
-  .sort()
-  .limit(configuration.findResult)
-  .exec(function (err, searchResult) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(searchResult);
+  // Add search if keyword
+  if (req.query.keyword && req.query.keyword !== '') searchParams['$text'] = { $search: req.query.keyword };
+
+  Trip.find(searchParams)
+    .sort()
+    .limit(configuration.findResult)
+    .exec(function (err, searchResult) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(searchResult);
+      }
+    });
+};
+
+
+exports.searchFinder = (finderParams) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const configuration = await configurationController.get_configuration();
+      console.log(finderParams)
+      // Configure search params and limits
+      const searchParams = {
+        price: {
+          $gte: finderParams.minPrice ? finderParams.minPrice : 0,
+          $lte: finderParams.maxPrice ? finderParams.maxPrice : Infinity
+        },
+        startDate: {
+          $gte: finderParams.minDate ? finderParams.minDate : "1900-01-00:00:00.000Z",
+          $lte: finderParams.maxDate ? finderParams.maxDate : "2200-01-00:00:00.000Z"
+        },
+        endDate: {
+          $gte: finderParams.minDate ? finderParams.minDate : "1900-01-00:00:00.000Z",
+          $lte: finderParams.maxDate ? finderParams.maxDate : "2200-01-00:00:00.000Z"
+        }
+      };
+
+      console.log(searchParams)
+
+      // Add $text if keyword
+      if (finderParams.keyword && finderParams.keyword !== '') { searchParams['$text'] = { $search: finderParams.keyword } };
+
+      // Execute query
+      Trip.find(searchParams)
+        .sort()
+        .limit(configuration.findResult)
+        .exec(function (err, searchResult) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(searchResult);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+      reject(err);
     }
   });
 };

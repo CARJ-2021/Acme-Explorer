@@ -24,5 +24,5 @@ module.exports = function (app) {
   app.route('/api/v1/managed-trips/')
         .get(authController.verifyUser(["MANAGER"]),trips.list_managed_trips)
 
-  app.route("/v1/search").get(trips.search);
+  app.route("/v1/search").get(trips.searchUnauth);
 };

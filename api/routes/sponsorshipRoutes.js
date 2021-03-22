@@ -45,9 +45,9 @@ module.exports = function (app) {
     );
 
   app
-    .route("/v2/sponsorships/:sponsorshipId/pay")
+    .route("/v2/sponsorships/:sponsorshipId/pay/:tripId")
     .put(
       authController.verifyUser(["SPONSOR"]),
-      //sponsorships.pay_a_sponsorship
+      sponsorships.pay_a_sponsorship_with_trip
     );
 };

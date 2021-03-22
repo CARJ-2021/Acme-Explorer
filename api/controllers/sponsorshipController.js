@@ -1,8 +1,8 @@
 "use strict";
 /*---------------SPONSORSHIP----------------------*/
 var mongoose = require("mongoose"),
-  Sponsorship = mongoose.model("Sponsorship");
-
+  Sponsorship = mongoose.model("Sponsorship"),
+  Trip = mongoose.model("Trips");
 var authController = require("../controllers/authController");
 
 exports.list_all_sponsorships = function (req, res) {
@@ -168,6 +168,43 @@ exports.delete_a_sponsorship_v2 = async function (req, res) {
           }
         }
       );
+    }
+  });
+};
+
+exports.pay_a_sponsorship_with_trip = async function (req, res) {
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
+  Sponsorship.findById(req.params.sponsorshipId, function (error, sponsorship) {
+    if (error) res.send(error);
+    else if (sponsorship == null) res.status(404).send("Sponsorship not found");
+    else if (
+      JSON.stringify(sponsorship.sponsor) != JSON.stringify(authenticatedUserId)
+    )
+      res.status(403).send("You can't a sponsorship you don't own");
+    else {
+      Trip.findById(req.params.tripId, (err, trip) => {
+        if (err) {
+          res.send(err);
+        } else if (trip && !sponsorship.trips.includes(trip._id)) {
+          Sponsorship.findOneAndUpdate(
+            { _id: req.params.sponsorshipId },
+            { $set: { paid: "true" }, $push: { trips: trip._id } },
+            { new: true },
+            function (err, sponsorship) {
+              if (err) {
+                res.status(500).send(err);
+              } else {
+                res.json(sponsorship);
+              }
+            }
+          );
+        } else if (trip && sponsorship.trips.includes(trip._id)) {
+          res.status(409).send("Trip already payed");
+        } else {
+          res.status(404).send("Trip not found");
+        }
+      });
     }
   });
 };

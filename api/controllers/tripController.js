@@ -242,7 +242,8 @@ exports.create_a_trip_v2 = async function (req, res) {
 };
 
 exports.searchUnauth = async function (req, res) {
-  const configuration = await configurationController.get_configuration();
+  let configuration = await configurationController.get_configuration();
+  configuration = configuration[0];
   const searchParams = {};
 
   // Add search if keyword
@@ -251,7 +252,7 @@ exports.searchUnauth = async function (req, res) {
 
   Trip.find(searchParams)
     .sort()
-    .limit(configuration.findResult)
+    .limit(configuration?.findResult || 10)
     .exec(function (err, searchResult) {
       if (err) {
         res.send(err);
@@ -264,8 +265,9 @@ exports.searchUnauth = async function (req, res) {
 exports.searchFinder = (finderParams) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const configuration = await configurationController.get_configuration();
-      console.log(finderParams);
+      let configuration = await configurationController.get_configuration();
+      configuration = configuration[0];
+
       // Configure search params and limits
       const searchParams = {
         price: {
@@ -290,8 +292,6 @@ exports.searchFinder = (finderParams) => {
         },
       };
 
-      console.log(searchParams);
-
       // Add $text if keyword
       if (finderParams.keyword && finderParams.keyword !== "") {
         searchParams["$text"] = { $search: finderParams.keyword };
@@ -300,7 +300,7 @@ exports.searchFinder = (finderParams) => {
       // Execute query
       Trip.find(searchParams)
         .sort()
-        .limit(configuration.findResult)
+        .limit(configuration?.findResult || 10)
         .exec(function (err, searchResult) {
           if (err) {
             reject(err);
@@ -332,8 +332,6 @@ function calculateTripPrice(stages) {
 
 exports.get_random_sponsorship = async function (req, res) {
   const tripId = req.params.tripId;
-  // Add search if keyword
-  console.log(tripId);
   if (tripId && tripId !== "") {
     var id = mongoose.Types.ObjectId(tripId);
 

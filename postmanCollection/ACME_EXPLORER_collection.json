@@ -1365,13 +1365,13 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/v1/find?minPrice=40&maxPrice=10000&minDate=2021-03-01T15:00:00.000Z&maxDate=2021-06-01T15:00:00.000Z&keyword=210307BYFX",
+							"raw": "localhost:8080/v2/find?minPrice=40&maxPrice=10000&minDate=2021-03-01T15:00:00.000Z&maxDate=2021-06-01T15:00:00.000Z&keyword=210307BYFX",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"v1",
+								"v2",
 								"find"
 							],
 							"query": [
@@ -1406,13 +1406,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/v1/search?keyword=210307BYFX",
+							"raw": "localhost:8080/v2/search?keyword=210307BYFX",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"v1",
+								"v2",
 								"search"
 							],
 							"query": [

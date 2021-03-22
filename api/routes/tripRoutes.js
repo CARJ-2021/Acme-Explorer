@@ -22,17 +22,17 @@ module.exports = function (app) {
     .get(authController.verifyUser([MANAGER]), trips.list_managed_trips);
 
 
-    
-  app.route("/v1/search").get(trips.searchUnauth);
-  
   // --------------- V2 ---------------
+
+  app.route("/v2/search").get(trips.searchUnauth);
 
   app
   .route("/v2/trips")
   .get(authController.verifyUser([ADMINISTRATOR]), trips.list_all_trips)
   .post(authController.verifyUser([MANAGER]), trips.create_a_trip_v2);
 
-  app.route("/v2/trips/:tripId/publish")
-  .put(authController.verifyUser([MANAGER]), trips.publish_a_trip);
+  app
+    .route("/v2/trips/:tripId/publish")
+    .put(authController.verifyUser([MANAGER]), trips.publish_a_trip);
 
 };

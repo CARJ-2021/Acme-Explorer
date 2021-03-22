@@ -3,6 +3,9 @@ module.exports = function (app) {
     var finders = require("../controllers/finderController"),
         authController = require("../controllers/authController");
 
+        
+    // --------------- V1 ---------------
+
     app
         .route("/v1/finders")
         .get(finders.list_all_finders)
@@ -14,6 +17,8 @@ module.exports = function (app) {
         .put(finders.update_a_finder)
         .delete(finders.delete_a_finder);
 
-    app.route("/v1/find")
+        
+    // --------------- V2 ---------------
+    app.route("/v2/find")
         .get(authController.verifyUser(["EXPLORER"]), finders.find)
 };

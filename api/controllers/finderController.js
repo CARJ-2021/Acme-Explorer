@@ -3,7 +3,8 @@
 /*---------------FINDER----------------------*/
 var mongoose = require("mongoose"),
     Finder = mongoose.model("Finder"),
-    tripController = require("./tripController");
+    tripController = require("./tripController"),
+    authController = require("./authController");
 
 exports.list_all_finders = function (req, res) {
     Finder.find({}, function (err, finders) {
@@ -51,12 +52,31 @@ exports.update_a_finder = function (req, res) {
     );
 };
 
-exports.find = function (req, res) {
+// -------------------------------------- V2 --------------------------------------
+
+exports.read_my_finder = async function (req, res) {
+    var idToken = req.headers["idtoken"];
+    var authenticatedUserId = await authController.getUserId(idToken);
+    Finder.findOne(
+        { explorer: authenticatedUserId }, 
+        function (err, finder) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(finder);
+            }
+        });
+};
+
+
+exports.find = async function (req, res) {
+    var idToken = req.headers["idtoken"];
+    var authenticatedUserId = await authController.getUserId(idToken);
     tripController.searchFinder(req.query).then((searchResult) => {
         res.send(searchResult);
         Finder.findOneAndUpdate(
-            { _id: req.params.finderId },
-            req.body,
+            { explorer: authenticatedUserId },
+            req.query,
             { new: true },
             function (err, finder) {
                 if (err) {

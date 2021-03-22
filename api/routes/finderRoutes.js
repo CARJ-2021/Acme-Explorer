@@ -19,6 +19,11 @@ module.exports = function (app) {
 
         
     // --------------- V2 ---------------
-    app.route("/v2/find")
+    app
+        .route("/v2/find")
         .get(authController.verifyUser(["EXPLORER"]), finders.find)
+
+    app
+        .route("/v2/finder")
+        .get(finders.read_my_finder);
 };

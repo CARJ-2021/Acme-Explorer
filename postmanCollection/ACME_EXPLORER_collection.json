@@ -1238,192 +1238,227 @@
 			"name": "Finder",
 			"item": [
 				{
-					"name": "POST Finder",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 1,\r\n    \"maxPrice\": 6,\r\n    \"minDate\": \"2021-04-01 17:00:00\",\r\n    \"maxDate\": \"2021-04-01 17:00:00\",\r\n    \"explorer\": \"6044a329370cc225c0a70217\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "V1",
+					"item": [
+						{
+							"name": "POST Finder",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 1,\r\n    \"maxPrice\": 6,\r\n    \"minDate\": \"2021-04-01 17:00:00\",\r\n    \"maxDate\": \"2021-04-01 17:00:00\",\r\n    \"explorer\": \"6044a329370cc225c0a70217\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/finders",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"finders"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/finders",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"finders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET All finders",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/finders",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"finders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Finder by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/finders/60451ad3110c061eb4630417",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"finders",
-								"60451ad3110c061eb4630417"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Finder",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"trips\": [],\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 22\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "GET All finders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/finders",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"finders"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/finders/604674693e89932bac4cd73d",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"finders",
-								"604674693e89932bac4cd73d"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE Finder",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/finders/604673023e89932bac4cd73a",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"finders",
-								"604673023e89932bac4cd73a"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "FIND TRIPS",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "idtoken",
-								"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQzODU2OSwidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjQzODU2OSwiZXhwIjoxNjE2NDQyMTY5LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.FvJkZsVe6Bd11dP3CjtKIHvZakz7YNEn4Fju_xnowGUzQgDKttp9kcNtPYJ3tMvOK06u37TlZl-O8iFmy0X-XQlYVnY-5B_aJoiKCAHBU12ZK_4JGZj339AdECiZFPduas8Rd3r7ygR8-VphzDLkBvCdwYt-G-XUOgR_hxWBrjPVhSIBJ-j4nPE725J0L45wSvfM9MojnuMn1k2XmTZrdKoBak-wmF9L7AzIGIhTjpgVdUFF9AfhAsXfi2NxbPd5VQCCl9Rahwl-P_HHN2G5B3uRIudFivB9oHy9gd0CyGUv8vMvVHY2x6lDK0mcnI2Fj0pkyT-M7rc5MmH8xrTivQ",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/v2/find?minPrice=40&maxPrice=10000&minDate=2021-03-01T15:00:00.000Z&maxDate=2021-06-01T15:00:00.000Z&keyword=210307BYFX",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v2",
-								"find"
-							],
-							"query": [
-								{
-									"key": "minPrice",
-									"value": "40"
-								},
-								{
-									"key": "maxPrice",
-									"value": "10000"
-								},
-								{
-									"key": "minDate",
-									"value": "2021-03-01T15:00:00.000Z"
-								},
-								{
-									"key": "maxDate",
-									"value": "2021-06-01T15:00:00.000Z"
-								},
-								{
-									"key": "keyword",
-									"value": "210307BYFX"
+						{
+							"name": "GET Finder by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/finders/60451ad3110c061eb4630417",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"finders",
+										"60451ad3110c061eb4630417"
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Finder",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"trips\": [],\r\n    \"keyword\": \"hey\",\r\n    \"minPrice\": 22\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/finders/604674693e89932bac4cd73d",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"finders",
+										"604674693e89932bac4cd73d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Finder",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/finders/604673023e89932bac4cd73a",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"finders",
+										"604673023e89932bac4cd73a"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "SEARCH TRIPS",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v2/search?keyword=210307BYFX",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v2",
-								"search"
-							],
-							"query": [
-								{
-									"key": "keyword",
-									"value": "210307BYFX"
+					"name": "V2",
+					"item": [
+						{
+							"name": "GET my finder",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQzODU2OSwidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjQzODU2OSwiZXhwIjoxNjE2NDQyMTY5LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.FvJkZsVe6Bd11dP3CjtKIHvZakz7YNEn4Fju_xnowGUzQgDKttp9kcNtPYJ3tMvOK06u37TlZl-O8iFmy0X-XQlYVnY-5B_aJoiKCAHBU12ZK_4JGZj339AdECiZFPduas8Rd3r7ygR8-VphzDLkBvCdwYt-G-XUOgR_hxWBrjPVhSIBJ-j4nPE725J0L45wSvfM9MojnuMn1k2XmTZrdKoBak-wmF9L7AzIGIhTjpgVdUFF9AfhAsXfi2NxbPd5VQCCl9Rahwl-P_HHN2G5B3uRIudFivB9oHy9gd0CyGUv8vMvVHY2x6lDK0mcnI2Fj0pkyT-M7rc5MmH8xrTivQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/finder",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"finder"
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "SEARCH TRIPS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v2/search?keyword=210307BYFX",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"search"
+									],
+									"query": [
+										{
+											"key": "keyword",
+											"value": "210307BYFX"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FIND TRIPS",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQzODU2OSwidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjQzODU2OSwiZXhwIjoxNjE2NDQyMTY5LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.FvJkZsVe6Bd11dP3CjtKIHvZakz7YNEn4Fju_xnowGUzQgDKttp9kcNtPYJ3tMvOK06u37TlZl-O8iFmy0X-XQlYVnY-5B_aJoiKCAHBU12ZK_4JGZj339AdECiZFPduas8Rd3r7ygR8-VphzDLkBvCdwYt-G-XUOgR_hxWBrjPVhSIBJ-j4nPE725J0L45wSvfM9MojnuMn1k2XmTZrdKoBak-wmF9L7AzIGIhTjpgVdUFF9AfhAsXfi2NxbPd5VQCCl9Rahwl-P_HHN2G5B3uRIudFivB9oHy9gd0CyGUv8vMvVHY2x6lDK0mcnI2Fj0pkyT-M7rc5MmH8xrTivQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/find?minPrice=40&maxPrice=10000&minDate=2021-03-01T15:00:00.000Z&maxDate=2021-06-01T15:00:00.000Z&keyword=210307BYFX",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"find"
+									],
+									"query": [
+										{
+											"key": "minPrice",
+											"value": "40"
+										},
+										{
+											"key": "maxPrice",
+											"value": "10000"
+										},
+										{
+											"key": "minDate",
+											"value": "2021-03-01T15:00:00.000Z"
+										},
+										{
+											"key": "maxDate",
+											"value": "2021-06-01T15:00:00.000Z"
+										},
+										{
+											"key": "keyword",
+											"value": "210307BYFX"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},

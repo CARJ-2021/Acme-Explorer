@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3f682c84-b7a6-4676-b9fe-d99ab5e09634",
+		"_postman_id": "b2420553-8a0f-4d58-96ea-7fb37a9adc20",
 		"name": "ASS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1506,65 +1506,148 @@
 			"name": "Configuration",
 			"item": [
 				{
-					"name": "PUT CONFIGURATION ",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\"id\": \"mainConfig\",\r\n\"finderTime\": 25,\r\n\"findResult\": 10,\r\n\"sponsorshipFlatRate\": 15\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "V1",
+					"item": [
+						{
+							"name": "PUT CONFIGURATION ",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"id\": \"mainConfig\",\r\n\"finderTime\": 25,\r\n\"findResult\": 10,\r\n\"sponsorshipFlatRate\": 15\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/configuration",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"configuration"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/v1/configuration",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"configuration"
-							]
+						{
+							"name": "GET CONFIGURATION",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/configuration",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"configuration"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "GET CONFIGURATION",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "V2",
+					"item": [
+						{
+							"name": "PUT CONFIGURATION V2",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQ5Njk1NSwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjQ5Njk1NSwiZXhwIjoxNjE2NTAwNTU1LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.L6Hogyi-q-tyAy9-n_0LOcf2qs4lBin_j1fmll4NBcvO8pEPbcLl8Q636m8eHF-DEPGWoh11SjlfmMbj8V-0nDi1YpjdzugqQ3E7gxl_kMINw3myuutt7lPzYw2KgxdmtT_DDoopPxxOcnvTuTuVkqWxTI7fnlRj8pYw7oZG3qUhsvMiFYH-hzNpafVbc14HgKxEHE4jMOZVJmgVjg9ZClzlqvVxuzmPoyUoWp1HxSWPJel3Cqy_kAati7gqHFBKCCP2TnBs1r0vDwLBDeGd9WAtx-ZqMpqX3Tlzrj4wmh6VLsHFVOTwPbTz7IFZDuy2mCd2k0dQXBnBHPjsxr-EsQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"id\": \"mainConfig\",\r\n\"finderTime\": 21,\r\n\"findResult\": 10,\r\n\"sponsorshipFlatRate\": 15\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v2/configuration",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"configuration"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/v1/configuration",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"configuration"
-							]
+						{
+							"name": "GET CONFIGURATION V2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQ5Njk1NSwidXNlcl9pZCI6ImFkbWluMUB5b3BtYWlsLmNvbSIsInN1YiI6ImFkbWluMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNjQ5Njk1NSwiZXhwIjoxNjE2NTAwNTU1LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.L6Hogyi-q-tyAy9-n_0LOcf2qs4lBin_j1fmll4NBcvO8pEPbcLl8Q636m8eHF-DEPGWoh11SjlfmMbj8V-0nDi1YpjdzugqQ3E7gxl_kMINw3myuutt7lPzYw2KgxdmtT_DDoopPxxOcnvTuTuVkqWxTI7fnlRj8pYw7oZG3qUhsvMiFYH-hzNpafVbc14HgKxEHE4jMOZVJmgVjg9ZClzlqvVxuzmPoyUoWp1HxSWPJel3Cqy_kAati7gqHFBKCCP2TnBs1r0vDwLBDeGd9WAtx-ZqMpqX3Tlzrj4wmh6VLsHFVOTwPbTz7IFZDuy2mCd2k0dQXBnBHPjsxr-EsQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v2/configuration",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"configuration"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}

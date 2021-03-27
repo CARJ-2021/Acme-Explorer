@@ -17,14 +17,18 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Start MongoDB
+      - name: start-MongoDB
         uses: supercharge/mongodb-github-action@1.3.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
-      - name: Intall depencies
+      - name: install.depencies
         run: npm run prestart
-      - name: Secret to env
-        run: echo FIREBASE=${{secrets.FIREBASE}} >> /.acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+        name: "acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json"
+        json: ${{ secrets.FIREBASE }}
       - name: Deploy project
         run: npm run start
       - name: Execute-e2e-test

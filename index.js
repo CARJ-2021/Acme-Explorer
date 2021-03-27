@@ -12,13 +12,7 @@ var express = require("express"),
 
 var admin = require("firebase-admin");
 
-try {
-  var serviceAccount = require("./acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json");
-} catch (e) {
-  if (e instanceof Error && e.code === "MODULE_NOT_FOUND") {
-    console.log("Can't load serviceAccount json");
-  } else throw e;
-}
+var serviceAccount = require("./acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json");
 
 // MongoDB URI building
 var mongoDBUser = process.env.mongoDBUser || "";

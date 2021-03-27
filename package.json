@@ -6,7 +6,8 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "npm test"
+    "test": "npm test",
+    "newman": "node_modules/.bin/newman run"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",
     "mongoose": "^5.11.17",
+    "newman": "^5.2.2",
     "randomstring": "^1.1.5"
   }
 }

@@ -1,0 +1,19 @@
+name: Continous Integration
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: "14"
+      - run: npm install -g newman
+      - run: newman run ./postmanCollection/Acme-explorer-test-e2e.postman_collection.json
+
+      - name: Output summary to console
+        run: echo ${{ steps.run-newman.outputs.summary }}

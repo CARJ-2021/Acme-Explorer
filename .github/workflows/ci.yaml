@@ -30,6 +30,6 @@ jobs:
           name: "acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json"
           json: ${{ secrets.FIREBASE }}
       - name: Execute-e2e-test
-        run: npm run newman & pm2 stop all
+        run: npm run newman
       - name: Output summary to console
         run: echo ${{ steps.Execute-e2e-test.outputs.summary }}

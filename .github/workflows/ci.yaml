@@ -12,9 +12,8 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: "14"
-          collectionPath: "./postmanCollection/Acme-explorer-test-e2e.postman_collection.json"
       - run: npm install -g newman
-      - run: newman run ${{collectionPath}}
+      - run: newman run ./postmanCollection/Acme-explorer-test-e2e.postman_collection.json
 
       - name: Output summary to console
         run: echo ${{ steps.run-newman.outputs.summary }}

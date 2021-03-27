@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "573f3e77-1e5f-4522-a8fa-dd4f50d11b78",
+		"name": "ASS test e2e",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "GET All trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/trips",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Trip",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6054f50ad017c85950fab48f\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/trips",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trips"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sponsorships",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "GET All sponsorships",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/sponsorships",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"sponsorships"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Applications",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "GET All applications",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/applications",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"applications"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Actors",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "GET All actors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Sponsor",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Sponsor1\",\r\n    \"surname\": \"Sponsor1\",\r\n    \"email\": \"sponsor1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Sponsor1 Address\",\r\n    \"role\": [\r\n        \"SPONSOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Explorer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Explorer1\",\r\n    \"surname\": \"Explorer1\",\r\n    \"email\": \"explorer1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Explorer1 Address\",\r\n    \"role\": [\r\n        \"EXPLORER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Manager",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Manager1\",\r\n    \"surname\": \"Manager1\",\r\n    \"email\": \"manager1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Manager1 Address\",\r\n    \"role\": [\r\n        \"MANAGER\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Administrator",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Admin1\",\r\n    \"surname\": \"Admin1\",\r\n    \"email\": \"admin1@yopmail.com\",\r\n    \"password\": \"12345\",\r\n    \"preferredLanguage\": \"en\",\r\n    \"phone\": \"12345\",\r\n    \"address\": \"Admin1 Address\",\r\n    \"role\": [\r\n        \"ADMINISTRATOR\"\r\n    ],\r\n    \"banned\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/actors",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"actors"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Finder",
+			"item": [
+				{
+					"name": "GET All finders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/finders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"finders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Configuration",
+			"item": [
+				{
+					"name": "PUT CONFIGURATION ",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"mainConfig\",\r\n\"finderTime\": 25,\r\n\"findResult\": 10,\r\n\"sponsorshipFlatRate\": 15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CONFIGURATION",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/configuration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"configuration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

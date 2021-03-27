@@ -1,0 +1,22 @@
+name: Continous Integration
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  simpleTest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependences
+        run: npm install
+      - name: Run API Tests
+        id: run-newman
+        uses: anthonyvscode/newman-action@v1
+        with:
+          collection: postmanCollection/Acme-explorer-test-e2e.postman_collection.json
+          reporters: cli
+
+      - name: Output summary to console
+        run: echo ${{ steps.run-newman.outputs.summary }}

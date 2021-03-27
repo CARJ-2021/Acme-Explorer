@@ -27,8 +27,8 @@ jobs:
         id: create-json
         uses: jsdaniell/create-json@1.1.2
         with:
-        name: "acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json"
-        json: ${{ secrets.FIREBASE }}
+          name: "acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json"
+          json: ${{ secrets.FIREBASE }}
       - name: Deploy project
         run: npm run start
       - name: Execute-e2e-test

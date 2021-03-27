@@ -7,7 +7,7 @@
     "prestart": "npm install",
     "start": "node index.js",
     "test": "npm test",
-    "newman": "node_modules/.bin/newman run postmanCollection/Acme-explorer-test-e2e.postman_collection.json"
+    "newman": "node index & node_modules/.bin/newman run postmanCollection/Acme-explorer-test-e2e.postman_collection.json"
   },
   "repository": {
     "type": "git",

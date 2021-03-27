@@ -50,4 +50,6 @@ module.exports = function (app) {
       authController.verifyUser(["SPONSOR"]),
       sponsorships.pay_a_sponsorship_with_trip
     );
+
+      
 };

@@ -1,0 +1,41 @@
+version: "3"
+services:
+  acme-explorer:
+    image: "alejuarob/acme-explorer"
+    ports:
+      - "127.0.0.1:${PORT}:${PORT}"
+    networks:
+      service-tier:
+    volumes:
+      - "logsvol:/usr/src/app/logs"
+    restart: on-failure
+    depends_on:
+      - mongo
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DBPORT=${DBPORT}
+      - DBNAME=${DBNAME}
+      - DBHOST=${DBHOST}
+      - PORT=${PORT}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=${PORT}
+      - FRONT_PORT=${FRONT_PORT}
+  mongo:
+    image: "mongo"
+    command: --port ${DBPORT} --logpath /var/log/mongodb/mongodb.log
+    networks:
+      service-tier:
+        aliases:
+          - "mongo${DBPORT}"
+    volumes:
+      - "datavol:/data/db"
+      - "logsvol:/var/log/mongodb"
+
+volumes:
+  datavol:
+  logsvol:
+    external: true
+
+networks:
+  service-tier:
+    external: true

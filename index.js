@@ -21,9 +21,9 @@ var mongoDBPass = process.env.mongoDBPass || "";
 var mongoDBCredentials =
   mongoDBUser && mongoDBPass ? mongoDBUser + ":" + mongoDBPass + "@" : "";
 
-var mongoDBHostname = process.env.mongoDBHostname || "localhost";
-var mongoDBPort = process.env.mongoDBPort || "27017";
-var mongoDBName = process.env.mongoDBName || "Acme-Explorer";
+var mongoDBHostname = process.env.DBHOST || "localhost";
+var mongoDBPort = process.env.DBPORT || "27017";
+var mongoDBName = process.env.DBNAME || "Acme-Explorer";
 
 var mongoDBURI =
   "mongodb://" +
@@ -58,7 +58,8 @@ var routesLogin = require("./api/routes/loginRoutes");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://acme-explorer-carj-2021-default-rtdb.europe-west1.firebasedatabase.app",
+  databaseURL:
+    "https://acme-explorer-carj-2021-default-rtdb.europe-west1.firebasedatabase.app",
 });
 
 routesTrips(app);

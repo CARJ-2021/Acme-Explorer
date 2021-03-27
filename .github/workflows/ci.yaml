@@ -23,6 +23,8 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
       - name: Intall depencies
         run: npm run prestart
+       - name: Secret to env
+          run: echo FIREBASE=${{secrets.FIREBASE}} >> /.acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json
       - name: Deploy project
         run: npm run start
       - name: Execute-e2e-test

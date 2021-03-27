@@ -9,14 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependences
-        run: npm install & node index
-      - name: Run API Tests
-        id: run-newman
-        uses: anthonyvscode/newman-action@v1
+      - uses: actions/setup-node@v2-beta
         with:
-          collection: postmanCollection/Acme-explorer-test-e2e.postman_collection.json
-          reporters: cli
+          node-version: "14"
+          collectionPath: ./postmanCollection/Acme-explorer-test-e2e.postman_collection.json
+      - run: npm install -g newman
+      - run: newman run ${{collectionPath}}
 
       - name: Output summary to console
         run: echo ${{ steps.run-newman.outputs.summary }}

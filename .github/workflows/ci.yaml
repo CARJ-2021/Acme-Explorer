@@ -5,12 +5,12 @@ on:
     branches: [main]
 
 jobs:
-  simpleTest:
+  e2e-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install dependences
-        run: npm install
+        run: npm install & node index
       - name: Run API Tests
         id: run-newman
         uses: anthonyvscode/newman-action@v1

@@ -26,8 +26,8 @@ resource "aws_instance" "machine01" {
   }
 
   provisioner "file" {
-    source      = "../docker-compose.yaml"
-    destination = "/home/ec2-user/docker-compose.yaml"
+    source      = "../docker"
+    destination = "/home/ec2-user"
   }
 
   provisioner "file" {
@@ -57,32 +57,25 @@ EOF
 
   provisioner "remote-exec" {
     inline = [
-      "docker network create service-tier",
-      "docker run -d -p 80:80 --name nginx-proxy -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy",
-      "docker network connect service-tier nginx-proxy",
-      "docker volume create --name=logsvol"
-    ]
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "export BASE_SITE=do2021.com",
+      "docker network create dev-network",
+      "docker network create prod-network",
+      "docker run -d -p 80:80 -v '/home/ec2-user/docker:/etc/nginx' --name nginx-proxy nginx",
       "export NODE_ENV=development",
-      "docker network connect service-tier nginx-proxy",
       "docker volume create --name=logsvol",
-      "export NODE_ENV=development",
       "export PORT=8001",
       "export DBPORT=27018",
       "export FRONT_PORT=3000",
       "export DBNAME=Acme-explorer",
       "export DBHOST=mongo",
-      "echo 'dbport'",
-      "echo $DBPORT",
-      "export VIRTUAL_HOST=$NODE_ENV.$BASE_SITE",
-      "echo 'VIRTUAL_HOST'",
-      "echo $VIRTUAL_HOST",
-      "docker-compose -p $VIRTUAL_HOST up -d"
+      "docker-compose -f 'docker/docker-compose.dev.yaml' -p dev up -d",
+      "docker-compose -f 'docker/docker-compose.prod.yaml' -p prod up -d",
+      "sleep 10",
+      "docker network connect prod-network nginx-proxy",
+      "docker network connect dev-network nginx-proxy",
+      "docker start nginx-proxy",
+
     ]
   }
+
 
 }

@@ -1,11 +1,10 @@
 version: "3"
 services:
   acme-explorer:
+    container_name: "acme-explorer-dev"
     image: "alejuarob/acme-explorer"
-    ports:
-      - "127.0.0.1:${PORT}:${PORT}"
     networks:
-      service-tier:
+      dev-network:
     volumes:
       - "logsvol:/usr/src/app/logs"
     restart: on-failure
@@ -24,7 +23,7 @@ services:
     image: "mongo"
     command: --port ${DBPORT} --logpath /var/log/mongodb/mongodb.log
     networks:
-      service-tier:
+      dev-network:
         aliases:
           - "mongo${DBPORT}"
     volumes:
@@ -37,5 +36,5 @@ volumes:
     external: true
 
 networks:
-  service-tier:
+  dev-network:
     external: true

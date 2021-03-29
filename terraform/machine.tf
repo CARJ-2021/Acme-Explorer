@@ -72,7 +72,7 @@ EOF
       "sleep 10",
       "docker network connect prod-network nginx-proxy",
       "docker network connect dev-network nginx-proxy",
-      "docker run -d -p 80:80 -v '/home/ec2-user/docker:/etc/nginx' --name nginx-proxy nginx",
+      "docker start nginx-proxy",
 
     ]
   }

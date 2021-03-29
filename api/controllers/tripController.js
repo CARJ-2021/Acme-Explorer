@@ -3,7 +3,8 @@
 /*---------------TRIPS----------------------*/
 var mongoose = require("mongoose"),
   Trip = mongoose.model("Trips"),
-  Sponsorship = mongoose.model("Sponsorship");
+  Sponsorship = mongoose.model("Sponsorship"),
+  Actor = mongoose.model("Actors");
 
 var dateFormat = require("dateformat");
 var randomstring = require("randomstring");
@@ -13,6 +14,16 @@ const configurationController = require("./configurationController");
 
 exports.list_all_trips = function (req, res) {
   Trip.find({}, function (err, trips) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(trips);
+    }
+  });
+};
+
+exports.list_all_trips_v2 = function (req, res) {
+  Trip.find({ published: true }, function (err, trips) {
     if (err) {
       res.send(err);
     } else {
@@ -72,7 +83,7 @@ exports.create_a_trip = function (req, res) {
   });
 };
 
-exports.read_a_trip = function (req, res) {
+exports.read_a_trip = async function (req, res) {
   Trip.findById(req.params.tripId, function (err, trip) {
     if (err) {
       res.send(err);
@@ -82,17 +93,48 @@ exports.read_a_trip = function (req, res) {
   });
 };
 
-exports.read_a_trip_v2 = function (req, res) {
-  Trip.findOne(
-    { _id: req.params.tripId, published: true },
-    function (err, trip) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(trip);
-      }
+exports.read_a_trip_v2 = async function (req, res) {
+  if (req.headers["idtoken"] != undefined) {
+    var idToken = req.headers["idtoken"];
+    var authenticatedUserId = await authController.getUserId(idToken);
+    var actor = await Actor.findById(authenticatedUserId);
+    if (actor.role.includes("MANAGER")) {
+      console.log(req.params.tripId);
+      Trip.findOne({ _id: req.params.tripId }, function (err, trip) {
+        if (err) {
+          res.send(err);
+        } else if (!trip) {
+          res.status(404);
+          res.send({ message: "Trip not found" });
+        } else if (
+          JSON.stringify(trip.manager) !==
+            JSON.stringify(authenticatedUserId) &&
+          !trip.published
+        ) {
+          res.status(403);
+          res.send({
+            message: "You don't have access to see this trip",
+          });
+        } else {
+          res.json(trip);
+        }
+      });
     }
-  );
+  } else {
+    Trip.findOne(
+      { _id: req.params.tripId, published: true },
+      function (err, trip) {
+        if (err) {
+          res.send(err);
+        } else if (!trip) {
+          res.status(404);
+          res.send({ message: "Trip not found" });
+        } else {
+          res.json(trip);
+        }
+      }
+    );
+  }
 };
 
 exports.update_a_trip = function (req, res) {
@@ -129,34 +171,41 @@ exports.update_a_trip_v2 = async function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
-  Trip.findOne(
-    { _id: req.params.tripId, manager: authenticatedUserId },
-    function (err, trip) {
-      if (err) {
-        res.send(err);
-      } else {
-        if (!trip.published) {
-          req.body.ticker = trip.ticker;
-          Trip.findOneAndUpdate(
-            { _id: req.params.tripId },
-            req.body,
-            { new: true },
-            function (err, trip) {
-              if (err) {
-                res.send(err);
-              } else {
-                res.json(trip);
-              }
+  Trip.findOne({ _id: req.params.tripId }, function (err, trip) {
+    if (err) {
+      res.send(err);
+    } else if (!trip) {
+      res.status(404);
+      res.send({ message: "Trip not found" });
+    } else {
+      if (
+        JSON.stringify(trip.manager) !== JSON.stringify(authenticatedUserId)
+      ) {
+        res.status(403);
+        res.send({
+          message: "You can't update a trip that you don't own",
+        });
+      } else if (!trip.published) {
+        req.body.ticker = trip.ticker;
+        req.body.manager = authenticatedUserId;
+        Trip.findOneAndUpdate(
+          { _id: req.params.tripId },
+          req.body,
+          function (err, trip) {
+            if (err) {
+              res.send(err);
+            } else {
+              res.json(trip);
             }
-          );
-        } else {
-          res.send({
-            message: "Trip can't be updated due it is already published",
-          });
-        }
+          }
+        );
+      } else {
+        res.send({
+          message: "Trip can't be updated due it is already published",
+        });
       }
     }
-  );
+  });
 };
 
 exports.delete_a_trip = function (req, res) {
@@ -166,6 +215,42 @@ exports.delete_a_trip = function (req, res) {
       res.send(err);
     } else {
       if (!trip.published) {
+        Trip.deleteOne({ _id: req.params.tripId }, function (err, trip) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.json({ message: "Trip successfully deleted" });
+          }
+        });
+      } else {
+        res.send({
+          message: "Trip can't be deleted due it is already published",
+        });
+      }
+    }
+  });
+};
+
+exports.delete_a_trip_v2 = async function (req, res) {
+  //A trip can be modified or deleted as long as it’s not published.
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
+
+  Trip.findById(req.params.tripId, function (err, trip) {
+    if (err) {
+      res.send(err);
+    } else if (!trip) {
+      res.status(404);
+      res.send({ message: "Trip not found" });
+    } else {
+      if (
+        JSON.stringify(trip.manager) !== JSON.stringify(authenticatedUserId)
+      ) {
+        res.status(403);
+        res.send({
+          message: "You can't delete a trip that you don't own",
+        });
+      } else if (!trip.published) {
         Trip.deleteOne({ _id: req.params.tripId }, function (err, trip) {
           if (err) {
             res.send(err);
@@ -347,4 +432,16 @@ exports.get_random_sponsorship = async function (req, res) {
     res.status(404);
     res.send("Trip not found");
   }
+};
+
+exports.get_my_trips = async function (req, res) {
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
+  Trip.find({ manager: authenticatedUserId }, function (err, trips) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(trips);
+    }
+  });
 };

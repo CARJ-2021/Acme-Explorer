@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "b2420553-8a0f-4d58-96ea-7fb37a9adc20",
-		"name": "ASS",
+		"_postman_id": "f68225b9-2962-49ae-a606-acb1af1d871d",
+		"name": "Acme-Explorer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -45,7 +45,7 @@
 								"header": [
 									{
 										"key": "idtoken",
-										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjRlMDBlOGZlNWYyYzg4Y2YwYzcwNDRmMzA3ZjdlNzM5Nzg4ZTRmMWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNjQzODgxNywidXNlcl9pZCI6Im1hbmFnZXIyQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjJAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTY0Mzg4MTcsImV4cCI6MTYxNjQ0MjQxNywiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.N5XMdce1ZSy86AzOiy6hyH5aMWDs_P2Hr4I_gZil5qfvA8xdRSmZdjoCUu1_KYD2qwhQtOwWwHEThkoCdq9bebX51yEJt35SNFuLFNPabx5MeL97RV2NLVfqCiBolpMMcmliiov8G3Dm9XSfNhTecyVrQCzNC1FwWq845kqYIgF1o-oufAdAS5nItlJaX0uP8EhOg4GSGJFdLvGpM8vNUXWujbPdoEI5-xG0z6ltbCM_fSDodU0wqovkTydV-2rIa1gQPjAwDqHNjFeFwcNDidJ8uKxm4ri1QyY_ZX9EgbOfQNhuUaDSiF6HVBZUwSO5T7tp-w2lkMe-f1VNIXEp-A",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MTA1MSwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTEwNTEsImV4cCI6MTYxNzA1NDY1MSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.X8t_ePbETbxmbs4lkRklJ3e381yJsdE5bA03UQ7ABqLt8prT_iBrIT9pryxvvCzSJa6200JuGxnHwn8etc644X-9MfxiM-UMSnSxEJwJ9NdK-w8zpe606ZcSN0Vo3i8xipz5O71PZnZxKWtUfxoQTbi_zd0o6f68ZCygQdl_18OWYdw6Tzj2QatnBmCm1kDjz06-YGu7QH9M0hvvFVxlVkUQXnUb8RNcQag2jl4p40C1siUxlzAXES6T1ExTK-0C_G9UQr0aTTAP5RaL1jewqL_RecfS50rX-NvzgmzjjFxafYDE2fyrNYLQUwAMI-WQrnkYxrNlFqjutYeKjPBWxA",
 										"type": "text"
 									}
 								],
@@ -71,126 +71,288 @@
 								}
 							},
 							"response": []
-						}
-					]
-				},
-				{
-					"name": "GET All trips",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/trips",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"trips"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST Trip",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6054f50ad017c85950fab48f\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
 						},
-						"url": {
-							"raw": "localhost:8080/v1/trips",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"trips"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET A TRIP",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"trips",
-								"60466a0d141e8a5afc8aeaa8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Test trip edited\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\",\r\n        \"Requirement 3\",\r\n        \"Requirement 4\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6044a329370cc225c0a70217\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Get a Trip (not authenticated)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v2/trips/606240d5fabda44250f785d0",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"606240d5fabda44250f785d0"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"trips",
-								"60466a0d141e8a5afc8aeaa8"
-							]
+						{
+							"name": "Get a Trip (authenticated)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MTA1MSwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTEwNTEsImV4cCI6MTYxNzA1NDY1MSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.X8t_ePbETbxmbs4lkRklJ3e381yJsdE5bA03UQ7ABqLt8prT_iBrIT9pryxvvCzSJa6200JuGxnHwn8etc644X-9MfxiM-UMSnSxEJwJ9NdK-w8zpe606ZcSN0Vo3i8xipz5O71PZnZxKWtUfxoQTbi_zd0o6f68ZCygQdl_18OWYdw6Tzj2QatnBmCm1kDjz06-YGu7QH9M0hvvFVxlVkUQXnUb8RNcQag2jl4p40C1siUxlzAXES6T1ExTK-0C_G9UQr0aTTAP5RaL1jewqL_RecfS50rX-NvzgmzjjFxafYDE2fyrNYLQUwAMI-WQrnkYxrNlFqjutYeKjPBWxA",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/trips/60622e544a478a3330640970",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"60622e544a478a3330640970"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all trips",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v2/trips",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT a trip",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MTA1MSwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTEwNTEsImV4cCI6MTYxNzA1NDY1MSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.X8t_ePbETbxmbs4lkRklJ3e381yJsdE5bA03UQ7ABqLt8prT_iBrIT9pryxvvCzSJa6200JuGxnHwn8etc644X-9MfxiM-UMSnSxEJwJ9NdK-w8zpe606ZcSN0Vo3i8xipz5O71PZnZxKWtUfxoQTbi_zd0o6f68ZCygQdl_18OWYdw6Tzj2QatnBmCm1kDjz06-YGu7QH9M0hvvFVxlVkUQXnUb8RNcQag2jl4p40C1siUxlzAXES6T1ExTK-0C_G9UQr0aTTAP5RaL1jewqL_RecfS50rX-NvzgmzjjFxafYDE2fyrNYLQUwAMI-WQrnkYxrNlFqjutYeKjPBWxA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\",\r\n        \"Requirement 3\",\r\n        \"Requirement 4\"\r\n    ],\r\n    \"published\": false,\r\n    \"title\": \"Test trip2 \",\r\n    \"description\": \"This is a test 2 trip\",\r\n    \"price\": 45.7,\r\n    \"startDate\": \"2021-04-01T15:00:00.000Z\",\r\n    \"endDate\": \"2021-05-01T15:00:00.000Z\",\r\n    \"pictures\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/trips/60623f9e68aa5b4f9444b0c0",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"60623f9e68aa5b4f9444b0c0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE A TRIP",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MTg5NiwidXNlcl9pZCI6Im1hbmFnZXIyQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjJAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTE4OTYsImV4cCI6MTYxNzA1NTQ5NiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.dvSqfjM9bmU1MZh8tlBoF7aJ26h8KZR08lcWdzYI7Cp6PTFuXf6vASDSu6rU3nCvtAqJiOPz92MKnI-EBMBt7SuXBH-8v_w3SEIPDrzbhPRGL74q4LcT_7N6d4iaXmUKVmTMue3OUZGxujAODlXgjK7UYuzj_J1KcfG5hS6wRjhXOhFNDdW4PjPVgw5b6jT0S9Z2-HZuN_Aztsmus0qZP1gOyVs9nLVPCZYJWokZljqmczCy8SaQkKAuDSbzRNEmdq39gFhchqhScfOTjpkOtGuQCpWiApjvQ1fEOazgExRqxKxS7imiDk3hmUa7_DEmFbuOZUulLh_PDT2VZvxQuA",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/trips/606240d5fabda44250f785d0",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"606240d5fabda44250f785d0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all my trips (authenticated)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MjMyMiwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTIzMjIsImV4cCI6MTYxNzA1NTkyMiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.YqZhxjTJKwUERXxun2QrSHWOp6FmBsFc7TTSuAtEQ8E4X_IjBr8hrdIgrpWeVYcia-Ev6vhEgjpPsuSB18k2nLhICfNtHVEqrGGNFGZN2FwCaGkA9m-F37GzhGWqdev39vrFkb8BzEaFdp-GM-QtfICkRuBFE7R9U7m4fPtSvN81anS5qDpZod3aHukxESpw7VL47UvGLeQxOzJTL0p40XLAoaHePeWFCwjeRfnOIjzFnSD65_nTU32FbuFjqa5t-9miEnNxmoOmDmR32TeFLWU_gP7ocu3eszGg5k-tPorThMp9dkj_kIDxvKWCMvPLves0fX1aJCcAshdmzWzpxQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/trips/my-trips",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"my-trips"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "New Request",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"trips",
-								"60466a0d141e8a5afc8aeaa8"
-							]
+					"name": "V1",
+					"item": [
+						{
+							"name": "GET All trips",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/trips",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"trips"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Trip",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6054f50ad017c85950fab48f\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/trips",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"trips"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET A TRIP",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"trips",
+										"60466a0d141e8a5afc8aeaa8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT A TRIP",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test trip edited\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\",\r\n        \"Requirement 3\",\r\n        \"Requirement 4\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"6044a329370cc225c0a70217\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"trips",
+										"60466a0d141e8a5afc8aeaa8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE A TRIP",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/v1/trips/60466a0d141e8a5afc8aeaa8",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"trips",
+										"60466a0d141e8a5afc8aeaa8"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Sponsorships",
@@ -314,7 +476,9 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
 					"name": "V2",
@@ -465,9 +629,12 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Applications",
@@ -591,7 +758,9 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
 					"name": "V2",
@@ -756,9 +925,12 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Actors",
@@ -966,7 +1138,9 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
 					"name": "V2",
@@ -1270,9 +1444,12 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Finder",
@@ -1396,7 +1573,9 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
 					"name": "V2",
@@ -1498,9 +1677,12 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Configuration",
@@ -1569,7 +1751,9 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
 					"name": "V2",
@@ -1647,9 +1831,13 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

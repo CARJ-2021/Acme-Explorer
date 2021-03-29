@@ -27,8 +27,18 @@ module.exports = function (app) {
 
   app
     .route("/v2/trips")
-    .get(authController.verifyUser([ADMINISTRATOR]), trips.list_all_trips)
+    .get(trips.list_all_trips_v2)
     .post(authController.verifyUser([MANAGER]), trips.create_a_trip_v2);
+
+  app
+    .route("/v2/trips/my-trips")
+    .get(authController.verifyUser([MANAGER]), trips.get_my_trips);
+
+  app
+    .route("/v2/trips/:tripId")
+    .get(trips.read_a_trip_v2)
+    .put(authController.verifyUser([MANAGER]), trips.update_a_trip_v2)
+    .delete(authController.verifyUser([MANAGER]), trips.delete_a_trip_v2);
 
   app
     .route("/v2/trips/:tripId/publish")

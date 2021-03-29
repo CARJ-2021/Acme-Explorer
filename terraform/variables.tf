@@ -26,11 +26,11 @@ variable "region" {
 variable "key_path" {
   description = "Key path for SSHing into EC2"
   type        = string
-  default     = "./keys/paris-keys.pem"
+  default     = "./keys/paris-key.pem"
 }
 
 variable "key_name" {
   description = "Key name for SSHing into EC2"
   type        = string
-  default     = "paris-keys"
+  default     = "paris-key"
 }

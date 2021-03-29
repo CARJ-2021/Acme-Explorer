@@ -59,6 +59,7 @@ EOF
     inline = [
       "docker network create dev-network",
       "docker network create prod-network",
+      "docker run -d -p 80:80 -v '/home/ec2-user/docker:/etc/nginx' --name nginx-proxy nginx",
       "export NODE_ENV=development",
       "docker volume create --name=logsvol",
       "export PORT=8001",
@@ -69,6 +70,8 @@ EOF
       "docker-compose -f 'docker/docker-compose.dev.yaml' -p dev up -d",
       "docker-compose -f 'docker/docker-compose.prod.yaml' -p prod up -d",
       "sleep 10",
+      "docker network connect prod-network nginx-proxy",
+      "docker network connect dev-network nginx-proxy",
       "docker run -d -p 80:80 -v '/home/ec2-user/docker:/etc/nginx' --name nginx-proxy nginx",
 
     ]

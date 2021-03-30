@@ -40,19 +40,19 @@ module.exports = function (app) {
     );
 
   app
+    .route("/v2/applications/pay/:applicationId")
+    .put(
+      authController.verifyUser(["EXPLORER"]),
+      applications.pay_an_application
+    );
+  app
     .route("/v2/trips/:tripId/applications")
     .get(
       authController.verifyUser(["MANAGER"]),
       applications.list_all_applications_v2
     );
 
-  app
-    .route("/v2/applications")
-    .get(applications.list_my_applications)
-    .post(
-      authController.verifyUser(["EXPLORER"]),
-      applications.create_an_application
-    );
+  app.route("/v2/applications").get(applications.list_my_applications);
 
   app
     .route("/v2/applications/:applicationId")

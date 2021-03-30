@@ -210,7 +210,7 @@
 									}
 								],
 								"url": {
-									"raw": "localhost:8080/v2/trips/my-trips",
+									"raw": "localhost:8080/v2/trips/managed-trips",
 									"host": [
 										"localhost"
 									],
@@ -218,7 +218,7 @@
 									"path": [
 										"v2",
 										"trips",
-										"my-trips"
+										"managed-trips"
 									]
 								}
 							},
@@ -255,6 +255,42 @@
 										"trips",
 										"6062f3a689fefb3620038714",
 										"cancel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Apply for a Trip",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzEwNDQ4NiwidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNzEwNDQ4NiwiZXhwIjoxNjE3MTA4MDg2LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.ChbW4QHFkA_q8ENjWQHwUupewAXASOhJiKoH2P_mxDKWzCNaThk0YCWykcuMJQ5G6Qbr-Kp05oO_VqX2me9Ns8QwNqdO0vuHYhEbLuZy2mEepCh6dlQ6ACu1QWb-O4TAaO7BqQlv8GTh3fqYu1u7zmmFuZ59z5gZJMmhNY62FH7Br4x1XC_ckash-La0vKGH1vDaPo-QdeWrMGPPyAXh7yq8xk1-1aOVqYkQnrybhVf85YC2A2ZexrmDAHxzxsLRkRx4qYmx8SsCoonv8iFfGdxS9nbTgiuEazVq3CJ4x7aF_AX3_tJJCTKfQpINJFpoCG1KRzU0Rjwj9kr1ge7Kag",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"comments\": \"Amazing trip bro\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/trips/60622e544a478a3330640970/apply",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"60622e544a478a3330640970",
+										"apply"
 									]
 								}
 							},
@@ -944,6 +980,33 @@
 										"v2",
 										"applications",
 										"6054f633d017c85950fab496"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pay a trip",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzEwNDQ4NiwidXNlcl9pZCI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsInN1YiI6ImV4cGxvcmVyMUB5b3BtYWlsLmNvbSIsImlhdCI6MTYxNzEwNDQ4NiwiZXhwIjoxNjE3MTA4MDg2LCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7fSwic2lnbl9pbl9wcm92aWRlciI6ImN1c3RvbSJ9fQ.ChbW4QHFkA_q8ENjWQHwUupewAXASOhJiKoH2P_mxDKWzCNaThk0YCWykcuMJQ5G6Qbr-Kp05oO_VqX2me9Ns8QwNqdO0vuHYhEbLuZy2mEepCh6dlQ6ACu1QWb-O4TAaO7BqQlv8GTh3fqYu1u7zmmFuZ59z5gZJMmhNY62FH7Br4x1XC_ckash-La0vKGH1vDaPo-QdeWrMGPPyAXh7yq8xk1-1aOVqYkQnrybhVf85YC2A2ZexrmDAHxzxsLRkRx4qYmx8SsCoonv8iFfGdxS9nbTgiuEazVq3CJ4x7aF_AX3_tJJCTKfQpINJFpoCG1KRzU0Rjwj9kr1ge7Kag",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v2/applications/pay/6062f3160e954f0060e882f3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"applications",
+										"pay",
+										"6062f3160e954f0060e882f3"
 									]
 								}
 							},

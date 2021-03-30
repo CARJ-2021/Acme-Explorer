@@ -1,10 +1,14 @@
 "use strict";
 
+const { auth } = require("firebase-admin");
+
 const MANAGER = "MANAGER";
+const EXPLORER = "EXPLORER";
 const ADMINISTRATOR = "ADMINISTRATOR";
 
 module.exports = function (app) {
   var trips = require("../controllers/tripController");
+  var application = require("../controllers/applicationController");
   var authController = require("../controllers/authController");
 
   // --------------- V1 ---------------
@@ -17,10 +21,6 @@ module.exports = function (app) {
     .put(trips.update_a_trip)
     .delete(trips.delete_a_trip);
 
-  app
-    .route("/v1/managed-trips/")
-    .get(authController.verifyUser([MANAGER]), trips.list_managed_trips);
-
   // --------------- V2 ---------------
 
   app.route("/v2/search").get(trips.searchUnauth);
@@ -31,8 +31,15 @@ module.exports = function (app) {
     .post(authController.verifyUser([MANAGER]), trips.create_a_trip_v2);
 
   app
-    .route("/v2/trips/my-trips")
-    .get(authController.verifyUser([MANAGER]), trips.get_my_trips);
+    .route("/v2/managed-trips/")
+    .get(authController.verifyUser([MANAGER]), trips.list_managed_trips);
+
+  app
+    .route("/v2/trips/:tripId/apply")
+    .post(
+      authController.verifyUser([EXPLORER]),
+      application.create_an_application_v2
+    );
 
   app
     .route("/v2/trips/:tripId")

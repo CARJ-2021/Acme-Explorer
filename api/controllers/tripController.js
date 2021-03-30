@@ -489,15 +489,3 @@ exports.get_random_sponsorship = async function (req, res) {
     res.send("Trip not found");
   }
 };
-
-exports.get_my_trips = async function (req, res) {
-  var idToken = req.headers["idtoken"];
-  var authenticatedUserId = await authController.getUserId(idToken);
-  Trip.find({ manager: authenticatedUserId }, function (err, trips) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(trips);
-    }
-  });
-};

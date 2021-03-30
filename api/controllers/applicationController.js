@@ -3,6 +3,7 @@
 var mongoose = require("mongoose"),
   Application = mongoose.model("Application"),
   Trip = mongoose.model("Trips");
+const { auth, app } = require("firebase-admin");
 var authController = require("./authController");
 
 exports.list_all_applications = function (req, res) {
@@ -81,13 +82,49 @@ exports.list_my_applications = async function (req, res) {
 };
 
 exports.create_an_application = function (req, res) {
-  var new_application = new Application(req.body);
   new_application.status = "PENDING";
+  var new_application = new Application(req.body);
   new_application.save(function (err, application) {
     if (err) {
       res.send(err);
     } else {
       res.json(application);
+    }
+  });
+};
+
+exports.create_an_application_v2 = async function (req, res) {
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
+
+  Trip.findById(req.params.tripId, async function (err, trip) {
+    if (err) {
+      res.status(500).send(err);
+    } else if (!trip || !trip.published) {
+      res.status(404).send({ message: "Trip not found" });
+    } else if (trip.rejectReason) {
+      res.status(409).send({ message: "Can't apply for a canceled Trip" });
+    } else {
+      var application = await Application.find({
+        explorer: authenticatedUserId,
+        trip: req.params.tripId,
+      });
+      if (!application) {
+        var new_application = new Application(req.body);
+        new_application.status = "PENDING";
+        new_application.trip = req.params.tripId;
+        new_application.explorer = authenticatedUserId;
+        new_application.date = new Date();
+        new_application.save(function (err, application) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.json(application);
+          }
+        });
+      } else {
+        res.status(409).send({ message: "You already apply for this trip" });
+      }
     }
   });
 };
@@ -276,7 +313,10 @@ exports.cancel_an_application = async function (req, res) {
       application.status == "PENDING" ||
       application.status == "ACCEPTED"
     ) {
-      if (authenticatedUserId != application.trip.creator) {
+      if (
+        JSON.stringify(authenticatedUserId) !=
+        JSON.stringify(application.trip.creator)
+      ) {
         res.status(403).send("Only the trip creator can modify applications");
       } else {
         Application.findOneAndUpdate(
@@ -294,6 +334,13 @@ exports.cancel_an_application = async function (req, res) {
           }
         );
       }
+    } else {
+      res.send({
+        message:
+          "Applcation can't be payed due to is in " +
+          application.status.toLowerCase() +
+          " status",
+      });
     }
   });
 };
@@ -307,7 +354,10 @@ exports.reject_an_application = async function (req, res) {
     } else if (application == null) {
       res.status(404).send("Application not found");
     } else if (application.status == "PENDING") {
-      if (authenticatedUserId != application.trip.creator) {
+      if (
+        JSON.stringify(authenticatedUserId) !=
+        JSON.stringify(application.trip.creator)
+      ) {
         res.status(403).send("Only the trip creator can modify applications");
       } else {
         Application.findOneAndUpdate(
@@ -325,6 +375,13 @@ exports.reject_an_application = async function (req, res) {
           }
         );
       }
+    } else {
+      res.send({
+        message:
+          "Applcation can't be payed due to is in " +
+          application.status.toLowerCase() +
+          " status",
+      });
     }
   });
 };
@@ -338,7 +395,10 @@ exports.due_an_application = async function (req, res) {
     } else if (application == null) {
       res.status(404).send("Application not found");
     } else if (application.status == "PENDING") {
-      if (authenticatedUserId != application.trip.creator) {
+      if (
+        JSON.stringify(authenticatedUserId) !=
+        JSON.stringify(application.trip.creator)
+      ) {
         res.status(403).send("Only the trip creator can modify applications");
       } else {
         Application.findOneAndUpdate(
@@ -354,6 +414,54 @@ exports.due_an_application = async function (req, res) {
           }
         );
       }
+    } else {
+      res.send({
+        message:
+          "Applcation can't be payed due to is in " +
+          application.status.toLowerCase() +
+          " status",
+      });
+    }
+  });
+};
+
+exports.pay_an_application = async function (req, res) {
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
+  Application.findById(req.params.applicationId, function (err, application) {
+    if (err) {
+      res.send(err);
+    } else if (application == null) {
+      res.status(404).send("Application not found");
+    } else if (application.status == "DUE") {
+      if (
+        JSON.stringify(authenticatedUserId) !=
+        JSON.stringify(application.explorer)
+      ) {
+        res.status(403).send({
+          message: "Only the application creator can modify that application",
+        });
+      } else {
+        Application.findOneAndUpdate(
+          { _id: req.params.applicationId },
+          { $set: { status: "ACCEPTED" } },
+          { new: true },
+          function (err, actor) {
+            if (err) {
+              res.send(err);
+            } else {
+              res.json({ message: "Application has been payed successfully" });
+            }
+          }
+        );
+      }
+    } else {
+      res.send({
+        message:
+          "Applcation can't be payed due to is in " +
+          application.status.toLowerCase() +
+          " status",
+      });
     }
   });
 };

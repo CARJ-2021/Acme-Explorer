@@ -16,28 +16,28 @@ module.exports = function (app) {
     .put(applications.update_an_application)
     .delete(applications.delete_an_application);
 
+  //------- V2 -------
+
   app
-    .route("/v1/applications/cancel/:applicationId")
+    .route("/v2/applications/cancel/:applicationId")
     .put(
       authController.verifyUser(["MANAGER"]),
       applications.cancel_an_application
     );
 
   app
-    .route("/v1/applications/reject/:applicationId")
+    .route("/v2/applications/reject/:applicationId")
     .put(
       authController.verifyUser(["MANAGER"]),
       applications.reject_an_application
     );
 
   app
-    .route("/v1/applications/due/:applicationId")
+    .route("/v2/applications/due/:applicationId")
     .put(
       authController.verifyUser(["MANAGER"]),
       applications.due_an_application
     );
-
-  //------- V2 -------
 
   app
     .route("/v2/trips/:tripId/applications")

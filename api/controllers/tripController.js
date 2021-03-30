@@ -4,7 +4,8 @@
 var mongoose = require("mongoose"),
   Trip = mongoose.model("Trips"),
   Sponsorship = mongoose.model("Sponsorship"),
-  Actor = mongoose.model("Actors");
+  Actor = mongoose.model("Actors"),
+  Application = mongoose.model("Application");
 
 var dateFormat = require("dateformat");
 var randomstring = require("randomstring");
@@ -301,6 +302,61 @@ exports.publish_a_trip = async function (req, res) {
       } else {
         res.send({
           message: "The trip has already been published",
+        });
+      }
+    }
+  });
+};
+
+exports.cancel_a_trip = async function (req, res) {
+  // A manager can only cancel a trip that has not yet started and doest not have any accepted applications
+  var idToken = req.headers["idtoken"];
+  var authenticatedUserId = await authController.getUserId(idToken);
+  Trip.findOne({ _id: req.params.tripId }, async function (err, trip) {
+    if (!trip) {
+      res.status(404).send({
+        message: "Trip not found",
+      });
+      return;
+    } else if (err) {
+      res.send(err);
+    } else if (
+      JSON.stringify(trip.manager) !== JSON.stringify(authenticatedUserId)
+    ) {
+      res.status(403).send({
+        message: "Cannot cancel a trip that you don't own",
+      });
+      return;
+    } else if (!trip.published) {
+      res.status(403).send({ message: "This trip has not been published" });
+    } else if (new Date(trip.startDate) <= new Date()) {
+      res.status(403).send({ message: "This trip has already begun" });
+    } else {
+      var applications = await Application.find({
+        trip: trip._id,
+        status: "ACCEPTED",
+      });
+      if (applications.length > 0) {
+        res.status(403).send({
+          message:
+            "This trip can't be cancelled due to there are one or more accepted application",
+        });
+      } else if (!trip.rejectReason) {
+        if (!req.body.rejectReason) {
+          res.status(400).send({ message: "A reject reason must be provided" });
+        } else {
+          trip.rejectReason = req.body.rejectReason;
+          trip.save(function (err, canceledTrip) {
+            if (err) {
+              res.send(err);
+            } else {
+              res.send(canceledTrip);
+            }
+          });
+        }
+      } else {
+        res.send({
+          message: "The trip has already been canceled",
         });
       }
     }

@@ -45,13 +45,13 @@
 								"header": [
 									{
 										"key": "idtoken",
-										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MTA1MSwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTEwNTEsImV4cCI6MTYxNzA1NDY1MSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.X8t_ePbETbxmbs4lkRklJ3e381yJsdE5bA03UQ7ABqLt8prT_iBrIT9pryxvvCzSJa6200JuGxnHwn8etc644X-9MfxiM-UMSnSxEJwJ9NdK-w8zpe606ZcSN0Vo3i8xipz5O71PZnZxKWtUfxoQTbi_zd0o6f68ZCygQdl_18OWYdw6Tzj2QatnBmCm1kDjz06-YGu7QH9M0hvvFVxlVkUQXnUb8RNcQag2jl4p40C1siUxlzAXES6T1ExTK-0C_G9UQr0aTTAP5RaL1jewqL_RecfS50rX-NvzgmzjjFxafYDE2fyrNYLQUwAMI-WQrnkYxrNlFqjutYeKjPBWxA",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA5NjM3NCwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwOTYzNzQsImV4cCI6MTYxNzA5OTk3NCwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.hCIUZBa3FTJJgQ07u-fYZytV_BTZePTnseZN_eZZOpsD0u2DqgKlEMnbwrsrIQfjmKuA8NE8qM6WiFCAFDOvhlEqBQ4Kz7WEqaPcdEBAnXLPwbJpIHkhMfrxKmLZF03Na5ntDs3TQGqcCT2LpMC0XoQNdPmY6ODjdUi9rRHEKgbQc7MrIj4IrMexAhbkC07Mb3Z8Dtpwbwf2ZO8cXtEFYmL1rkMfdJ6P-cfGujUcA51BKykp38iq4ZHEynens-q9R3ttv3Nh1daj4K9_guFmxtxDDnJN41z5dMxAqL4h7jBQQ5lAaVivlccUNKCSJvP4eVB5prk7JMz4wCNit4WchA",
 										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-04-01 17:00:00\",\r\n    \"endDate\": \"2021-05-01 17:00:00\",\r\n    \"manager\": \"asd\",\r\n    \"published\": false,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"title\": \"Test trip\",\r\n    \"description\": \"This is a test trip\",\r\n    \"price\": 45.7,\r\n    \"requirements\": [\r\n        \"Requirement 1\",\r\n        \"Requirement 2\"\r\n    ],\r\n    \"startDate\": \"2021-06-07 17:00:00\",\r\n    \"endDate\": \"2021-07-08 17:00:00\",\r\n    \"manager\": \"asd\",\r\n    \"published\": true,\r\n    \"stages\": [\r\n        {\r\n            \"title\": \"Stage 1\",\r\n            \"description\": \"This is a test stage\",\r\n            \"price\": 20\r\n        },\r\n        {\r\n            \"title\": \"Stage 2\",\r\n            \"description\": \"This is another test stage\",\r\n            \"price\": 25.7\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -99,12 +99,12 @@
 								"header": [
 									{
 										"key": "idtoken",
-										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MTA1MSwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTEwNTEsImV4cCI6MTYxNzA1NDY1MSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.X8t_ePbETbxmbs4lkRklJ3e381yJsdE5bA03UQ7ABqLt8prT_iBrIT9pryxvvCzSJa6200JuGxnHwn8etc644X-9MfxiM-UMSnSxEJwJ9NdK-w8zpe606ZcSN0Vo3i8xipz5O71PZnZxKWtUfxoQTbi_zd0o6f68ZCygQdl_18OWYdw6Tzj2QatnBmCm1kDjz06-YGu7QH9M0hvvFVxlVkUQXnUb8RNcQag2jl4p40C1siUxlzAXES6T1ExTK-0C_G9UQr0aTTAP5RaL1jewqL_RecfS50rX-NvzgmzjjFxafYDE2fyrNYLQUwAMI-WQrnkYxrNlFqjutYeKjPBWxA",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA5NjM3NCwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwOTYzNzQsImV4cCI6MTYxNzA5OTk3NCwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.hCIUZBa3FTJJgQ07u-fYZytV_BTZePTnseZN_eZZOpsD0u2DqgKlEMnbwrsrIQfjmKuA8NE8qM6WiFCAFDOvhlEqBQ4Kz7WEqaPcdEBAnXLPwbJpIHkhMfrxKmLZF03Na5ntDs3TQGqcCT2LpMC0XoQNdPmY6ODjdUi9rRHEKgbQc7MrIj4IrMexAhbkC07Mb3Z8Dtpwbwf2ZO8cXtEFYmL1rkMfdJ6P-cfGujUcA51BKykp38iq4ZHEynens-q9R3ttv3Nh1daj4K9_guFmxtxDDnJN41z5dMxAqL4h7jBQQ5lAaVivlccUNKCSJvP4eVB5prk7JMz4wCNit4WchA",
 										"type": "text"
 									}
 								],
 								"url": {
-									"raw": "localhost:8080/v2/trips/60622e544a478a3330640970",
+									"raw": "localhost:8080/v2/trips/6062ef6d8a1c5f2368aea1a1",
 									"host": [
 										"localhost"
 									],
@@ -112,7 +112,7 @@
 									"path": [
 										"v2",
 										"trips",
-										"60622e544a478a3330640970"
+										"6062ef6d8a1c5f2368aea1a1"
 									]
 								}
 							},
@@ -205,7 +205,7 @@
 								"header": [
 									{
 										"key": "idtoken",
-										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA1MjMyMiwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwNTIzMjIsImV4cCI6MTYxNzA1NTkyMiwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.YqZhxjTJKwUERXxun2QrSHWOp6FmBsFc7TTSuAtEQ8E4X_IjBr8hrdIgrpWeVYcia-Ev6vhEgjpPsuSB18k2nLhICfNtHVEqrGGNFGZN2FwCaGkA9m-F37GzhGWqdev39vrFkb8BzEaFdp-GM-QtfICkRuBFE7R9U7m4fPtSvN81anS5qDpZod3aHukxESpw7VL47UvGLeQxOzJTL0p40XLAoaHePeWFCwjeRfnOIjzFnSD65_nTU32FbuFjqa5t-9miEnNxmoOmDmR32TeFLWU_gP7ocu3eszGg5k-tPorThMp9dkj_kIDxvKWCMvPLves0fX1aJCcAshdmzWzpxQ",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA5NjM3NCwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwOTYzNzQsImV4cCI6MTYxNzA5OTk3NCwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.hCIUZBa3FTJJgQ07u-fYZytV_BTZePTnseZN_eZZOpsD0u2DqgKlEMnbwrsrIQfjmKuA8NE8qM6WiFCAFDOvhlEqBQ4Kz7WEqaPcdEBAnXLPwbJpIHkhMfrxKmLZF03Na5ntDs3TQGqcCT2LpMC0XoQNdPmY6ODjdUi9rRHEKgbQc7MrIj4IrMexAhbkC07Mb3Z8Dtpwbwf2ZO8cXtEFYmL1rkMfdJ6P-cfGujUcA51BKykp38iq4ZHEynens-q9R3ttv3Nh1daj4K9_guFmxtxDDnJN41z5dMxAqL4h7jBQQ5lAaVivlccUNKCSJvP4eVB5prk7JMz4wCNit4WchA",
 										"type": "text"
 									}
 								],
@@ -223,10 +223,44 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Cancel a Trip",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "idtoken",
+										"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY4NDY2MjEyMTQxMjQ4NzUxOWJiZjhlYWQ4ZGZiYjM3ODYwMjk5ZDciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYWNtZS1leHBsb3Jlci1jYXJqLTIwMjEiLCJhdWQiOiJhY21lLWV4cGxvcmVyLWNhcmotMjAyMSIsImF1dGhfdGltZSI6MTYxNzA5NjM3NCwidXNlcl9pZCI6Im1hbmFnZXIxQHlvcG1haWwuY29tIiwic3ViIjoibWFuYWdlcjFAeW9wbWFpbC5jb20iLCJpYXQiOjE2MTcwOTYzNzQsImV4cCI6MTYxNzA5OTk3NCwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6e30sInNpZ25faW5fcHJvdmlkZXIiOiJjdXN0b20ifX0.hCIUZBa3FTJJgQ07u-fYZytV_BTZePTnseZN_eZZOpsD0u2DqgKlEMnbwrsrIQfjmKuA8NE8qM6WiFCAFDOvhlEqBQ4Kz7WEqaPcdEBAnXLPwbJpIHkhMfrxKmLZF03Na5ntDs3TQGqcCT2LpMC0XoQNdPmY6ODjdUi9rRHEKgbQc7MrIj4IrMexAhbkC07Mb3Z8Dtpwbwf2ZO8cXtEFYmL1rkMfdJ6P-cfGujUcA51BKykp38iq4ZHEynens-q9R3ttv3Nh1daj4K9_guFmxtxDDnJN41z5dMxAqL4h7jBQQ5lAaVivlccUNKCSJvP4eVB5prk7JMz4wCNit4WchA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"rejectReason\": \"Hola\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v2/trips/6062f3a689fefb3620038714/cancel",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"trips",
+										"6062f3a689fefb3620038714",
+										"cancel"
+									]
+								}
+							},
+							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "V1",
@@ -347,12 +381,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Sponsorships",
@@ -476,9 +507,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "V2",
@@ -629,12 +658,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Applications",
@@ -649,7 +675,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"comments\": \"Amazing trip bro\",\r\n    \"trip\": \"6054f56ad017c85950fab491\",\r\n    \"explorer\": \"6054f617d017c85950fab494\"\r\n}",
+									"raw": "{\r\n    \"date\": \"2021-03-07 17:00:00\",\r\n    \"comments\": \"Amazing trip bro\",\r\n    \"trip\": \"6062f0015d55664a08373cbd\",\r\n    \"explorer\": \"60623bf91b400e2430af12e1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -758,9 +784,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "V2",
@@ -925,12 +949,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Actors",
@@ -1138,9 +1159,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "V2",
@@ -1444,12 +1463,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Finder",
@@ -1573,9 +1589,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "V2",
@@ -1677,12 +1691,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Configuration",
@@ -1751,9 +1762,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "V2",
@@ -1831,13 +1840,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

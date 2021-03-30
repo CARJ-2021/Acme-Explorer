@@ -44,5 +44,9 @@ module.exports = function (app) {
     .route("/v2/trips/:tripId/publish")
     .put(authController.verifyUser([MANAGER]), trips.publish_a_trip);
 
+  app
+    .route("/v2/trips/:tripId/cancel")
+    .put(authController.verifyUser([MANAGER]), trips.cancel_a_trip);
+
   app.route("/v2/trips/:tripId/sponsorhsip").get(trips.get_random_sponsorship);
 };

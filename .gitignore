@@ -110,3 +110,4 @@ keys/
 terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
+.vscode/settings.json

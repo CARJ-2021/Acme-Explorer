@@ -1,0 +1,54 @@
+version: "3"
+services:
+  acme-explorer:
+    container_name: "acme-explorer-dev"
+    image: "alejuarob/acme-explorer"
+    networks:
+      dev-network:
+    volumes:
+      - "logsvol:/usr/src/app/logs"
+    restart: on-failure
+    depends_on:
+      - mongo
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DBPORT=${DBPORT}
+      - DBNAME=${DBNAME}
+      - DBHOST=${DBHOST}
+      - PORT=${PORT}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=${PORT}
+      - FRONT_PORT=${FRONT_PORT}
+  mongo:
+    image: "mongo"
+    command: --port ${DBPORT} --logpath /var/log/mongodb/mongodb.log
+    networks:
+      dev-network:
+        aliases:
+          - "mongo${DBPORT}"
+    volumes:
+      - "datavol:/data/db"
+      - "logsvol:/var/log/mongodb"
+  mongo-backup:
+    image: "juablafer/mongodb-backup"
+    networks:
+      dev-network:
+    depends_on:
+      - mongo
+    environment:
+      - AWS_ACCESS=${AWS_ACCESS}
+      - AWS_SECRET=${AWS_SECRET}
+      - DB_CONTAINER=mongo${DBPORT}
+      - DB_PORT=${DBPORT}
+      - DB_NAME=${DBNAME}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - CRON_EXPRESSION=${CRON_EXPRESSION}
+
+volumes:
+  datavol:
+  logsvol:
+    external: true
+
+networks:
+  dev-network:
+    external: true

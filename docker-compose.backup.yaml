@@ -43,6 +43,7 @@ services:
       - DB_NAME=${DBNAME}
       - S3_BUCKET_NAME=${S3_BUCKET_NAME}
       - CRON_EXPRESSION=${CRON_EXPRESSION}
+      - PREFIX=dev/
 
 volumes:
   datavol:

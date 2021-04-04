@@ -189,6 +189,7 @@ exports.update_a_trip_v2 = async function (req, res) {
       } else if (!trip.published) {
         req.body.ticker = trip.ticker;
         req.body.manager = authenticatedUserId;
+        req.body.price = calculateTripPrice(req.body.stages);
         Trip.findOneAndUpdate(
           { _id: req.params.tripId },
           req.body,

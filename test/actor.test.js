@@ -2,8 +2,6 @@ const app = require("../index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const idtoken_collector = require("./idtoken_collector");
-const { request } = require("../index");
-const { compareSync } = require("bcrypt");
 
 var admin1 = {
     "name": "Admin1",
@@ -129,7 +127,7 @@ describe("Acme-explorer actor tests", () => {
     })
 
     it("Update an actor ("+ sponsor.email +")- v2", done => {
-        
+
     var new_name = "test"
     var new_surname = "Test suername"
 
@@ -142,8 +140,9 @@ describe("Acme-explorer actor tests", () => {
         .send(sponsor)
         .set("idtoken", idtoken)
         .end((err, res) => {
+          expect(res.body.name).to.equal(new_name);
+          expect(res.body.surname).to.equal(new_surname);
           expect(res).to.have.status(200);
-          expect(res.body.name==new_name && res.body.surname ==new_surname)
           done();
         });
     });  

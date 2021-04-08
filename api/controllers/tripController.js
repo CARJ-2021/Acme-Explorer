@@ -172,6 +172,7 @@ exports.update_a_trip_v2 = async function (req, res) {
   //A trip can be modified or deleted as long as it’s not published.
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
+
   Trip.findOne({ _id: req.params.tripId }, function (err, trip) {
     if (err) {
       res.send(err);
@@ -202,6 +203,7 @@ exports.update_a_trip_v2 = async function (req, res) {
           }
         );
       } else {
+        res.status(405);
         res.send({
           message: "Trip can't be updated due it is already published",
         });
@@ -225,6 +227,7 @@ exports.delete_a_trip = function (req, res) {
           }
         });
       } else {
+        res.status(405);
         res.send({
           message: "Trip can't be deleted due it is already published",
         });
@@ -261,6 +264,7 @@ exports.delete_a_trip_v2 = async function (req, res) {
           }
         });
       } else {
+        res.status(405);
         res.send({
           message: "Trip can't be deleted due it is already published",
         });

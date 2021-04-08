@@ -100,7 +100,6 @@ exports.read_a_trip_v2 = async function (req, res) {
     var authenticatedUserId = await authController.getUserId(idToken);
     var actor = await Actor.findById(authenticatedUserId);
     if (actor.role.includes("MANAGER")) {
-      console.log(req.params.tripId);
       Trip.findOne({ _id: req.params.tripId }, function (err, trip) {
         if (err) {
           res.send(err);
@@ -194,11 +193,12 @@ exports.update_a_trip_v2 = async function (req, res) {
         Trip.findOneAndUpdate(
           { _id: req.params.tripId },
           req.body,
-          function (err, trip) {
+          { new: true },
+          function (err, updatedtrip) {
             if (err) {
               res.send(err);
             } else {
-              res.json(trip);
+              res.json(updatedtrip);
             }
           }
         );

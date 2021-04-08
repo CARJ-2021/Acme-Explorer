@@ -106,7 +106,7 @@ exports.create_an_application_v2 = async function (req, res) {
         explorer: authenticatedUserId,
         trip: req.params.tripId,
       });
-      if (!application) {
+      if (application.length == 0) {
         var new_application = new Application(req.body);
         new_application.status = "PENDING";
         new_application.trip = req.params.tripId;
@@ -120,6 +120,7 @@ exports.create_an_application_v2 = async function (req, res) {
           }
         });
       } else {
+        console.log("pero que?");
         res.status(409).send({ message: "You already apply for this trip" });
       }
     }
@@ -297,7 +298,6 @@ exports.delete_an_application_v2 = async function (req, res) {
   });
 };
 
-//TODO
 exports.cancel_an_application = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
@@ -361,13 +361,11 @@ exports.reject_an_application = async function (req, res) {
           { _id: req.params.applicationId },
           { $set: { status: "REJECTED" } },
           { new: true },
-          function (err, actor) {
+          function (err, application) {
             if (err) {
               res.send(err);
             } else {
-              res.json({
-                message: "Application has been rejected successfully",
-              });
+              res.json(application);
             }
           }
         );
@@ -386,40 +384,49 @@ exports.reject_an_application = async function (req, res) {
 exports.due_an_application = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
-  Application.findById(req.params.applicationId, function (err, application) {
-    if (err) {
-      res.send(err);
-    } else if (application == null) {
-      res.status(404).send("Application not found");
-    } else if (application.status == "PENDING") {
-      if (
-        JSON.stringify(authenticatedUserId) !=
-        JSON.stringify(application.trip.creator)
-      ) {
-        res.status(403).send("Only the trip creator can modify applications");
-      } else {
-        Application.findOneAndUpdate(
-          { _id: req.params.applicationId },
-          { $set: { status: "DUE" } },
-          { new: true },
-          function (err, actor) {
-            if (err) {
-              res.send(err);
-            } else {
-              res.json({ message: "Application has been due successfully" });
-            }
-          }
+  Application.findById(
+    req.params.applicationId,
+    async function (err, application) {
+      if (err) {
+        res.send(err);
+      } else if (application == null) {
+        res.status(404).send("Application not found");
+      } else if (application.status == "PENDING") {
+        var trip = await Trip.findById(application.trip);
+        console.log(JSON.stringify(trip.manager));
+        console.log(JSON.stringify(authenticatedUserId));
+        console.log(
+          JSON.stringify(authenticatedUserId) == JSON.stringify(trip.creator)
         );
+        if (
+          JSON.stringify(authenticatedUserId) != JSON.stringify(trip.creator)
+        ) {
+          res.status(403).send("Only the trip creator can modify applications");
+        } else {
+          Application.findOneAndUpdate(
+            { _id: req.params.applicationId },
+            { status: "DUE" },
+            { new: true },
+            function (err, updatedApplication) {
+              if (err) {
+                res.status(500).send(err);
+              } else {
+                console.log(updatedApplication);
+                res.send("updatedApplication");
+              }
+            }
+          );
+        }
+      } else {
+        res.send({
+          message:
+            "Applcation can't be payed due to is in " +
+            application.status.toLowerCase() +
+            " status",
+        });
       }
-    } else {
-      res.send({
-        message:
-          "Applcation can't be payed due to is in " +
-          application.status.toLowerCase() +
-          " status",
-      });
     }
-  });
+  );
 };
 
 exports.pay_an_application = async function (req, res) {
@@ -443,11 +450,11 @@ exports.pay_an_application = async function (req, res) {
           { _id: req.params.applicationId },
           { $set: { status: "ACCEPTED" } },
           { new: true },
-          function (err, actor) {
+          function (err, application) {
             if (err) {
               res.send(err);
             } else {
-              res.json({ message: "Application has been payed successfully" });
+              res.json(application);
             }
           }
         );

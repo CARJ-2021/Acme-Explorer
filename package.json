@@ -31,9 +31,8 @@
     "mongoose": "^5.11.17",
     "newman": "^5.2.2",
     "randomstring": "^1.1.5",
+    "request": "^2.88.2",
     "request-promise": "^4.2.6"
   },
-  "devDependencies": {
-    "prettier": "2.2.1"
-  }
+  "devDependencies": {}
 }

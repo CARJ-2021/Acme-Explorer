@@ -19,11 +19,8 @@ exports.list_all_applications = function (req, res) {
 //Return all application from an specific Trip
 exports.list_all_applications_v2 = function (req, res) {
   var idToken = req.headers["idtoken"];
-  console.log(req.params.tripId);
   authController.getUserId(idToken).then((authenticatedUserId) => {
     Trip.findById(req.params.tripId, function (err, trip) {
-      console.log(trip.manager);
-      console.log(authenticatedUserId);
       if (err) {
         res.send(err);
       } else if (

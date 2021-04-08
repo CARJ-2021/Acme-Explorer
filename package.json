@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "npm test",
+    "test": "mocha",
     "newman": "node index & node_modules/.bin/newman run postmanCollection/Acme-explorer-test-e2e.postman_collection.json"
   },
   "repository": {
@@ -21,12 +21,16 @@
   "homepage": "https://github.com/CARJ-2021/Acme-Explorer#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "dateformat": "^4.5.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",
+    "mocha": "^8.3.2",
     "mongoose": "^5.11.17",
     "newman": "^5.2.2",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "request-promise": "^4.2.6"
   }
 }

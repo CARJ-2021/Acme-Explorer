@@ -46,7 +46,6 @@ exports.create_a_manager = function (req, res) {
 exports.create_an_actor_v2 = function (req, res) {
   var new_actor = new Actor(req.body);
   var idToken = req.headers["idtoken"];
-  console.log(new_actor);
   if (!new_actor.role.includes("EXPLORER")) {
     if (!idToken) {
       res.status(400).send("Actor must be administrator");
@@ -91,11 +90,9 @@ exports.read_an_actor = function (req, res) {
 };
 
 exports.login_an_actor = async function (req, res) {
-  console.log("starting login an actor");
   var emailParam = req.query.email;
   var password = req.query.password;
   Actor.findOne({ email: emailParam }, function (err, actor) {
-    console.log(actor);
     if (err) {
       res.send(err);
     }
@@ -106,7 +103,6 @@ exports.login_an_actor = async function (req, res) {
       res.json({ message: "forbidden", error: err });
     } else {
       // Make sure the password is correct
-      //console.log('En actor Controller pass: '+password);
       actor.verifyPassword(password, async function (err, isMatch) {
         if (err) {
           res.send(err);

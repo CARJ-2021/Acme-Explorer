@@ -12,7 +12,11 @@ var express = require("express"),
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json");
+var serviceAccount = require("./acme-explorer-carj-2021-firebase-adminsdk-48rxy-1453ad636f");
+
+if(serviceAccount){
+  process.env.apikey = serviceAccount.apikey;
+}
 
 // MongoDB URI building
 var mongoDBUser = process.env.mongoDBUser || "";
@@ -100,3 +104,5 @@ mongoose.connection.on("open", function (err, conn) {
 mongoose.connection.on("error", function (err, conn) {
   console.error("DB init error " + err);
 });
+
+module.exports = app;

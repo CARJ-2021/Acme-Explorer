@@ -8,7 +8,14 @@ var express = require("express"),
   Application = require("./api/models/applicationModel"),
   Finder = require("./api/models/finderModel"),
   Configuration = require("./api/models/configurationModel"),
-  bodyParser = require("body-parser");
+  bodyParser = require("body-parser"),
+  https = require("https"),
+  fs = require("fs");
+
+  const keys = {
+    key: fs.readFileSync('./keys/server.key'),
+    cert: fs.readFileSync('./keys/server.cert')
+  };
 
 var admin = require("firebase-admin");
 
@@ -96,9 +103,11 @@ mongoose.connection.on("open", function (err, conn) {
     }
   });
 
-  app.listen(port, function () {
-    console.log("Acme-Explorer RESTful API server started on: " + port);
-  });
+  https.createServer(keys, app).listen(port);
+  console.log("Acme-Explorer RESTful API server started with HTTPS on: " + port);
+  // app.listen(port, function () {
+  //   console.log("Acme-Explorer RESTful API server started on: " + port);
+  // });
 });
 
 mongoose.connection.on("error", function (err, conn) {

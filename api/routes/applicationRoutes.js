@@ -21,7 +21,7 @@ module.exports = function (app) {
   app
     .route("/v2/applications/cancel/:applicationId")
     .put(
-      authController.verifyUser(["MANAGER"]),
+      authController.verifyUser(["EXPLORER"]),
       applications.cancel_an_application
     );
 

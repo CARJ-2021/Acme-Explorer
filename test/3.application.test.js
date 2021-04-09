@@ -42,7 +42,7 @@ var explorer2 = {
 var explorer3 = {
   name: "Explorer3",
   surname: "Explorer3",
-  email: "explorer2@yopmail.com",
+  email: "explorer3@yopmail.com",
   password: "12345",
   preferredLanguage: "en",
   phone: "12345",
@@ -76,9 +76,13 @@ var application = {
   comment: "test comment",
 };
 
+var application2 = {
+  comment: "Second application"
+}
+
 const { expect } = chai;
 chai.use(chaiHttp);
-describe("Acme-explorer trips tests", () => {
+describe("Acme-explorer application tests", () => {
   it("Create manager for tests", (done) => {
     chai
       .request(app)
@@ -242,14 +246,43 @@ describe("Acme-explorer trips tests", () => {
     });
   });
 
+  it("Apply for a trip with application2 - v2", (done) => {
+    idtoken_collector.getIdToken(explorer3.email).then((idtoken) => {
+      chai
+        .request(app)
+        .post("/v2/trips/" + trip_published.id + "/apply")
+        .send(application2)
+        .set("idtoken", idtoken)
+        .end((err, res) => {
+          application2 = res.body;
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+
+  it("Cancel an application - v2", (done) => {
+    idtoken_collector.getIdToken(explorer3.email).then((idtoken) => {
+      chai
+        .request(app)
+        .put("/v2/applications/cancel/" + application2._id)
+        .set("idtoken", idtoken)
+        .end((err, res) => {
+          expect(res.body.message).to.equal("Application has been cancelled successfully");
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+
   it("Reject an application - v2", (done) => {
-    idtoken_collector.getIdToken(explorer1.email).then((idtoken) => {
+    idtoken_collector.getIdToken(manager.email).then((idtoken) => {
       chai
         .request(app)
         .put("/v2/applications/reject/" + application._id)
         .set("idtoken", idtoken)
         .end((err, res) => {
-          expect(res.body.status).to.equal("REJECTED");
+          expect(res.body.status).to.equal("REJECT");
           expect(res).to.have.status(200);
           done();
         });

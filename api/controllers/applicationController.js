@@ -26,7 +26,7 @@ exports.list_all_applications_v2 = function (req, res) {
       } else if (
         JSON.stringify(authenticatedUserId) != JSON.stringify(trip.manager)
       ) {
-        res.status(401).send("You must be the trip creator");
+        res.status(401).send("You must be the trip manager");
       } else {
         Application.find(
           { trip: req.params.tripId },
@@ -47,7 +47,7 @@ exports.list_all_applications_v2 = function (req, res) {
 exports.list_all_applications_all_trips = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
-  Trip.find({ creator: authenticatedUserId }, function (error, trips) {
+  Trip.find({ manager: authenticatedUserId }, function (error, trips) {
     var tripsIds = [];
     for (var i = 0; i < trips.length; i++) {
       tripsIds.push(trips[i]._id);
@@ -107,16 +107,17 @@ exports.create_an_application_v2 = async function (req, res) {
         trip: req.params.tripId,
       });
       if (application.length == 0) {
-        var new_application = new Application(req.body);
+        var new_application = new Application();
+        new_application.comments = req.body.comment;
         new_application.status = "PENDING";
         new_application.trip = req.params.tripId;
         new_application.explorer = authenticatedUserId;
         new_application.date = new Date();
-        new_application.save(function (err, application) {
+        new_application.save(function (err, appl) {
           if (err) {
             res.send(err);
           } else {
-            res.json(application);
+            res.json(appl);
           }
         });
       } else {
@@ -301,7 +302,7 @@ exports.delete_an_application_v2 = async function (req, res) {
 exports.cancel_an_application = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
-  Application.findById(req.params.applicationId, function (err, application) {
+  Application.findById(req.params.applicationId, async function (err, application) {
     if (err) {
       res.send(err);
     } else if (application == null) {
@@ -312,9 +313,9 @@ exports.cancel_an_application = async function (req, res) {
     ) {
       if (
         JSON.stringify(authenticatedUserId) !=
-        JSON.stringify(application.trip.creator)
+        JSON.stringify(application.explorer)
       ) {
-        res.status(403).send("Only the trip creator can modify applications");
+        res.status(403).send("Only the explorer that made the application can cancel it");
       } else {
         Application.findOneAndUpdate(
           { _id: req.params.applicationId },
@@ -345,21 +346,22 @@ exports.cancel_an_application = async function (req, res) {
 exports.reject_an_application = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
-  Application.findById(req.params.applicationId, function (err, application) {
+  Application.findById(req.params.applicationId, async function (err, application) {
     if (err) {
       res.send(err);
     } else if (application == null) {
       res.status(404).send("Application not found");
     } else if (application.status == "PENDING") {
+      var trip = await Trip.findById(application.trip);
       if (
         JSON.stringify(authenticatedUserId) !=
-        JSON.stringify(application.trip.creator)
+        JSON.stringify(trip.manager)
       ) {
-        res.status(403).send("Only the trip creator can modify applications");
+        res.status(403).send("Only the trip manager can modify applications");
       } else {
         Application.findOneAndUpdate(
-          { _id: req.params.applicationId },
-          { $set: { status: "REJECTED" } },
+          { _id: application._id },
+          { $set: { status: "REJECT" } },
           { new: true },
           function (err, application) {
             if (err) {
@@ -393,15 +395,10 @@ exports.due_an_application = async function (req, res) {
         res.status(404).send("Application not found");
       } else if (application.status == "PENDING") {
         var trip = await Trip.findById(application.trip);
-        console.log(JSON.stringify(trip.manager));
-        console.log(JSON.stringify(authenticatedUserId));
-        console.log(
-          JSON.stringify(authenticatedUserId) == JSON.stringify(trip.creator)
-        );
         if (
-          JSON.stringify(authenticatedUserId) != JSON.stringify(trip.creator)
+          JSON.stringify(authenticatedUserId) != JSON.stringify(trip.manager)
         ) {
-          res.status(403).send("Only the trip creator can modify applications");
+          res.status(403).send("Only the trip manager can modify applications");
         } else {
           Application.findOneAndUpdate(
             { _id: req.params.applicationId },
@@ -443,7 +440,7 @@ exports.pay_an_application = async function (req, res) {
         JSON.stringify(application.explorer)
       ) {
         res.status(403).send({
-          message: "Only the application creator can modify that application",
+          message: "Only the application explorer can modify that application",
         });
       } else {
         Application.findOneAndUpdate(

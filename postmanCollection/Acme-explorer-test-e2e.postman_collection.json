@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "573f3e77-1e5f-4522-a8fa-dd4f50d11b78",
+		"_postman_id": "cfe855be-0abe-4a63-abd4-f77116a860ae",
 		"name": "ASS test e2e",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/v1/trips",
+							"raw": "https://localhost:8080/v1/trips",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -42,7 +43,8 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/v1/trips",
+							"raw": "https://localhost:8080/v1/trips",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -69,7 +71,8 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/v1/sponsorships",
+									"raw": "https://localhost:8080/v1/sponsorships",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -98,7 +101,8 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/v1/applications",
+									"raw": "https://localhost:8080/v1/applications",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -127,7 +131,8 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:8080/v1/actors",
+									"raw": "https://localhost:8080/v1/actors",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -155,7 +160,8 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/v1/actors",
+									"raw": "https://localhost:8080/v1/actors",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -183,7 +189,8 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/v1/actors",
+									"raw": "https://localhost:8080/v1/actors",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -211,7 +218,8 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/v1/actors",
+									"raw": "https://localhost:8080/v1/actors",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -239,7 +247,8 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:8080/v1/actors",
+									"raw": "https://localhost:8080/v1/actors",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -265,7 +274,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/v1/finders",
+							"raw": "https://localhost:8080/v1/finders",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -298,8 +308,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v1/configuration",
-							"protocol": "http",
+							"raw": "https://localhost:8080/v1/configuration",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],
@@ -330,8 +340,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/v1/configuration",
-							"protocol": "http",
+							"raw": "https://localhost:8080/v1/configuration",
+							"protocol": "https",
 							"host": [
 								"localhost"
 							],

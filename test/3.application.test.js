@@ -209,7 +209,6 @@ describe("Acme-explorer application tests", () => {
         .put("/v2/applications/due/" + application._id)
         .set("idtoken", idtoken)
         .end((err, res) => {
-          console.log(res.body);
           //expect(res.body.status).to.equal("DUE");
           expect(res).to.have.status(200);
           done();
@@ -240,6 +239,36 @@ describe("Acme-explorer application tests", () => {
         .set("idtoken", idtoken)
         .end((err, res) => {
           application = res.body;
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+
+  it("Get all applications of a trip - v2", (done) => {
+    idtoken_collector.getIdToken(manager.email).then((idtoken) => {
+      chai
+        .request(app)
+        .get("/v2/trips/" + trip_published.id + "/applications")
+        .set("idtoken", idtoken)
+        .end((err, res) => {
+          expect(res.body).to.be.an("array");
+          expect(res.body.length).to.equal(2);
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+
+  it("Get all applications of a explorer - v2", (done) => {
+    idtoken_collector.getIdToken(explorer2.email).then((idtoken) => {
+      chai
+        .request(app)
+        .get("/v2/applications")
+        .set("idtoken", idtoken)
+        .end((err, res) => {
+          expect(res.body).to.be.an("array");
+          expect(res.body.length).to.equal(1);
           expect(res).to.have.status(200);
           done();
         });

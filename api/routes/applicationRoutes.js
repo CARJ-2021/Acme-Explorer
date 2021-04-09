@@ -52,7 +52,9 @@ module.exports = function (app) {
       applications.list_all_applications_v2
     );
 
-  app.route("/v2/applications").get(applications.list_my_applications);
+  app.route("/v2/applications")
+  .get(authController.verifyUser(["EXPLORER"]),
+   applications.list_my_applications);
 
   app
     .route("/v2/applications/:applicationId")

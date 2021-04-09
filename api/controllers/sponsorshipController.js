@@ -181,7 +181,7 @@ exports.pay_a_sponsorship_with_trip = async function (req, res) {
     else if (
       JSON.stringify(sponsorship.sponsor) != JSON.stringify(authenticatedUserId)
     )
-      res.status(403).send("You can't a sponsorship you don't own");
+      res.status(403).send("You can't pay a sponsorship that you don't own");
     else {
       Trip.findById(req.params.tripId, (err, trip) => {
         if (err) {

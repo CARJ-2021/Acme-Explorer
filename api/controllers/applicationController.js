@@ -122,7 +122,7 @@ exports.create_an_application_v2 = async function (req, res) {
         });
       } else {
         console.log("pero que?");
-        res.status(409).send({ message: "You already apply for this trip" });
+        res.status(409).send({ message: "You already applied for this trip" });
       }
     }
   });
@@ -408,7 +408,6 @@ exports.due_an_application = async function (req, res) {
               if (err) {
                 res.status(500).send(err);
               } else {
-                console.log(updatedApplication);
                 res.send("updatedApplication");
               }
             }

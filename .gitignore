@@ -102,7 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
-acme-explorer-carj-2021-firebase-adminsdk-48rxy-bf873117b3.json
 
 .nyc_output/
 .terraform/
@@ -111,4 +110,4 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
 .vscode/settings.json
-acme-explorer-carj-2021-firebase-adminsdk-48rxy-1453ad636f.json
+acme-explorer-carj-2021-firebase-adminsdk-*

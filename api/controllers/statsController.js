@@ -2,50 +2,120 @@
 
 /*---------------STATS----------------------*/
 var mongoose = require("mongoose"),
+    Trip = mongoose.model("Trips"),
+    Actor = mongoose.model("Actors"),
     Finder = mongoose.model("Finder");
 
 var dateFormat = require("dateformat");
 var randomstring = require("randomstring");
+const actorModel = require("../models/actorModel");
 var authController = require('./authController');
 const configurationController = require("./configurationController");
 
 
 
 exports.getStats = function (req, res) {
-    let stats = {
-        finders: {
-            top10keywords: [],
-            averagePriceRange: {
-                min: 0,
-                max: 0,
+    Actor.aggregate([
+        {
+            $lookup: {
+                from: "trips",
+                localField: "_id",
+                foreignField: "manager",
+                as: "trips"
+            }
+        },
+        {
+            $project: {
+                _id: "$_id",
+                numTrips: { $size: "$trips" }
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                avg: { $avg: "$numTrips" },
+                min: { $min: "$numTrips" },
+                max: { $max: "$numTrips" },
+                std: { $stdDevPop: "$numTrips" }
             }
         }
-    }
-
-    let findersResult;
-    Finder.find({}, function (err, finders) {
-        if (err) {
-            res.send(err);
-            findersResult = []
-        } else {
-            findersResult = finders;
-        }
-    });
-    let minTotal;
-    let maxTotal;
-    let keywordsCount = {}
-    findersResult.forEach(finder=>{
-        minTotal+= finder.minPrice;
-        maxTotal+= finder.maxPrice;
-        if (!keywordsCount[finder.keyword]){
-            keywordsCount[finder.keyword] = 0;
-        }
-        keywordsCount[finder.keyword];
+    ]).exec((err, result) => {
+        if (err) throw err;
+        res.status(200).send(result)
     })
-    stats.finder.averagePriceRange.min = minTotal/findersResult.length;
-    stats.finder.averagePriceRange.max = maxTotal/findersResult.length;
-    res.status(200).send(stats)
-
-
-
 };
+
+
+const calculateDashboardMetrics = async () => {
+    return new Promise((resolve, reject) => {
+        const promise1 = new Promise((resolve, reject) => {
+            Actor.aggregate([{
+                $lookup: {
+                    from: "trips",
+                    localField: "_id",
+                    foreignField: "manager",
+                    as: "trips"
+                }
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    numTrips: { $size: "$trips" }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    avg: { $avg: "$numTrips" },
+                    min: { $min: "$numTrips" },
+                    max: { $max: "$numTrips" },
+                    std: { $stdDevPop: "$numTrips" }
+                }
+            }]).exec((err, result) => {
+                if (err) reject(err);
+                // TODO - Almacenar resultado y resolve()
+
+                resolve();
+            });
+        });
+
+        const promise2 = new Promise((resolve, reject) => {
+            Trip.aggregate([
+                {
+                    $lookup: {
+                        from: "applications",
+                        localField: "_id",
+                        foreignField: "trip",
+                        as: "applications"
+                    }
+                },
+                {
+                    $project: {
+                        _id: "$_id",
+                        numApplications: { $size: "$applications" }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        avg: { $avg: "$numApplications" },
+                        min: { $min: "$numApplications" },
+                        max: { $max: "$numApplications" },
+                        std: { $stdDevPop: "$numApplications" }
+                    }
+                }
+            ]).exec((err, result) => {
+                if (err) reject(err);
+                // TODO - Almacenar resultado y resolve()
+
+                resolve();
+            });
+        });
+
+        Promise.all([promise1, promise2]).then(() => {
+            resolve();
+        });
+    })
+}
+
+module.exports.calculateDashboardMetrics = calculateDashboardMetrics;

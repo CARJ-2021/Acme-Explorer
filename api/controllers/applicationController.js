@@ -79,8 +79,8 @@ exports.list_my_applications = async function (req, res) {
 };
 
 exports.create_an_application = function (req, res) {
-  new_application.status = "PENDING";
   var new_application = new Application(req.body);
+  new_application.status = "PENDING";
   new_application.save(function (err, application) {
     if (err) {
       res.send(err);

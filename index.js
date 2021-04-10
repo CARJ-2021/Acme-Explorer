@@ -65,6 +65,7 @@ var routesApplications = require("./api/routes/applicationRoutes");
 var routesFinders = require("./api/routes/finderRoutes");
 var routesConfiguration = require("./api/routes/configurationRoutes");
 var routesLogin = require("./api/routes/loginRoutes");
+var routesStats = require("./api/routes/statsRoutes");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -79,6 +80,7 @@ routesApplications(app);
 routesFinders(app);
 routesConfiguration(app);
 routesLogin(app);
+routesStats(app);
 
 console.log("Connecting DB to: " + mongoDBURI);
 mongoose.connection.on("open", function (err, conn) {

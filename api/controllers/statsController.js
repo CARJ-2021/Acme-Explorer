@@ -4,6 +4,7 @@
 var mongoose = require("mongoose"),
     Trip = mongoose.model("Trips"),
     Actor = mongoose.model("Actors"),
+    Application = mongoose.model("Application"),
     Finder = mongoose.model("Finder");
 
 var dateFormat = require("dateformat");
@@ -74,6 +75,12 @@ const calculateDashboardMetrics = async () => {
             }]).exec((err, result) => {
                 if (err) reject(err);
                 // TODO - Almacenar resultado y resolve()
+                /* {
+                    "avg" : 2.5,
+                    "min" : 2.0,
+                    "max" : 3.0,
+                    "std" : 0.5
+                } */
 
                 resolve();
             });
@@ -107,12 +114,83 @@ const calculateDashboardMetrics = async () => {
             ]).exec((err, result) => {
                 if (err) reject(err);
                 // TODO - Almacenar resultado y resolve()
+                /* {
+                    "_id" : null,
+                    "avg" : 1.5,
+                    "min" : 1,
+                    "max" : 2,
+                    "std" : 0.5
+                } */
 
                 resolve();
             });
         });
 
-        Promise.all([promise1, promise2]).then(() => {
+        const promise3 = new Promise((resolve, reject) => {
+            Trip.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        avg: { $avg: "$price" },
+                        min: { $min: "$price" },
+                        max: { $max: "$price" },
+                        std: { $stdDevPop: "$price" }
+                    }
+                }
+            ]).exec((err, result) => {
+                if (err) reject(err);
+                // TODO - Almacenar resultado y resolve()
+                /* {
+                    "_id" : null,
+                    "avg" : 128.3,
+                    "min" : 45.7,
+                    "max" : 458.7,
+                    "std" : 165.2
+                } */
+
+                resolve();
+            });
+        });
+
+        const promise4 = new Promise((resolve, reject) => {
+            Application.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        count: { $sum: 1},
+                        data:{$push: "$$ROOT"}
+                    }
+                },
+                {
+                    $unwind: "$data"
+                },
+                {
+                    $group: {
+                        _id: '$data.status',
+                        count: { $sum: 1},
+                        total: { $first :"$count"}
+                    }
+                },
+                {
+                    $project: {
+                        status: "$_id",
+                        ratio: { $divide: ["$count", "$total"]}
+                    }
+                }
+            ]).exec((err, result) => {
+                if (err) reject(err);
+                // TODO - Almacenar resultado y resolve()
+                /* {
+                    "_id" : "PENDING",
+                    "status" : "PENDING",
+                    "ratio" : 0.8
+                } */
+
+                resolve();
+            });
+        });
+
+        Promise.all([promise1, promise2, promise3, promise4]).then(() => {
             resolve();
         });
     })

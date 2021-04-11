@@ -29,7 +29,15 @@ jobs:
         with:
           name: "acme-explorer-carj-2021-firebase-adminsdk-48rxy-1453ad636f.json"
           json: ${{ secrets.FIREBASE }}
-      - name: Execute-e2e-test
-        run: npm run newman
+      - name: Add keys folder
+        run: "mkdir -p ${{ github.workspace }}/keys"
+      - name: Add keys
+      - run: "echo "$SERVER_CERT" > ${{ github.workspace }}/keys/server.cert && echo "$SERVER_KEY" > ${{ github.workspace }}/keys/server.key"
+        shell: bash
+        env:
+          SERVER_CERT: ${{secrets.SERVER_CERT}}
+          SERVER_KEY: ${{secrets.SERVER_KEY}}
+      - name: execute-test
+        run: npm run test
       - name: Output summary to console
-        run: echo ${{ steps.Execute-e2e-test.outputs.summary }}
+        run: echo ${{ steps.execute-test.outputs.summary }}

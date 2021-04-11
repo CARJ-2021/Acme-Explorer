@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "mocha",
+    "test": "mocha --exit",
     "newman": "node index & node_modules/.bin/newman run postmanCollection/Acme-explorer-test-e2e.postman_collection.json"
   },
   "repository": {

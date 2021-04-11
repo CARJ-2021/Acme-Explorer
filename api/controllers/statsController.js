@@ -18,7 +18,7 @@ const Influx = require("influx")
 
 exports.getStats = function (req, res) {
 
-   
+
 
     Actor.aggregate([
         {
@@ -53,36 +53,83 @@ exports.getStats = function (req, res) {
 
 const calculateDashboardMetrics = async () => {
     //InfluxDB connection
-    
+
     const influx = new Influx.InfluxDB({
         host: process.env["INFLUXHOST"],
         database: 'stats',
         schema: [
-          {
-            measurement: 'tripsPerManager',
-            fields: {
-              avg: Influx.FieldType.FLOAT,
-              max: Influx.FieldType.FLOAT,
-              std: Influx.FieldType.FLOAT,
-              min: Influx.FieldType.FLOAT,
+            {
+                measurement: 'tripsPerManager',
+                fields: {
+                    avg: Influx.FieldType.FLOAT,
+                    max: Influx.FieldType.FLOAT,
+                    std: Influx.FieldType.FLOAT,
+                    min: Influx.FieldType.FLOAT,
+                },
+                tags: [
+                ]
             },
-            tags: [
-            ]
-          },
-          {
-            measurement: 'applicationsPerTrip',
-            fields: {
-              avg: Influx.FieldType.FLOAT,
-              max: Influx.FieldType.FLOAT,
-              std: Influx.FieldType.FLOAT,
-              min: Influx.FieldType.FLOAT,
+            {
+                measurement: 'applicationsPerTrip',
+                fields: {
+                    avg: Influx.FieldType.FLOAT,
+                    max: Influx.FieldType.FLOAT,
+                    std: Influx.FieldType.FLOAT,
+                    min: Influx.FieldType.FLOAT,
+                },
+                tags: [
+                ]
             },
-            tags: [
-            ]
-          }
+            {
+                measurement: 'pricePerTrip',
+                fields: {
+                    avg: Influx.FieldType.FLOAT,
+                    max: Influx.FieldType.FLOAT,
+                    std: Influx.FieldType.FLOAT,
+                    min: Influx.FieldType.FLOAT,
+                },
+                tags: [
+                ]
+            },
+            {
+                measurement: 'ratioByStatus',
+                fields: {
+                    ratio: Influx.FieldType.FLOAT,
+                },
+                tags: [
+                    'status'
+                ]
+            },
+            {
+                measurement: 'pricePerFinder',
+                fields: {
+                    avgMinPrice: Influx.FieldType.FLOAT,
+                    avgMaxPrice: Influx.FieldType.FLOAT
+                },
+                tags: [
+                    
+                ]
+            },
+            {
+                measurement: 'top10Keywords',
+                fields: {
+                    top1: Influx.FieldType.STRING,
+                    top2: Influx.FieldType.STRING,
+                    top3: Influx.FieldType.STRING,
+                    top4: Influx.FieldType.STRING,
+                    top5: Influx.FieldType.STRING,
+                    top6: Influx.FieldType.STRING,
+                    top7: Influx.FieldType.STRING,
+                    top8: Influx.FieldType.STRING,
+                    top9: Influx.FieldType.STRING,
+                    top10: Influx.FieldType.STRING,
+                },
+                tags: [
+                ]
+            }
         ]
-       })
-       influx.createDatabase("stats");
+    })
+    influx.createDatabase("stats");
 
     return new Promise((resolve, reject) => {
         const promise1 = new Promise((resolve, reject) => {
@@ -109,16 +156,16 @@ const calculateDashboardMetrics = async () => {
                     std: { $stdDevPop: "$numTrips" }
                 }
             }]).exec((err, result) => {
-                    if (err) reject(err);
-                    if (result[0]){
-                        influx.writePoints([
-                            {
+                if (err) reject(err);
+                if (result[0]) {
+                    influx.writePoints([
+                        {
                             measurement: 'tripsPerManager',
                             fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
-                            }
-                        ])
-                    } 
-                
+                        }
+                    ])
+                }
+
                 // TODO - Almacenar resultado y resolve()
                 /* {
                     "avg" : 2.5,
@@ -158,25 +205,15 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                console.log("test", result)
-             
-                if (result[0]){
+
+                if (result[0]) {
                     influx.writePoints([
                         {
-                          measurement: 'applicationsPerTrip',
-                          fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
+                            measurement: 'applicationsPerTrip',
+                            fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
                         }
-                      ])
-                } 
-               
-                // TODO - Almacenar resultado y resolve()
-                /* {
-                    "_id" : null,
-                    "avg" : 1.5,
-                    "min" : 1,
-                    "max" : 2,
-                    "std" : 0.5
-                } */
+                    ])
+                }
 
                 resolve();
             });
@@ -195,15 +232,14 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                // TODO - Almacenar resultado y resolve()
-                /* {
-                    "_id" : null,
-                    "avg" : 128.3,
-                    "min" : 45.7,
-                    "max" : 458.7,
-                    "std" : 165.2
-                } */
-
+                if (result[0]) {
+                    influx.writePoints([
+                        {
+                            measurement: 'pricePerTrip',
+                            fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
+                        }
+                    ])
+                }
                 resolve();
             });
         });
@@ -214,7 +250,7 @@ const calculateDashboardMetrics = async () => {
                     $group: {
                         _id: null,
                         count: { $sum: 1 },
-                        data:{ $push: "$$ROOT" }
+                        data: { $push: "$$ROOT" }
                     }
                 },
                 {
@@ -224,7 +260,7 @@ const calculateDashboardMetrics = async () => {
                     $group: {
                         _id: '$data.status',
                         count: { $sum: 1 },
-                        total: { $first :"$count" }
+                        total: { $first: "$count" }
                     }
                 },
                 {
@@ -235,13 +271,20 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                // TODO - Almacenar resultado y resolve()
-                /* {
-                    "_id" : "PENDING",
-                    "status" : "PENDING",
-                    "ratio" : 0.8
-                } */
-
+                if (result[0]) {
+                    console.log("Query 4", result)
+                    let points = [];
+                    result.forEach(ratio => {
+                        points.push({
+                            measurement: 'ratioByStatus',
+                            fields: { ratio: ratio.ratio },
+                            tags: {
+                                status: ratio.status
+                            }
+                        })
+                    })
+                    influx.writePoints(points);
+                }
                 resolve();
             });
         });
@@ -251,19 +294,20 @@ const calculateDashboardMetrics = async () => {
                 {
                     $group: {
                         _id: null,
-                        avgMinPrice: {$avg: "$minPrice"},
-                        avgMaxPrice: {$avg: "$maxPrice"}
+                        avgMinPrice: { $avg: "$minPrice" },
+                        avgMaxPrice: { $avg: "$maxPrice" }
                     }
-                } 
+                }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                // TODO - Almacenar resultado y resolve()
-                /* {
-                    "_id" : "PENDING",
-                    "status" : "PENDING",
-                    "ratio" : 0.8
-                } */
-
+                if (result[0]) {
+                    influx.writePoints([
+                        {
+                            measurement: 'pricePerFinder',
+                            fields: { avgMinPrice: result[0].avgMinPrice, avgMaxPrice: result[0].avgMaxPrice },
+                        }
+                    ])
+                }
                 resolve();
             });
         });
@@ -273,7 +317,7 @@ const calculateDashboardMetrics = async () => {
                 {
                     $group: {
                         _id: "$keyword",
-                        count: {$sum: 1}
+                        count: { $sum: 1 }
                     }
                 },
                 {
@@ -287,18 +331,31 @@ const calculateDashboardMetrics = async () => {
                 {
                     $group: {
                         _id: null,
-                        topKeywords: { $push: "$_id"}
+                        topKeywords: { $push: "$_id" }
                     }
-                } 
+                }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                // TODO - Almacenar resultado y resolve()
-                /* {
-                    "_id" : "PENDING",
-                    "status" : "PENDING",
-                    "ratio" : 0.8
-                } */
-
+                console.log("Result QUERY 6", result)
+                if (result[0]) {
+                    influx.writePoints([
+                        {
+                            measurement: 'top10Keywords',
+                            fields: {
+                                top1: result[0].topKeywords[0] || '',
+                                top2: result[0].topKeywords[1] || '',
+                                top3: result[0].topKeywords[2] || '',
+                                top4: result[0].topKeywords[3] || '',
+                                top5: result[0].topKeywords[4] || '',
+                                top6: result[0].topKeywords[5] || '',
+                                top7: result[0].topKeywords[6] || '',
+                                top8: result[0].topKeywords[7] || '',
+                                top9: result[0].topKeywords[8] || '',
+                                top10: result[0].topKeywords[9] || '',
+                            },
+                        }
+                    ])
+                }
                 resolve();
             });
         });

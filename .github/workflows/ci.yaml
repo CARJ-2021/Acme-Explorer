@@ -30,9 +30,9 @@ jobs:
           name: "acme-explorer-carj-2021-firebase-adminsdk-48rxy-1453ad636f.json"
           json: ${{ secrets.FIREBASE }}
       - name: Add keys folder
-        run: "mkdir -p ${{ github.workspace }}/keys"
+        run: mkdir -p ${{ github.workspace }}/keys
       - name: Add keys
-        run: "echo "$SERVER_CERT" > ${{ github.workspace }}/keys/server.cert && echo "$SERVER_KEY" > ${{ github.workspace }}/keys/server.key"
+        run: echo "$SERVER_CERT" > ${{ github.workspace }}/keys/server.cert && echo "$SERVER_KEY" > ${{ github.workspace }}/keys/server.key
         shell: bash
         env:
           SERVER_CERT: ${{secrets.SERVER_CERT}}

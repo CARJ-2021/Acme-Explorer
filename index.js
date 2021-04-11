@@ -118,11 +118,14 @@ mongoose.connection.on("error", function (err, conn) {
   console.error("DB init error " + err);
 });
 
+const statsController = require("./api/controllers/statsController");
 
 //CronJob for stats
-var job = new CronJob('0,10,20,30,40,50 * * * *', async function() {
+var job = new CronJob('0,10,20,30,40,50 * * * * *', async function() {
   //Cron every 10 minutes for the stats calculation
   console.log('You will see this message every ten minutes');
+  await statsController.calculateDashboardMetrics();
+  console.log("Finished calculating and storing stats")
 }, null, true, 'America/Los_Angeles');
 job.start();
 

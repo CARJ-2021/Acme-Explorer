@@ -12,10 +12,14 @@ var randomstring = require("randomstring");
 const actorModel = require("../models/actorModel");
 var authController = require('./authController');
 const configurationController = require("./configurationController");
+const Influx = require("influx")
 
 
 
 exports.getStats = function (req, res) {
+
+   
+
     Actor.aggregate([
         {
             $lookup: {
@@ -48,6 +52,38 @@ exports.getStats = function (req, res) {
 
 
 const calculateDashboardMetrics = async () => {
+    //InfluxDB connection
+    
+    const influx = new Influx.InfluxDB({
+        host: process.env["INFLUXHOST"],
+        database: 'stats',
+        schema: [
+          {
+            measurement: 'tripsPerManager',
+            fields: {
+              avg: Influx.FieldType.FLOAT,
+              max: Influx.FieldType.FLOAT,
+              std: Influx.FieldType.FLOAT,
+              min: Influx.FieldType.FLOAT,
+            },
+            tags: [
+            ]
+          },
+          {
+            measurement: 'applicationsPerTrip',
+            fields: {
+              avg: Influx.FieldType.FLOAT,
+              max: Influx.FieldType.FLOAT,
+              std: Influx.FieldType.FLOAT,
+              min: Influx.FieldType.FLOAT,
+            },
+            tags: [
+            ]
+          }
+        ]
+       })
+       influx.createDatabase("stats");
+
     return new Promise((resolve, reject) => {
         const promise1 = new Promise((resolve, reject) => {
             Actor.aggregate([{
@@ -73,7 +109,16 @@ const calculateDashboardMetrics = async () => {
                     std: { $stdDevPop: "$numTrips" }
                 }
             }]).exec((err, result) => {
-                if (err) reject(err);
+                    if (err) reject(err);
+                    if (result[0]){
+                        influx.writePoints([
+                            {
+                            measurement: 'tripsPerManager',
+                            fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
+                            }
+                        ])
+                    } 
+                
                 // TODO - Almacenar resultado y resolve()
                 /* {
                     "avg" : 2.5,
@@ -113,6 +158,17 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
+                console.log("test", result)
+             
+                if (result[0]){
+                    influx.writePoints([
+                        {
+                          measurement: 'applicationsPerTrip',
+                          fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
+                        }
+                      ])
+                } 
+               
                 // TODO - Almacenar resultado y resolve()
                 /* {
                     "_id" : null,

@@ -12,6 +12,8 @@ var express = require("express"),
   https = require("https"),
   fs = require("fs");
 
+  var CronJob = require('cron').CronJob;
+
   const keys = {
     key: fs.readFileSync('./keys/server.key'),
     cert: fs.readFileSync('./keys/server.cert')
@@ -115,5 +117,13 @@ mongoose.connection.on("open", function (err, conn) {
 mongoose.connection.on("error", function (err, conn) {
   console.error("DB init error " + err);
 });
+
+
+//CronJob for stats
+var job = new CronJob('0,10,20,30,40,50 * * * *', async function() {
+  //Cron every 10 minutes for the stats calculation
+  console.log('You will see this message every ten minutes');
+}, null, true, 'America/Los_Angeles');
+job.start();
 
 module.exports = app;

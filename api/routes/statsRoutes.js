@@ -10,9 +10,13 @@ module.exports = function (app) {
   // --------------- V1 ---------------
 
   app
-    .route("/v3/stats")
+    .route("/v2/stats")
     //.get(authController.verifyUser([ADMINISTRATOR]), stats.getStats);
     .get(stats.getStats);
 
+  app
+    .route("/v2/cube")
+    //.get(authController.verifyUser([ADMINISTRATOR]), stats.getStats);
+    .get(stats.getCube)
 
 };

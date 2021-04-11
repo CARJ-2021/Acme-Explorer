@@ -157,8 +157,8 @@ const calculateDashboardMetrics = async () => {
                 {
                     $group: {
                         _id: null,
-                        count: { $sum: 1},
-                        data:{$push: "$$ROOT"}
+                        count: { $sum: 1 },
+                        data:{ $push: "$$ROOT" }
                     }
                 },
                 {
@@ -167,14 +167,14 @@ const calculateDashboardMetrics = async () => {
                 {
                     $group: {
                         _id: '$data.status',
-                        count: { $sum: 1},
-                        total: { $first :"$count"}
+                        count: { $sum: 1 },
+                        total: { $first :"$count" }
                     }
                 },
                 {
                     $project: {
                         status: "$_id",
-                        ratio: { $divide: ["$count", "$total"]}
+                        ratio: { $divide: ["$count", "$total"] }
                     }
                 }
             ]).exec((err, result) => {
@@ -190,7 +190,64 @@ const calculateDashboardMetrics = async () => {
             });
         });
 
-        Promise.all([promise1, promise2, promise3, promise4]).then(() => {
+        const promise5 = new Promise((resolve, reject) => {
+            Finder.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        avgMinPrice: {$avg: "$minPrice"},
+                        avgMaxPrice: {$avg: "$maxPrice"}
+                    }
+                } 
+            ]).exec((err, result) => {
+                if (err) reject(err);
+                // TODO - Almacenar resultado y resolve()
+                /* {
+                    "_id" : "PENDING",
+                    "status" : "PENDING",
+                    "ratio" : 0.8
+                } */
+
+                resolve();
+            });
+        });
+
+        const promise6 = new Promise((resolve, reject) => {
+            Finder.aggregate([
+                {
+                    $group: {
+                        _id: "$keyword",
+                        count: {$sum: 1}
+                    }
+                },
+                {
+                    $sort: {
+                        count: -1
+                    }
+                },
+                {
+                    $limit: 10
+                },
+                {
+                    $group: {
+                        _id: null,
+                        topKeywords: { $push: "$_id"}
+                    }
+                } 
+            ]).exec((err, result) => {
+                if (err) reject(err);
+                // TODO - Almacenar resultado y resolve()
+                /* {
+                    "_id" : "PENDING",
+                    "status" : "PENDING",
+                    "ratio" : 0.8
+                } */
+
+                resolve();
+            });
+        });
+
+        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(() => {
             resolve();
         });
     })

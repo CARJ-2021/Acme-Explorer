@@ -1,0 +1,63 @@
+version: "3"
+services:
+  acme-explorer:
+    container_name: "acme-explorer-dev"
+    image: "alejuarob/acme-explorer"
+    networks:
+      dev-network:
+    ports:
+      - "8080:8080"
+    volumes:
+      - "logsvol:/usr/src/app/logs"
+    restart: on-failure
+    depends_on:
+      - mongo
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DBHOST=mongo
+      - INFLUXHOST=influxdb
+      - FRONT_PORT=${FRONT_PORT}
+  mongo:
+    image: "mongo"
+    networks:
+      dev-network:
+        aliases:
+          - "mongo"
+    ports:
+      - 27017:27017
+    volumes:
+      - "datavol:/data/db"
+  influxdb:
+    image: 'influxdb:1.8.4-alpine'
+    container_name: influxdb
+    networks:
+      dev-network:
+        aliases:
+          - influxdb
+    volumes:
+      - 'influxdb_volume:/var/lib/influxdb'
+    restart: 'unless-stopped'
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:7.5.3
+    environment:
+      - NODE_ENV=production
+    networks:
+      dev-network:
+        aliases:
+          - dashboard
+    ports:
+      - 3000:3000
+    volumes:
+      - 'grafana_volume:/var/lib/grafana'
+    restart: 'unless-stopped'
+
+volumes:
+  datavol:
+  logsvol:
+    external: true
+  influxdb_volume:
+  grafana_volume:
+
+networks:
+  dev-network:

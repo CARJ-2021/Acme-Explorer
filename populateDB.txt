@@ -1,0 +1,373 @@
+Copy the following code and execute it in a shell using Robo 3T or similar to populate dashboard metrics.
+
+db.actors.insertMany([  
+	{
+		"_id" : ObjectId("100000000000000000000001"),
+		"preferredLanguage" : "en",
+		"role" : [ 
+			"MANAGER"
+		],
+		"banned" : false,
+		"name" : "Manager1",
+		"surname" : "Manager1",
+		"email" : "manager1@yopmail.com",
+		"password" : "$2b$05$lF531TauzwV49GrV1DtgouluMtuCPiC5h1u5.pUCa0I33cdyDKGg.",
+		"phone" : "12345",
+		"address" : "Manager1 Address",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("100000000000000000000002"),
+		"preferredLanguage" : "en",
+		"role" : [ 
+			"MANAGER"
+		],
+		"banned" : false,
+		"name" : "Manager2",
+		"surname" : "Manager2",
+		"email" : "manager2@yopmail.com",
+		"password" : "$2b$05$lF531TauzwV49GrV1DtgouluMtuCPiC5h1u5.pUCa0I33cdyDKGg.",
+		"phone" : "12345",
+		"address" : "Manager2 Address",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("100000000000000000000003"),
+		"preferredLanguage" : "en",
+		"role" : [ 
+			"MANAGER"
+		],
+		"banned" : false,
+		"name" : "Manager3",
+		"surname" : "Manager3",
+		"email" : "manager3@yopmail.com",
+		"password" : "$2b$05$lF531TauzwV49GrV1DtgouluMtuCPiC5h1u5.pUCa0I33cdyDKGg.",
+		"phone" : "12345",
+		"address" : "Manager3 Address",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("200000000000000000000001"),
+		"preferredLanguage" : "en",
+		"role" : [ 
+			"EXPLORER"
+		],
+		"banned" : false,
+		"name" : "Explorer1",
+		"surname" : "Explorer1",
+		"email" : "explorer1@yopmail.com",
+		"password" : "$2b$05$GWDOxz6.DhRMzqW6VKOg4.UxtffyDfjpCrbexDbc4IdOv7cpn62Bq",
+		"phone" : "123452",
+		"address" : "Explorer1 Address",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("200000000000000000000002"),
+		"preferredLanguage" : "en",
+		"role" : [ 
+			"EXPLORER"
+		],
+		"banned" : false,
+		"name" : "Explorer2",
+		"surname" : "Explorer2",
+		"email" : "explorer2@yopmail.com",
+		"password" : "$2b$05$GWDOxz6.DhRMzqW6VKOg4.UxtffyDfjpCrbexDbc4IdOv7cpn62Bq",
+		"phone" : "123452",
+		"address" : "Explorer2 Address",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("200000000000000000000003"),
+		"preferredLanguage" : "en",
+		"role" : [ 
+			"EXPLORER"
+		],
+		"banned" : false,
+		"name" : "Explorer3",
+		"surname" : "Explorer3",
+		"email" : "explorer3@yopmail.com",
+		"password" : "$2b$05$GWDOxz6.DhRMzqW6VKOg4.UxtffyDfjpCrbexDbc4IdOv7cpn62Bq",
+		"phone" : "123452",
+		"address" : "Explorer3 Address",
+		"__v" : 0
+	}
+	
+])
+
+db.trips.insertMany([  
+	{
+		"_id" : ObjectId("300000000000000000000001"),
+		"requirements" : [ 
+			"Requirement 1", 
+			"Requirement 2"
+		],
+		"published" : false,
+		"title" : "Test trip1",
+		"description" : "This is a test trip",
+		"price" : 45.7,
+		"startDate" : ISODate("2021-04-01T15:00:00.000Z"),
+		"endDate" : ISODate("2021-05-01T15:00:00.000Z"),
+		"manager" : ObjectId("100000000000000000000001"),
+		"stages" : [ 
+			{
+				"_id" : ObjectId("400000000000000000000001"),
+				"title" : "Stage 1",
+				"description" : "This is a test stage",
+				"price" : 20
+			}, 
+			{
+				"_id" : ObjectId("400000000000000000000002"),
+				"title" : "Stage 2",
+				"description" : "This is another test stage",
+				"price" : 25.7
+			}
+		],
+		"pictures" : [],
+		"ticker" : "210410FHUA",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("300000000000000000000002"),
+		"requirements" : [ 
+			"Requirement 1", 
+			"Requirement 2"
+		],
+		"published" : false,
+		"title" : "Test trip2",
+		"description" : "This is a test trip",
+		"price" : 65.7,
+		"startDate" : ISODate("2020-04-01T15:00:00.000Z"),
+		"endDate" : ISODate("2020-05-01T15:00:00.000Z"),
+		"manager" : ObjectId("100000000000000000000001"),
+		"stages" : [ 
+			{
+				"_id" : ObjectId("400000000000000000000001"),
+				"title" : "Stage 1",
+				"description" : "This is a test stage",
+				"price" : 20
+			}, 
+			{
+				"_id" : ObjectId("400000000000000000000003"),
+				"title" : "Stage 3",
+				"description" : "This is another test stage",
+				"price" : 45.7
+			}
+		],
+		"pictures" : [],
+		"ticker" : "200410FHUB",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("300000000000000000000003"),
+		"requirements" : [ 
+			"Requirement 1", 
+			"Requirement 2"
+		],
+		"published" : false,
+		"title" : "Test trip3",
+		"description" : "This is a test trip",
+		"price" : 105.7,
+		"startDate" : ISODate("2020-04-01T15:00:00.000Z"),
+		"endDate" : ISODate("2020-05-01T15:00:00.000Z"),
+		"manager" : ObjectId("100000000000000000000003"),
+		"stages" : [ 
+			{
+				"_id" : ObjectId("400000000000000000000003"),
+				"title" : "Stage 3",
+				"description" : "This is another test stage",
+				"price" : 45.7
+			},
+			{
+				"_id" : ObjectId("400000000000000000000004"),
+				"title" : "Stage 4",
+				"description" : "This is a test stage",
+				"price" : 60
+			}
+		],
+		"pictures" : [],
+		"ticker" : "200410FHUC",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("300000000000000000000004"),
+		"requirements" : [ 
+			"Requirement 1", 
+			"Requirement 2"
+		],
+		"published" : false,
+		"title" : "Test trip4",
+		"description" : "This is a test trip",
+		"price" : 45.7,
+		"startDate" : ISODate("2021-04-01T15:00:00.000Z"),
+		"endDate" : ISODate("2021-05-01T15:00:00.000Z"),
+		"manager" : ObjectId("100000000000000000000003"),
+		"stages" : [ 
+			{
+				"_id" : ObjectId("400000000000000000000001"),
+				"title" : "Stage 1",
+				"description" : "This is a test stage",
+				"price" : 20
+			}, 
+			{
+				"_id" : ObjectId("400000000000000000000002"),
+				"title" : "Stage 2",
+				"description" : "This is another test stage",
+				"price" : 25.7
+			}
+		],
+		"pictures" : [],
+		"ticker" : "210410FHUD",
+		"__v" : 0
+	},
+	{
+		"_id" : ObjectId("300000000000000000000005"),
+		"requirements" : [ 
+			"Requirement 1", 
+			"Requirement 2"
+		],
+		"published" : false,
+		"title" : "Test trip5",
+		"description" : "This is a test trip",
+		"price" : 2100,
+		"startDate" : ISODate("2020-04-01T15:00:00.000Z"),
+		"endDate" : ISODate("2020-05-01T15:00:00.000Z"),
+		"manager" : ObjectId("100000000000000000000003"),
+		"stages" : [ 
+			{
+				"_id" : ObjectId("400000000000000000000005"),
+				"title" : "Stage 5",
+				"description" : "This is a test stage",
+				"price" : 2000
+			}, 
+			{
+				"_id" : ObjectId("400000000000000000000006"),
+				"title" : "Stage 6",
+				"description" : "This is another test stage",
+				"price" : 100
+			}
+		],
+		"pictures" : [],
+		"ticker" : "200410FHUE",
+		"__v" : 0
+	}
+])
+
+db.applications.insertMany([
+    {
+        "_id" : ObjectId("500000000000000000000001"),
+        "date" : ISODate("2021-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000001"),
+        "explorer" : ObjectId("200000000000000000000001"),
+        "status" : "PENDING",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000002"),
+        "date" : ISODate("2021-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000001"),
+        "explorer" : ObjectId("200000000000000000000002"),
+        "status" : "REJECTED",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000003"),
+        "date" : ISODate("2021-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000001"),
+        "explorer" : ObjectId("200000000000000000000003"),
+        "status" : "PENDING",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000004"),
+        "date" : ISODate("2020-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000003"),
+        "explorer" : ObjectId("200000000000000000000001"),
+        "status" : "DUE",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000005"),
+        "date" : ISODate("2020-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000003"),
+        "explorer" : ObjectId("200000000000000000000003"),
+        "status" : "ACCEPTED",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000006"),
+        "date" : ISODate("2020-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000005"),
+        "explorer" : ObjectId("200000000000000000000001"),
+        "status" : "ACCEPTED",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000007"),
+        "date" : ISODate("2020-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000005"),
+        "explorer" : ObjectId("200000000000000000000003"),
+        "status" : "CANCELLED",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000008"),
+        "date" : ISODate("2021-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000002"),
+        "explorer" : ObjectId("200000000000000000000001"),
+        "status" : "PENDING",
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("500000000000000000000009"),
+        "date" : ISODate("2021-03-07T16:00:00.000Z"),
+        "comments" : "Amazing trip bro",
+        "trip" : ObjectId("300000000000000000000002"),
+        "explorer" : ObjectId("200000000000000000000003"),
+        "status" : "PENDING",
+        "__v" : 0
+    }
+])
+
+db.finders.insertMany([
+    {
+        "_id" : ObjectId("700000000000000000000001"),
+        "trips" : [],
+        "keyword" : "egypt",
+        "minPrice" : 1000,
+        "maxPrice" : 2000,
+        "minDate" : ISODate("2021-04-01T15:00:00.000Z"),
+        "maxDate" : ISODate("2022-04-01T15:00:00.000Z"),
+        "explorer" : ObjectId("200000000000000000000001"),
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("700000000000000000000002"),
+        "trips" : [],
+        "keyword" : "egypt",
+        "minPrice" : 2000,
+        "maxPrice" : 4000,
+        "minDate" : ISODate("2021-05-01T15:00:00.000Z"),
+        "maxDate" : ISODate("2022-05-01T15:00:00.000Z"),
+        "explorer" : ObjectId("200000000000000000000002"),
+        "__v" : 0
+    },
+    {
+        "_id" : ObjectId("700000000000000000000003"),
+        "trips" : [],
+        "keyword" : "france",
+        "minPrice" : 300,
+        "maxPrice" : 700,
+        "minDate" : ISODate("2021-06-01T15:00:00.000Z"),
+        "maxDate" : ISODate("2022-06-01T15:00:00.000Z"),
+        "explorer" : ObjectId("200000000000000000000003"),
+        "__v" : 0
+    }
+])

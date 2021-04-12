@@ -1,3 +1,4 @@
+const cors = require('cors');
 var express = require("express"),
   app = express(),
   port = process.env.PORT || 8080,
@@ -12,18 +13,18 @@ var express = require("express"),
   https = require("https"),
   fs = require("fs");
 
-  var CronJob = require('cron').CronJob;
+var CronJob = require('cron').CronJob;
 
-  const keys = {
-    key: fs.readFileSync('./keys/server.key'),
-    cert: fs.readFileSync('./keys/server.cert')
-  };
+const keys = {
+  key: fs.readFileSync('./keys/server.key'),
+  cert: fs.readFileSync('./keys/server.cert')
+};
 
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./acme-explorer-carj-2021-firebase-adminsdk-48rxy-1453ad636f");
 
-if(serviceAccount){
+if (serviceAccount) {
   process.env.apikey = serviceAccount.apikey;
 }
 
@@ -59,6 +60,7 @@ mongoose.connect(mongoDBURI, {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 var routesTrips = require("./api/routes/tripRoutes");
 var routesActors = require("./api/routes/actorRoutes");
@@ -111,7 +113,7 @@ mongoose.connection.on("open", function (err, conn) {
   console.log("Acme-Explorer RESTful API server started with HTTPS on: " + port);
   // app.listen(port, function () {
   //   console.log("Acme-Explorer RESTful API server started on: " + port);
-  // });
+  // }); 
 });
 
 mongoose.connection.on("error", function (err, conn) {
@@ -121,7 +123,7 @@ mongoose.connection.on("error", function (err, conn) {
 const statsController = require("./api/controllers/statsController");
 
 //CronJob for stats
-var job = new CronJob('0,10,20,30,40,50 * * * * *', async function() {
+var job = new CronJob('0,10,20,30,40,50 * * * * *', async function () {
   //Cron every 10 minutes for the stats calculation
   console.log('Computing dashboard metrics...');
   await statsController.calculateDashboardMetrics();

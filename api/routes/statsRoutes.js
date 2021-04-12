@@ -1,8 +1,5 @@
 "use strict";
 
-const MANAGER = "MANAGER";
-const ADMINISTRATOR = "ADMINISTRATOR";
-
 module.exports = function (app) {
   var stats = require("../controllers/statsController");
   var authController = require("../controllers/authController");
@@ -11,12 +8,10 @@ module.exports = function (app) {
 
   app
     .route("/v2/stats")
-    .get(authController.verifyUser([ADMINISTRATOR]), stats.getStats)
-    .get(stats.getStats);
+    .get(authController.verifyUser(["ADMINISTRATOR"]), stats.getStats);
 
   app
     .route("/v2/cube")
-    .get(authController.verifyUser([ADMINISTRATOR]), stats.getStats)
-    .get(stats.getCube);
+    .get(authController.verifyUser(["ADMINISTRATOR"]), stats.getCube);
 
 };

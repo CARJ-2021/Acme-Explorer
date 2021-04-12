@@ -51,145 +51,151 @@ exports.getStats = function (req, res) {
 };
 
 exports.getCube = function (req, res) {
-    const query = { ...req.query }
-    let startDate, endDate;
-
-    const startType = query.p.split("-")[1][0];
-    const endType = query.p[0];
-
-    const startQuantity = query.p.split("-")[1].split(startType)[1];
-    const endQuantity = query.p.split("-")[0].split(endType)[1];
-
-    switch (startType) {
-        case "D":
-            startDate = new Date(Date.now() - startQuantity * 24 * 60 * 60 * 1000);
-            break;
-        case "M":
-            startDate = new Date(new Date().setMonth(new Date().getMonth() - parseInt(startQuantity)));
-            break;
-        case "Y":
-            startDate = new Date(new Date().setFullYear(new Date().getFullYear() - parseInt(startQuantity)));
-            break;
-        default:
-            res.status(400).send({ error: "Wrong p. Must be either D, M or Y" });
+    try {
+        const query = { ...req.query };
+        if (!(query.e && query.p && !query.q && !query.v || !query.e && query.p && query.q && query.v)) {
+            res.status(400).send("Wrong query params. Either enter e and p or enter p, q and v.");
             return;
-    }
+        }
 
-    switch (endType) {
-        case "D":
-            endDate = new Date(Date.now() - (endQuantity - 1) * 24 * 60 * 60 * 1000);
-            break;
-        case "M":
-            endDate = new Date(new Date().setMonth(new Date().getMonth() - (parseInt(endQuantity) - 1)));
-            break;
-        case "Y":
-            endDate = new Date(new Date().setFullYear(new Date().getFullYear() - (parseInt(endQuantity) - 1)));
-            break;
-        default:
-            res.status(400).send({ error: "Wrong p. Must be either D, M or Y" });
-            return;
-    }
-    console.log(startType, startQuantity, endType, endQuantity, startDate, endDate, query.e);
+        let startDate, endDate;
 
-    if (req.query.e) { // M[e, p] - Spent money by explorer during period p
-        Application.aggregate([
-            {   // Matches period and explorer
-                $match: {
-                    date: { $gte: startDate, $lte: endDate },
-                    explorer: mongoose.Types.ObjectId(query.e)
-                }
-            },
-            {   // Adds trip information
-                $lookup: {
-                    from: "trips",
-                    localField: "trip",
-                    foreignField: "_id",
-                    as: "trip"
-                }
-            },
-            {   // Transforms trip info array into object
-                $project: {
-                    explorer: "$explorer",
-                    trip: { "$arrayElemAt": ["$trip", 0] }
-                }
-            },
-            {   // Sums all price and stores it in spentMoney for the unique explorer
-                $group: {
-                    _id: null,
-                    explorer: { $first: '$explorer' },
-                    spentMoney: { $sum: "$trip.price" }
-                }
-            }
-        ]).exec((err, result) => {
-            if (err) res.status(500).send({ error: err });
-            res.send(result);
-        });
-    } else { // Explorers whose M[e, p](cube) q(comparator) v(arbitrary amount of money)
-        // Obtain comparator
-        let finalComparison;
+        const startType = query.p.split("-")[1][0];
+        const endType = query.p[0];
 
-        switch (query.q) {
-            case "equal":
-                finalComparison = { $eq: parseInt(query.v) }
+        const startQuantity = query.p.split("-")[1].split(startType)[1];
+        const endQuantity = query.p.split("-")[0].split(endType)[1];
+
+        switch (startType) {
+            case "D":
+                startDate = new Date(Date.now() - startQuantity * 24 * 60 * 60 * 1000);
                 break;
-            case "not_equal":
-                finalComparison = { $ne: parseInt(query.v) }
+            case "M":
+                startDate = new Date(new Date().setMonth(new Date().getMonth() - parseInt(startQuantity)));
                 break;
-            case "greater_than":
-                finalComparison = { $gt: parseInt(query.v) }
-                break;
-            case "greater_than_or_equal":
-                finalComparison = { $gte: parseInt(query.v) }
-                break;
-            case "smaller_than":
-                finalComparison = { $lt: parseInt(query.v) }
-                break;
-            case "smaller_than_or_equal":
-                finalComparison = { $lte: parseInt(query.v) }
+            case "Y":
+                startDate = new Date(new Date().setFullYear(new Date().getFullYear() - parseInt(startQuantity)));
                 break;
             default:
-                res.status(400).send({ error: "Wrong q. Comparator value not valid. Accepted values: equal, not_equal, greater_than, greater_than_or_equal, smaller_than, smaller_than_or_equal." });
+                res.status(400).send({ error: "Wrong p. Must be either D, M or Y" });
                 return;
         }
 
-        console.log(finalComparison)
+        switch (endType) {
+            case "D":
+                endDate = new Date(Date.now() - (endQuantity - 1) * 24 * 60 * 60 * 1000);
+                break;
+            case "M":
+                endDate = new Date(new Date().setMonth(new Date().getMonth() - (parseInt(endQuantity) - 1)));
+                break;
+            case "Y":
+                endDate = new Date(new Date().setFullYear(new Date().getFullYear() - (parseInt(endQuantity) - 1)));
+                break;
+            default:
+                res.status(400).send({ error: "Wrong p. Must be either D, M or Y" });
+                return;
+        }
 
-        Application.aggregate([
-            {   // Matches period
-                $match: {
-                    date: { $gte: startDate, $lte: endDate }
+        if (query.e) { // M[e, p] - Spent money by explorer during period p
+            Application.aggregate([
+                {   // Matches period and explorer
+                    $match: {
+                        date: { $gte: startDate, $lte: endDate },
+                        explorer: mongoose.Types.ObjectId(query.e)
+                    }
+                },
+                {   // Adds trip information
+                    $lookup: {
+                        from: "trips",
+                        localField: "trip",
+                        foreignField: "_id",
+                        as: "trip"
+                    }
+                },
+                {   // Transforms trip info array into object
+                    $project: {
+                        explorer: "$explorer",
+                        trip: { "$arrayElemAt": ["$trip", 0] }
+                    }
+                },
+                {   // Sums all price and stores it in spentMoney for the unique explorer
+                    $group: {
+                        _id: null,
+                        explorer: { $first: '$explorer' },
+                        spentMoney: { $sum: "$trip.price" }
+                    }
                 }
-            },
-            {   // Adds trip information
-                $lookup: {
-                    from: "trips",
-                    localField: "trip",
-                    foreignField: "_id",
-                    as: "trip"
-                }
-            },
-            {   // Transforms trip info array into object
-                $project: {
-                    explorer: "$explorer",
-                    trip: { "$arrayElemAt": ["$trip", 0] }
-                }
-            },
-            {   // Sums all price and stores it in spentMoney for each explorer
-                $group: {
-                    _id: "$explorer",
-                    explorer: { $first: '$explorer' },
-                    spentMoney: { $sum: "$trip.price" }
-                }
-            },
-            {   // Returns explorers who fulfill the condition
-                $match: {
-                    spentMoney: { ...finalComparison }
-                }
+            ]).exec((err, result) => {
+                if (err) res.status(500).send({ error: err });
+                res.send(result);
+            });
+        } else { // Explorers whose M[e, p](cube) q(comparator) v(arbitrary amount of money)
+            // Obtain comparator
+            let finalComparison;
+
+            switch (query.q) {
+                case "equal":
+                    finalComparison = { $eq: parseInt(query.v) }
+                    break;
+                case "not_equal":
+                    finalComparison = { $ne: parseInt(query.v) }
+                    break;
+                case "greater_than":
+                    finalComparison = { $gt: parseInt(query.v) }
+                    break;
+                case "greater_than_or_equal":
+                    finalComparison = { $gte: parseInt(query.v) }
+                    break;
+                case "smaller_than":
+                    finalComparison = { $lt: parseInt(query.v) }
+                    break;
+                case "smaller_than_or_equal":
+                    finalComparison = { $lte: parseInt(query.v) }
+                    break;
+                default:
+                    res.status(400).send({ error: "Wrong q. Comparator value not valid. Accepted values: equal, not_equal, greater_than, greater_than_or_equal, smaller_than, smaller_than_or_equal." });
+                    return;
             }
-        ]).exec((err, result) => {
-            if (err) res.status(500).send({ error: err });
-            res.send(result);
-        });
+
+            Application.aggregate([
+                {   // Matches period
+                    $match: {
+                        date: { $gte: startDate, $lte: endDate }
+                    }
+                },
+                {   // Adds trip information
+                    $lookup: {
+                        from: "trips",
+                        localField: "trip",
+                        foreignField: "_id",
+                        as: "trip"
+                    }
+                },
+                {   // Transforms trip info array into object
+                    $project: {
+                        explorer: "$explorer",
+                        trip: { "$arrayElemAt": ["$trip", 0] }
+                    }
+                },
+                {   // Sums all price and stores it in spentMoney for each explorer
+                    $group: {
+                        _id: "$explorer",
+                        explorer: { $first: '$explorer' },
+                        spentMoney: { $sum: "$trip.price" }
+                    }
+                },
+                {   // Returns explorers who fulfill the condition
+                    $match: {
+                        spentMoney: { ...finalComparison }
+                    }
+                }
+            ]).exec((err, result) => {
+                if (err) res.status(500).send({ error: err });
+                res.send(result);
+            });
+        }
+    } catch (err) {
+        res.status(500).send(result);
     }
 };
 
@@ -250,7 +256,7 @@ const calculateDashboardMetrics = async () => {
                     avgMaxPrice: Influx.FieldType.FLOAT
                 },
                 tags: [
-                    
+
                 ]
             },
             {

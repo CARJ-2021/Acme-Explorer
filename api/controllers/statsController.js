@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require("lodash");
+
 /*---------------STATS----------------------*/
 var mongoose = require("mongoose"),
     Trip = mongoose.model("Trips"),
@@ -7,47 +9,75 @@ var mongoose = require("mongoose"),
     Application = mongoose.model("Application"),
     Finder = mongoose.model("Finder");
 
-var dateFormat = require("dateformat");
-var randomstring = require("randomstring");
-const actorModel = require("../models/actorModel");
-var authController = require('./authController');
-const configurationController = require("./configurationController");
 const Influx = require("influx")
+const influx = new Influx.InfluxDB('http://localhost:8086/stats')
 
 
 
 exports.getStats = function (req, res) {
+    try {
+        const response = {};
 
+        const promise1 = influx.queryRaw('SELECT "avg", "max", "min", "std" FROM "applicationsPerTrip" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+            _.set(response, 'applicationsPerTrip.avg', result.results[0].series[0].values[0][1]);
+            _.set(response, 'applicationsPerTrip.max', result.results[0].series[0].values[0][2]);
+            _.set(response, 'applicationsPerTrip.min', result.results[0].series[0].values[0][3]);
+            _.set(response, 'applicationsPerTrip.std', result.results[0].series[0].values[0][4]);
+        }).catch(err => {
+            console.log(err.message);
+        });
 
+        const promise2 = influx.queryRaw('SELECT "avg", "max", "min", "std" FROM "tripsPerManager" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+            _.set(response, 'tripsPerManager.avg', result.results[0].series[0].values[0][1]);
+            _.set(response, 'tripsPerManager.max', result.results[0].series[0].values[0][2]);
+            _.set(response, 'tripsPerManager.min', result.results[0].series[0].values[0][3]);
+            _.set(response, 'tripsPerManager.std', result.results[0].series[0].values[0][4]);
+        }).catch(err => {
+            console.log(err.message);
+        });
 
-    Actor.aggregate([
-        {
-            $lookup: {
-                from: "trips",
-                localField: "_id",
-                foreignField: "manager",
-                as: "trips"
+        const promise3 = influx.queryRaw('SELECT "avg", "max", "min", "std" FROM "pricePerTrip" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+            _.set(response, 'pricePerTrip.avg', result.results[0].series[0].values[0][1]);
+            _.set(response, 'pricePerTrip.max', result.results[0].series[0].values[0][2]);
+            _.set(response, 'pricePerTrip.min', result.results[0].series[0].values[0][3]);
+            _.set(response, 'pricePerTrip.std', result.results[0].series[0].values[0][4]);
+        }).catch(err => {
+            console.log(err.message);
+        });
+
+        const promise4 = influx.queryRaw('SELECT "ratio" FROM "ratioByStatus" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+            const statuses = [];
+
+            for (const status of result.results[0].series) {
+                statuses.push({ status: status.tags.status, ratio: status.values[0][1] })
             }
-        },
-        {
-            $project: {
-                _id: "$_id",
-                numTrips: { $size: "$trips" }
-            }
-        },
-        {
-            $group: {
-                _id: null,
-                avg: { $avg: "$numTrips" },
-                min: { $min: "$numTrips" },
-                max: { $max: "$numTrips" },
-                std: { $stdDevPop: "$numTrips" }
-            }
-        }
-    ]).exec((err, result) => {
-        if (err) throw err;
-        res.status(200).send(result)
-    })
+            _.set(response, 'ratioByStatus', statuses);
+        }).catch(err => {
+            console.log(err.message);
+        });
+
+        const promise5 = influx.queryRaw('SELECT "avgMinPrice", "avgMaxPrice" FROM "pricePerFinder" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+            _.set(response, 'pricePerFinder.avgMinPrice', result.results[0].series[0].values[0][1]);
+            _.set(response, 'pricePerFinder.avgMaxPrice', result.results[0].series[0].values[0][2]);
+        }).catch(err => {
+            console.log(err.message);
+        });
+
+        const promise6 = influx.queryRaw('SELECT "top1", "top2", "top3", "top4", "top5", "top6", "top7", "top8", "top9", "top10" FROM "top10Keywords" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+            _.set(response, 'top10Keywords', [...result.results[0].series[0].values[0]].splice(1));
+        }).catch(err => {
+            console.log(err.message);
+        });
+
+        Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(() => {
+            res.send(response);
+        }).catch(err => {
+            res.status(500).send(err.message);
+        })
+    } catch (err) {
+        res.status(500).send(err.message);
+
+    }
 };
 
 exports.getCube = function (req, res) {

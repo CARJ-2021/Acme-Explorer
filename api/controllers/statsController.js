@@ -75,10 +75,10 @@ exports.getStats = function (req, res) {
         Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(() => {
             res.send(response);
         }).catch(err => {
-            res.status(500).send(err.message);
+            res.status(500).send({ error: err.message });
         })
     } catch (err) {
-        res.status(500).send(err.message);
+        res.status(500).send({ error: err.message });
 
     }
 };
@@ -87,7 +87,7 @@ exports.getCube = function (req, res) {
     try {
         const query = { ...req.query };
         if (!(query.e && query.p && !query.q && !query.v || !query.e && query.p && query.q && query.v)) {
-            res.status(400).send("Wrong query params. Either enter [e & p] (spent money for the explorer e in the period p) or enter [p & q & v] (explorers whose spent money is q to v based on a period p).");
+            res.status(400).send({ error: "Wrong query params. Either enter [e & p] (spent money for the explorer e in the period p) or enter [p & q & v] (explorers whose spent money is q to v based on a period p)." });
             return;
         }
 

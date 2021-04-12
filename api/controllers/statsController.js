@@ -10,15 +10,18 @@ var mongoose = require("mongoose"),
     Finder = mongoose.model("Finder");
 
 const Influx = require("influx")
-const influx = new Influx.InfluxDB('http://localhost:8086/stats')
-
 
 
 exports.getStats = function (req, res) {
     try {
+        const influxStats = new Influx.InfluxDB({
+            host: process.env["INFLUXHOST"] || "localhost",
+            database: 'stats'
+        });
+
         const response = {};
 
-        const promise1 = influx.queryRaw('SELECT "avg", "max", "min", "std" FROM "applicationsPerTrip" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+        const promise1 = influxStats.queryRaw('SELECT "avg", "max", "min", "std" FROM "applicationsPerTrip" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
             _.set(response, 'applicationsPerTrip.avg', result.results[0].series[0].values[0][1]);
             _.set(response, 'applicationsPerTrip.max', result.results[0].series[0].values[0][2]);
             _.set(response, 'applicationsPerTrip.min', result.results[0].series[0].values[0][3]);
@@ -27,7 +30,7 @@ exports.getStats = function (req, res) {
             console.log(err.message);
         });
 
-        const promise2 = influx.queryRaw('SELECT "avg", "max", "min", "std" FROM "tripsPerManager" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+        const promise2 = influxStats.queryRaw('SELECT "avg", "max", "min", "std" FROM "tripsPerManager" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
             _.set(response, 'tripsPerManager.avg', result.results[0].series[0].values[0][1]);
             _.set(response, 'tripsPerManager.max', result.results[0].series[0].values[0][2]);
             _.set(response, 'tripsPerManager.min', result.results[0].series[0].values[0][3]);
@@ -36,7 +39,7 @@ exports.getStats = function (req, res) {
             console.log(err.message);
         });
 
-        const promise3 = influx.queryRaw('SELECT "avg", "max", "min", "std" FROM "pricePerTrip" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+        const promise3 = influxStats.queryRaw('SELECT "avg", "max", "min", "std" FROM "pricePerTrip" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
             _.set(response, 'pricePerTrip.avg', result.results[0].series[0].values[0][1]);
             _.set(response, 'pricePerTrip.max', result.results[0].series[0].values[0][2]);
             _.set(response, 'pricePerTrip.min', result.results[0].series[0].values[0][3]);
@@ -45,7 +48,7 @@ exports.getStats = function (req, res) {
             console.log(err.message);
         });
 
-        const promise4 = influx.queryRaw('SELECT "ratio" FROM "ratioByStatus" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+        const promise4 = influxStats.queryRaw('SELECT "ratio" FROM "ratioByStatus" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
             const statuses = [];
 
             for (const status of result.results[0].series) {
@@ -56,14 +59,14 @@ exports.getStats = function (req, res) {
             console.log(err.message);
         });
 
-        const promise5 = influx.queryRaw('SELECT "avgMinPrice", "avgMaxPrice" FROM "pricePerFinder" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+        const promise5 = influxStats.queryRaw('SELECT "avgMinPrice", "avgMaxPrice" FROM "pricePerFinder" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
             _.set(response, 'pricePerFinder.avgMinPrice', result.results[0].series[0].values[0][1]);
             _.set(response, 'pricePerFinder.avgMaxPrice', result.results[0].series[0].values[0][2]);
         }).catch(err => {
             console.log(err.message);
         });
 
-        const promise6 = influx.queryRaw('SELECT "top1", "top2", "top3", "top4", "top5", "top6", "top7", "top8", "top9", "top10" FROM "top10Keywords" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
+        const promise6 = influxStats.queryRaw('SELECT "top1", "top2", "top3", "top4", "top5", "top6", "top7", "top8", "top9", "top10" FROM "top10Keywords" GROUP BY * ORDER BY DESC LIMIT 1').then(result => {
             _.set(response, 'top10Keywords', [...result.results[0].series[0].values[0]].splice(1));
         }).catch(err => {
             console.log(err.message);
@@ -84,7 +87,7 @@ exports.getCube = function (req, res) {
     try {
         const query = { ...req.query };
         if (!(query.e && query.p && !query.q && !query.v || !query.e && query.p && query.q && query.v)) {
-            res.status(400).send("Wrong query params. Either enter e and p or enter p, q and v.");
+            res.status(400).send("Wrong query params. Either enter [e & p] (spent money for the explorer e in the period p) or enter [p & q & v] (explorers whose spent money is q to v based on a period p).");
             return;
         }
 
@@ -231,86 +234,86 @@ exports.getCube = function (req, res) {
 
 
 const calculateDashboardMetrics = async () => {
-    //InfluxDB connection
-
-    const influx = new Influx.InfluxDB({
-        host: process.env["INFLUXHOST"],
-        database: 'stats',
-        schema: [
-            {
-                measurement: 'tripsPerManager',
-                fields: {
-                    avg: Influx.FieldType.FLOAT,
-                    max: Influx.FieldType.FLOAT,
-                    std: Influx.FieldType.FLOAT,
-                    min: Influx.FieldType.FLOAT,
-                },
-                tags: [
-                ]
-            },
-            {
-                measurement: 'applicationsPerTrip',
-                fields: {
-                    avg: Influx.FieldType.FLOAT,
-                    max: Influx.FieldType.FLOAT,
-                    std: Influx.FieldType.FLOAT,
-                    min: Influx.FieldType.FLOAT,
-                },
-                tags: [
-                ]
-            },
-            {
-                measurement: 'pricePerTrip',
-                fields: {
-                    avg: Influx.FieldType.FLOAT,
-                    max: Influx.FieldType.FLOAT,
-                    std: Influx.FieldType.FLOAT,
-                    min: Influx.FieldType.FLOAT,
-                },
-                tags: [
-                ]
-            },
-            {
-                measurement: 'ratioByStatus',
-                fields: {
-                    ratio: Influx.FieldType.FLOAT,
-                },
-                tags: [
-                    'status'
-                ]
-            },
-            {
-                measurement: 'pricePerFinder',
-                fields: {
-                    avgMinPrice: Influx.FieldType.FLOAT,
-                    avgMaxPrice: Influx.FieldType.FLOAT
-                },
-                tags: [
-
-                ]
-            },
-            {
-                measurement: 'top10Keywords',
-                fields: {
-                    top1: Influx.FieldType.STRING,
-                    top2: Influx.FieldType.STRING,
-                    top3: Influx.FieldType.STRING,
-                    top4: Influx.FieldType.STRING,
-                    top5: Influx.FieldType.STRING,
-                    top6: Influx.FieldType.STRING,
-                    top7: Influx.FieldType.STRING,
-                    top8: Influx.FieldType.STRING,
-                    top9: Influx.FieldType.STRING,
-                    top10: Influx.FieldType.STRING,
-                },
-                tags: [
-                ]
-            }
-        ]
-    })
-    influx.createDatabase("stats");
-
     return new Promise((resolve, reject) => {
+        //InfluxDB connection
+
+        const influx = new Influx.InfluxDB({
+            host: process.env["INFLUXHOST"] || "localhost",
+            database: 'stats',
+            schema: [
+                {
+                    measurement: 'tripsPerManager',
+                    fields: {
+                        avg: Influx.FieldType.FLOAT,
+                        max: Influx.FieldType.FLOAT,
+                        std: Influx.FieldType.FLOAT,
+                        min: Influx.FieldType.FLOAT,
+                    },
+                    tags: [
+                    ]
+                },
+                {
+                    measurement: 'applicationsPerTrip',
+                    fields: {
+                        avg: Influx.FieldType.FLOAT,
+                        max: Influx.FieldType.FLOAT,
+                        std: Influx.FieldType.FLOAT,
+                        min: Influx.FieldType.FLOAT,
+                    },
+                    tags: [
+                    ]
+                },
+                {
+                    measurement: 'pricePerTrip',
+                    fields: {
+                        avg: Influx.FieldType.FLOAT,
+                        max: Influx.FieldType.FLOAT,
+                        std: Influx.FieldType.FLOAT,
+                        min: Influx.FieldType.FLOAT,
+                    },
+                    tags: [
+                    ]
+                },
+                {
+                    measurement: 'ratioByStatus',
+                    fields: {
+                        ratio: Influx.FieldType.FLOAT,
+                    },
+                    tags: [
+                        'status'
+                    ]
+                },
+                {
+                    measurement: 'pricePerFinder',
+                    fields: {
+                        avgMinPrice: Influx.FieldType.FLOAT,
+                        avgMaxPrice: Influx.FieldType.FLOAT
+                    },
+                    tags: [
+
+                    ]
+                },
+                {
+                    measurement: 'top10Keywords',
+                    fields: {
+                        top1: Influx.FieldType.STRING,
+                        top2: Influx.FieldType.STRING,
+                        top3: Influx.FieldType.STRING,
+                        top4: Influx.FieldType.STRING,
+                        top5: Influx.FieldType.STRING,
+                        top6: Influx.FieldType.STRING,
+                        top7: Influx.FieldType.STRING,
+                        top8: Influx.FieldType.STRING,
+                        top9: Influx.FieldType.STRING,
+                        top10: Influx.FieldType.STRING,
+                    },
+                    tags: [
+                    ]
+                }
+            ]
+        })
+        influx.createDatabase("stats");
+
         const promise1 = new Promise((resolve, reject) => {
             Actor.aggregate([{
                 $lookup: {
@@ -336,24 +339,17 @@ const calculateDashboardMetrics = async () => {
                 }
             }]).exec((err, result) => {
                 if (err) reject(err);
-                if (result[0]) {
-                    influx.writePoints([
-                        {
-                            measurement: 'tripsPerManager',
-                            fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
-                        }
-                    ])
+                else {
+                    if (result[0]) {
+                        influx.writePoints([
+                            {
+                                measurement: 'tripsPerManager',
+                                fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
+                            }
+                        ])
+                    }
+                    resolve();
                 }
-
-                // TODO - Almacenar resultado y resolve()
-                /* {
-                    "avg" : 2.5,
-                    "min" : 2.0,
-                    "max" : 3.0,
-                    "std" : 0.5
-                } */
-
-                resolve();
             });
         });
 
@@ -384,17 +380,17 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-
-                if (result[0]) {
-                    influx.writePoints([
-                        {
-                            measurement: 'applicationsPerTrip',
-                            fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
-                        }
-                    ])
+                else {
+                    if (result[0]) {
+                        influx.writePoints([
+                            {
+                                measurement: 'applicationsPerTrip',
+                                fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
+                            }
+                        ])
+                    }
+                    resolve();
                 }
-
-                resolve();
             });
         });
 
@@ -411,15 +407,17 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                if (result[0]) {
-                    influx.writePoints([
-                        {
-                            measurement: 'pricePerTrip',
-                            fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
-                        }
-                    ])
+                else {
+                    if (result[0]) {
+                        influx.writePoints([
+                            {
+                                measurement: 'pricePerTrip',
+                                fields: { avg: result[0].avg, min: result[0].min, max: result[0].max, std: result[0].std },
+                            }
+                        ])
+                    }
+                    resolve();
                 }
-                resolve();
             });
         });
 
@@ -450,21 +448,22 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                if (result[0]) {
-                    console.log("Query 4", result)
-                    let points = [];
-                    result.forEach(ratio => {
-                        points.push({
-                            measurement: 'ratioByStatus',
-                            fields: { ratio: ratio.ratio },
-                            tags: {
-                                status: ratio.status
-                            }
+                else {
+                    if (result[0]) {
+                        let points = [];
+                        result.forEach(ratio => {
+                            points.push({
+                                measurement: 'ratioByStatus',
+                                fields: { ratio: ratio.ratio },
+                                tags: {
+                                    status: ratio.status
+                                }
+                            })
                         })
-                    })
-                    influx.writePoints(points);
+                        influx.writePoints(points);
+                    }
+                    resolve();
                 }
-                resolve();
             });
         });
 
@@ -479,15 +478,17 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                if (result[0]) {
-                    influx.writePoints([
-                        {
-                            measurement: 'pricePerFinder',
-                            fields: { avgMinPrice: result[0].avgMinPrice, avgMaxPrice: result[0].avgMaxPrice },
-                        }
-                    ])
+                else {
+                    if (result[0]) {
+                        influx.writePoints([
+                            {
+                                measurement: 'pricePerFinder',
+                                fields: { avgMinPrice: result[0].avgMinPrice, avgMaxPrice: result[0].avgMaxPrice },
+                            }
+                        ])
+                    }
+                    resolve();
                 }
-                resolve();
             });
         });
 
@@ -515,31 +516,35 @@ const calculateDashboardMetrics = async () => {
                 }
             ]).exec((err, result) => {
                 if (err) reject(err);
-                console.log("Result QUERY 6", result)
-                if (result[0]) {
-                    influx.writePoints([
-                        {
-                            measurement: 'top10Keywords',
-                            fields: {
-                                top1: result[0].topKeywords[0] || '',
-                                top2: result[0].topKeywords[1] || '',
-                                top3: result[0].topKeywords[2] || '',
-                                top4: result[0].topKeywords[3] || '',
-                                top5: result[0].topKeywords[4] || '',
-                                top6: result[0].topKeywords[5] || '',
-                                top7: result[0].topKeywords[6] || '',
-                                top8: result[0].topKeywords[7] || '',
-                                top9: result[0].topKeywords[8] || '',
-                                top10: result[0].topKeywords[9] || '',
-                            },
-                        }
-                    ])
+                else {
+                    if (result[0]) {
+                        influx.writePoints([
+                            {
+                                measurement: 'top10Keywords',
+                                fields: {
+                                    top1: result[0].topKeywords[0] || '',
+                                    top2: result[0].topKeywords[1] || '',
+                                    top3: result[0].topKeywords[2] || '',
+                                    top4: result[0].topKeywords[3] || '',
+                                    top5: result[0].topKeywords[4] || '',
+                                    top6: result[0].topKeywords[5] || '',
+                                    top7: result[0].topKeywords[6] || '',
+                                    top8: result[0].topKeywords[7] || '',
+                                    top9: result[0].topKeywords[8] || '',
+                                    top10: result[0].topKeywords[9] || '',
+                                },
+                            }
+                        ])
+                    }
+                    resolve();
                 }
-                resolve();
             });
         });
 
         Promise.all([promise1, promise2, promise3, promise4, promise5, promise6]).then(() => {
+            resolve();
+        }).catch(err => {
+            console.log(err);
             resolve();
         });
     })

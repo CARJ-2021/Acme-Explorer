@@ -11,12 +11,12 @@ module.exports = function (app) {
 
   app
     .route("/v2/stats")
-    //.get(authController.verifyUser([ADMINISTRATOR]), stats.getStats);
+    .get(authController.verifyUser([ADMINISTRATOR]), stats.getStats)
     .get(stats.getStats);
 
   app
     .route("/v2/cube")
-    //.get(authController.verifyUser([ADMINISTRATOR]), stats.getStats);
-    .get(stats.getCube)
+    .get(authController.verifyUser([ADMINISTRATOR]), stats.getStats)
+    .get(stats.getCube);
 
 };

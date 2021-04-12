@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",
     "influx": "^5.8.0",
+    "lodash": "^4.17.21",
     "mocha": "^8.3.2",
     "mongoose": "^5.11.17",
     "newman": "^5.2.2",

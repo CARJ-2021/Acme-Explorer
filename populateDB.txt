@@ -8,12 +8,12 @@ db.actors.insertMany([
 			"MANAGER"
 		],
 		"banned" : false,
-		"name" : "Manager1",
-		"surname" : "Manager1",
-		"email" : "manager1@yopmail.com",
+		"name" : "Managerpop1",
+		"surname" : "Managerpop1",
+		"email" : "managerpop1@yopmail.com",
 		"password" : "$2b$05$lF531TauzwV49GrV1DtgouluMtuCPiC5h1u5.pUCa0I33cdyDKGg.",
 		"phone" : "12345",
-		"address" : "Manager1 Address",
+		"address" : "Managerpop1 Address",
 		"__v" : 0
 	},
 	{
@@ -23,12 +23,12 @@ db.actors.insertMany([
 			"MANAGER"
 		],
 		"banned" : false,
-		"name" : "Manager2",
-		"surname" : "Manager2",
-		"email" : "manager2@yopmail.com",
+		"name" : "Managerpop2",
+		"surname" : "Managerpop2",
+		"email" : "managerpop2@yopmail.com",
 		"password" : "$2b$05$lF531TauzwV49GrV1DtgouluMtuCPiC5h1u5.pUCa0I33cdyDKGg.",
 		"phone" : "12345",
-		"address" : "Manager2 Address",
+		"address" : "Managerpop2 Address",
 		"__v" : 0
 	},
 	{
@@ -38,12 +38,12 @@ db.actors.insertMany([
 			"MANAGER"
 		],
 		"banned" : false,
-		"name" : "Manager3",
-		"surname" : "Manager3",
-		"email" : "manager3@yopmail.com",
+		"name" : "Managerpop3",
+		"surname" : "Managerpop3",
+		"email" : "managerpop3@yopmail.com",
 		"password" : "$2b$05$lF531TauzwV49GrV1DtgouluMtuCPiC5h1u5.pUCa0I33cdyDKGg.",
 		"phone" : "12345",
-		"address" : "Manager3 Address",
+		"address" : "Managerpop3 Address",
 		"__v" : 0
 	},
 	{
@@ -53,12 +53,12 @@ db.actors.insertMany([
 			"EXPLORER"
 		],
 		"banned" : false,
-		"name" : "Explorer1",
-		"surname" : "Explorer1",
-		"email" : "explorer1@yopmail.com",
+		"name" : "Explorerpop1",
+		"surname" : "Explorerpop1",
+		"email" : "explorerpop1@yopmail.com",
 		"password" : "$2b$05$GWDOxz6.DhRMzqW6VKOg4.UxtffyDfjpCrbexDbc4IdOv7cpn62Bq",
 		"phone" : "123452",
-		"address" : "Explorer1 Address",
+		"address" : "Explorerpop1 Address",
 		"__v" : 0
 	},
 	{
@@ -68,12 +68,12 @@ db.actors.insertMany([
 			"EXPLORER"
 		],
 		"banned" : false,
-		"name" : "Explorer2",
-		"surname" : "Explorer2",
-		"email" : "explorer2@yopmail.com",
+		"name" : "Explorerpop2",
+		"surname" : "Explorerpop2",
+		"email" : "explorerpop2@yopmail.com",
 		"password" : "$2b$05$GWDOxz6.DhRMzqW6VKOg4.UxtffyDfjpCrbexDbc4IdOv7cpn62Bq",
 		"phone" : "123452",
-		"address" : "Explorer2 Address",
+		"address" : "Explorerpop2 Address",
 		"__v" : 0
 	},
 	{
@@ -83,12 +83,12 @@ db.actors.insertMany([
 			"EXPLORER"
 		],
 		"banned" : false,
-		"name" : "Explorer3",
-		"surname" : "Explorer3",
-		"email" : "explorer3@yopmail.com",
+		"name" : "Explorerpop3",
+		"surname" : "Explorerpop3",
+		"email" : "explorerpop3@yopmail.com",
 		"password" : "$2b$05$GWDOxz6.DhRMzqW6VKOg4.UxtffyDfjpCrbexDbc4IdOv7cpn62Bq",
 		"phone" : "123452",
-		"address" : "Explorer3 Address",
+		"address" : "Explorerpop3 Address",
 		"__v" : 0
 	}
 	
@@ -123,7 +123,7 @@ db.trips.insertMany([
 			}
 		],
 		"pictures" : [],
-		"ticker" : "210410FHUA",
+		"ticker" : "210410POPA",
 		"__v" : 0
 	},
 	{
@@ -154,7 +154,7 @@ db.trips.insertMany([
 			}
 		],
 		"pictures" : [],
-		"ticker" : "200410FHUB",
+		"ticker" : "200410POPB",
 		"__v" : 0
 	},
 	{
@@ -185,7 +185,7 @@ db.trips.insertMany([
 			}
 		],
 		"pictures" : [],
-		"ticker" : "200410FHUC",
+		"ticker" : "200410POPC",
 		"__v" : 0
 	},
 	{
@@ -216,7 +216,7 @@ db.trips.insertMany([
 			}
 		],
 		"pictures" : [],
-		"ticker" : "210410FHUD",
+		"ticker" : "210410POPD",
 		"__v" : 0
 	},
 	{
@@ -247,7 +247,7 @@ db.trips.insertMany([
 			}
 		],
 		"pictures" : [],
-		"ticker" : "200410FHUE",
+		"ticker" : "200410POPE",
 		"__v" : 0
 	}
 ])

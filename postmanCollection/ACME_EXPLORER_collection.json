@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "703095d7-3430-4daf-8ee4-49413f2e825a",
+		"_postman_id": "48106126-f6f5-455b-a68a-4cc0b8e53361",
 		"name": "Acme-Explorer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1960,6 +1960,100 @@
 									"path": [
 										"v2",
 										"configuration"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Qube 1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8080/v2/cube?e=200000000000000000000001&p=M01-M36",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"cube"
+									],
+									"query": [
+										{
+											"key": "e",
+											"value": "200000000000000000000001"
+										},
+										{
+											"key": "p",
+											"value": "M01-M36"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Qube 2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8080/v2/cube?p=M01-M36&q=equal&v=2317.1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"cube"
+									],
+									"query": [
+										{
+											"key": "p",
+											"value": "M01-M36"
+										},
+										{
+											"key": "q",
+											"value": "equal"
+										},
+										{
+											"key": "v",
+											"value": "2317.1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Stats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8080/v2/stats",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v2",
+										"stats"
 									]
 								}
 							},

@@ -168,22 +168,22 @@ exports.getCube = function (req, res) {
 
             switch (query.q) {
                 case "equal":
-                    finalComparison = { $eq: parseInt(query.v) }
+                    finalComparison = { $eq: parseFloat(query.v) }
                     break;
                 case "not_equal":
-                    finalComparison = { $ne: parseInt(query.v) }
+                    finalComparison = { $ne: parseFloat(query.v) }
                     break;
                 case "greater_than":
-                    finalComparison = { $gt: parseInt(query.v) }
+                    finalComparison = { $gt: parseFloat(query.v) }
                     break;
                 case "greater_than_or_equal":
-                    finalComparison = { $gte: parseInt(query.v) }
+                    finalComparison = { $gte: parseFloat(query.v) }
                     break;
                 case "smaller_than":
-                    finalComparison = { $lt: parseInt(query.v) }
+                    finalComparison = { $lt: parseFloat(query.v) }
                     break;
                 case "smaller_than_or_equal":
-                    finalComparison = { $lte: parseInt(query.v) }
+                    finalComparison = { $lte: parseFloat(query.v) }
                     break;
                 default:
                     res.status(400).send({ error: "Wrong q. Comparator value not valid. Accepted values: equal, not_equal, greater_than, greater_than_or_equal, smaller_than, smaller_than_or_equal." });

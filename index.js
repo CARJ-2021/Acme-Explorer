@@ -123,12 +123,14 @@ mongoose.connection.on("error", function (err, conn) {
 const statsController = require("./api/controllers/statsController");
 
 //CronJob for stats
-var job = new CronJob('0,10,20,30,40,50 * * * * *', async function () {
-  //Cron every 10 minutes for the stats calculation
-  console.log('Computing dashboard metrics...');
-  await statsController.calculateDashboardMetrics();
-  console.log("Finished calculating and storing stats")
-}, null, true, 'America/Los_Angeles');
-job.start();
+if(!process.env.RUNNING_TESTS) {
+  var job = new CronJob('0,10,20,30,40,50 * * * * *', async function () {
+    //Cron every 10 seconds for the stats calculation
+    console.log('Computing dashboard metrics...');
+    await statsController.calculateDashboardMetrics();
+    console.log("Finished calculating and storing stats")
+  }, null, true, 'America/Los_Angeles');
+  job.start();
+}
 
 module.exports = app;

@@ -1,3 +1,5 @@
+process.env["RUNNING_TESTS"] = true;
+
 const app = require("../index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");

@@ -119,6 +119,20 @@ exports.read_a_trip_v2 = async function (req, res) {
           res.json(trip);
         }
       });
+    } else {
+      Trip.findOne(
+        { _id: req.params.tripId, published: true },
+        function (err, trip) {
+          if (err) {
+            res.send(err);
+          } else if (!trip) {
+            res.status(404);
+            res.send({ message: "Trip not found" });
+          } else {
+            res.json(trip);
+          }
+        }
+      );
     }
   } else {
     Trip.findOne(

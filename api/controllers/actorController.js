@@ -4,6 +4,7 @@ var mongoose = require("mongoose"),
   Actor = mongoose.model("Actors");
 var admin = require("firebase-admin");
 var authController = require("./authController");
+const bcrypt = require("bcrypt");
 
 exports.list_all_actors = function (req, res) {
   Actor.find({}, function (err, actors) {
@@ -154,10 +155,16 @@ exports.update_a_verified_actor = function (req, res) {
       var idToken = req.headers["idtoken"];
       var authenticatedUserId = await authController.getUserId(idToken);
       if (authenticatedUserId == req.params.actorId) {
+
+        // Password changed so we need to hash it
+        const salt = await bcrypt.genSalt(5)
+        const hash = await bcrypt.hash(req.body.password, salt)
+        req.body.password = hash
+        
         Actor.findOneAndUpdate(
           { _id: req.params.actorId },
           req.body,
-          { new: true },
+          { new: true, runValidators: true },
           function (err, actor) {
             if (err) {
               res.send(err);

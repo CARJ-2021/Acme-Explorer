@@ -53,7 +53,7 @@ module.exports = function (app) {
     );
 
   app.route("/v2/applications")
-  .get(authController.verifyUser(["EXPLORER"]),
+  .get(authController.verifyUser(["EXPLORER", "MANAGER"]),
    applications.list_my_applications);
 
   app

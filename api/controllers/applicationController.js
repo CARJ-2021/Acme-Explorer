@@ -2,7 +2,8 @@
 /*---------------APPLICATION----------------------*/
 var mongoose = require("mongoose"),
   Application = mongoose.model("Application"),
-  Trip = mongoose.model("Trips");
+  Trip = mongoose.model("Trips"),
+  Actor = mongoose.model("Actors");
 const { auth, app } = require("firebase-admin");
 var authController = require("./authController");
 
@@ -44,7 +45,7 @@ exports.list_all_applications_v2 = function (req, res) {
 };
 
 //List all application from manager's all trips
-exports.list_all_applications_all_trips = async function (req, res) {
+const list_all_applications_all_trips = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
   Trip.find({ manager: authenticatedUserId }, function (error, trips) {
@@ -52,7 +53,7 @@ exports.list_all_applications_all_trips = async function (req, res) {
     for (var i = 0; i < trips.length; i++) {
       tripsIds.push(trips[i]._id);
     }
-    Application.find({ _id: { $in: tripsIds } }, function (err, applications) {
+    Application.find({ trip: { $in: tripsIds } }, function (err, applications) {
       if (err) {
         res.send(err);
       } else {
@@ -66,16 +67,21 @@ exports.list_all_applications_all_trips = async function (req, res) {
 exports.list_my_applications = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
-  Application.find(
-    { explorer: authenticatedUserId },
-    function (err, applications) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(applications);
+  var actor = await Actor.findById(authenticatedUserId);
+  if (actor.role.includes("MANAGER")) {
+    list_all_applications_all_trips(req, res)
+  } else {
+    Application.find(
+      { explorer: authenticatedUserId },
+      function (err, applications) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(applications);
+        }
       }
-    }
-  );
+    );
+  }
 };
 
 exports.create_an_application = function (req, res) {
@@ -359,9 +365,13 @@ exports.reject_an_application = async function (req, res) {
       ) {
         res.status(403).send("Only the trip manager can modify applications");
       } else {
+        if (req.body.reason == undefined || req.body.reason == "") {
+          return res.status(403).send({message: "Enter a reason"});
+        }
+      
         Application.findOneAndUpdate(
           { _id: application._id },
-          { $set: { status: "REJECT" } },
+          { $set: { status: "REJECT", rejectReason: req.body.reason } },
           { new: true },
           function (err, application) {
             if (err) {
@@ -373,7 +383,7 @@ exports.reject_an_application = async function (req, res) {
         );
       }
     } else {
-      res.send({
+      res.status(401).send({
         message:
           "Applcation can't be payed due to is in " +
           application.status.toLowerCase() +
@@ -414,7 +424,7 @@ exports.due_an_application = async function (req, res) {
           );
         }
       } else {
-        res.send({
+        res.status(403).send({
           message:
             "Applcation can't be payed due to is in " +
             application.status.toLowerCase() +

@@ -23,14 +23,38 @@ exports.list_all_trips = function (req, res) {
   });
 };
 
-exports.list_all_trips_v2 = function (req, res) {
-  Trip.find({ published: true }, function (err, trips) {
-    if (err) {
-      res.send(err);
+exports.list_all_trips_v2 = async function (req, res) {
+  if (req.headers["idtoken"] != undefined) {
+    var idToken = req.headers["idtoken"];
+    var authenticatedUserId = await authController.getUserId(idToken);
+    var actor = await Actor.findById(authenticatedUserId);
+    console.log("AAAAAAAA", actor.role)
+    if (actor.role.includes("MANAGER")) {
+      Trip.find({}, function (err, trips) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(trips);
+        }
+      });
     } else {
-      res.json(trips);
+      Trip.find({ published: true }, function (err, trips) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(trips);
+        }
+      });
     }
-  });
+  } else {
+    Trip.find({ published: true }, function (err, trips) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(trips);
+      }
+    });
+  }
 };
 
 exports.list_managed_trips = async function (req, res) {

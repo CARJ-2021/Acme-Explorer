@@ -418,7 +418,7 @@ exports.due_an_application = async function (req, res) {
               if (err) {
                 res.status(500).send(err);
               } else {
-                res.send("updatedApplication");
+                res.send({message: "updatedApplication"});
               }
             }
           );

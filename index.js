@@ -1,4 +1,4 @@
-const cors = require('cors');
+const cors = require("cors");
 var express = require("express"),
   app = express(),
   port = process.env.PORT || 8080,
@@ -13,12 +13,12 @@ var express = require("express"),
   https = require("https"),
   fs = require("fs");
 
-var CronJob = require('cron').CronJob;
+var CronJob = require("cron").CronJob;
 
-// const keys = {
-//   key: fs.readFileSync('./keys/server.key'),
-//   cert: fs.readFileSync('./keys/server.cert')
-// };
+const keys = {
+  key: fs.readFileSync('./keys/server.key'),
+  cert: fs.readFileSync('./keys/server.cert')
+};
 
 var admin = require("firebase-admin");
 
@@ -58,8 +58,10 @@ mongoose.connect(mongoDBURI, {
   useNewUrlParser: true,
 });
 
-app.use(bodyParser.json({limit: '10mb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors());
 
 var routesTrips = require("./api/routes/tripRoutes");
@@ -109,11 +111,13 @@ mongoose.connection.on("open", function (err, conn) {
     }
   });
 
-  //https.createServer(keys, app).listen(port);
-  //console.log("Acme-Explorer RESTful API server started with HTTPS on: " + port);
-  app.listen(port, function () {
-    console.log("Acme-Explorer RESTful API server started on: " + port);
-  }); 
+  https.createServer(keys, app).listen(port);
+  console.log(
+    "Acme-Explorer RESTful API server started with HTTPS on: " + port
+  );
+  // app.listen(port, function () {
+  //   console.log("Acme-Explorer RESTful API server started on: " + port);
+  // });
 });
 
 mongoose.connection.on("error", function (err, conn) {
@@ -123,13 +127,19 @@ mongoose.connection.on("error", function (err, conn) {
 const statsController = require("./api/controllers/statsController");
 
 //CronJob for stats
-if(!process.env.RUNNING_TESTS) {
-  var job = new CronJob('0,10,20,30,40,50 * * * * *', async function () {
-    //Cron every 10 seconds for the stats calculation
-    console.log('Computing dashboard metrics...');
-    await statsController.calculateDashboardMetrics();
-    console.log("Finished calculating and storing stats")
-  }, null, true, 'America/Los_Angeles');
+if (!process.env.RUNNING_TESTS) {
+  var job = new CronJob(
+    "0,10,20,30,40,50 * * * * *",
+    async function () {
+      //Cron every 10 seconds for the stats calculation
+      console.log("Computing dashboard metrics...");
+      await statsController.calculateDashboardMetrics();
+      console.log("Finished calculating and storing stats");
+    },
+    null,
+    true,
+    "America/Los_Angeles"
+  );
   job.start();
 }
 

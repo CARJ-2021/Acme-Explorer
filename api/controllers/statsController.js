@@ -93,11 +93,8 @@ exports.getCube = function (req, res) {
 
         let startDate, endDate;
 
-        const startType = query.p.split("-")[1][0];
-        const endType = query.p[0];
-
-        const startQuantity = query.p.split("-")[1].split(startType)[1];
-        const endQuantity = query.p.split("-")[0].split(endType)[1];
+        const startType = query.p.split("-")[0];
+        const startQuantity = query.p.split("-")[1];
 
         switch (startType) {
             case "D":
@@ -114,26 +111,11 @@ exports.getCube = function (req, res) {
                 return;
         }
 
-        switch (endType) {
-            case "D":
-                endDate = new Date(Date.now() - (endQuantity - 1) * 24 * 60 * 60 * 1000);
-                break;
-            case "M":
-                endDate = new Date(new Date().setMonth(new Date().getMonth() - (parseInt(endQuantity) - 1)));
-                break;
-            case "Y":
-                endDate = new Date(new Date().setFullYear(new Date().getFullYear() - (parseInt(endQuantity) - 1)));
-                break;
-            default:
-                res.status(400).send({ error: "Wrong p. Must be either D, M or Y" });
-                return;
-        }
-
         if (query.e) { // M[e, p] - Spent money by explorer during period p
             Application.aggregate([
                 {   // Matches period and explorer
                     $match: {
-                        date: { $gte: startDate, $lte: endDate },
+                        date: { $gte: startDate, $lte: new Date() },
                         explorer: mongoose.Types.ObjectId(query.e)
                     }
                 },
@@ -193,7 +175,7 @@ exports.getCube = function (req, res) {
             Application.aggregate([
                 {   // Matches period
                     $match: {
-                        date: { $gte: startDate, $lte: endDate }
+                        date: { $gte: startDate, $lte: new Date() }
                     }
                 },
                 {   // Adds trip information
@@ -226,9 +208,11 @@ exports.getCube = function (req, res) {
                 if (err) res.status(500).send({ error: err });
                 res.send(result);
             });
+
         }
     } catch (err) {
-        res.status(500).send(result);
+        console.log(err)
+        res.status(500).send(err);
     }
 };
 

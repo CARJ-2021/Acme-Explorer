@@ -15,10 +15,10 @@ var express = require("express"),
 
 var CronJob = require('cron').CronJob;
 
-const keys = {
-  key: fs.readFileSync('./keys/server.key'),
-  cert: fs.readFileSync('./keys/server.cert')
-};
+// const keys = {
+//   key: fs.readFileSync('./keys/server.key'),
+//   cert: fs.readFileSync('./keys/server.cert')
+// };
 
 var admin = require("firebase-admin");
 
@@ -58,8 +58,8 @@ mongoose.connect(mongoDBURI, {
   useNewUrlParser: true,
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 app.use(cors());
 
 var routesTrips = require("./api/routes/tripRoutes");
@@ -109,11 +109,11 @@ mongoose.connection.on("open", function (err, conn) {
     }
   });
 
-  https.createServer(keys, app).listen(port);
-  console.log("Acme-Explorer RESTful API server started with HTTPS on: " + port);
-  // app.listen(port, function () {
-  //   console.log("Acme-Explorer RESTful API server started on: " + port);
-  // }); 
+  //https.createServer(keys, app).listen(port);
+  //console.log("Acme-Explorer RESTful API server started with HTTPS on: " + port);
+  app.listen(port, function () {
+    console.log("Acme-Explorer RESTful API server started on: " + port);
+  }); 
 });
 
 mongoose.connection.on("error", function (err, conn) {

@@ -1,4 +1,4 @@
-FROM node:15
+FROM node:14.6
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
+RUN npm install -g nodemon
 
 COPY . .
 

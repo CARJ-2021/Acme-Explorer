@@ -2,13 +2,16 @@ version: "3"
 services:
   acme-explorer:
     container_name: "acme-explorer-dev"
-    image: "alejuarob/acme-explorer"
+    build:
+      context: ../
+      dockerfile: Dockerfile
     networks:
       dev-network:
     ports:
       - "8080:8080"
     volumes:
       - "logsvol:/usr/src/app/logs"
+      - "../.:/usr/src/app/."
     restart: on-failure
     depends_on:
       - mongo
@@ -52,6 +55,7 @@ services:
       - 3000:3000
     volumes:
       - 'grafana_volume:/var/lib/grafana'
+      - './grafana/grafana.ini:/etc/grafana/grafana.ini'
     restart: 'unless-stopped'
 
 volumes:

@@ -16,8 +16,8 @@ var express = require("express"),
 var CronJob = require("cron").CronJob;
 
 const keys = {
-  key: fs.readFileSync("./keys/server.key"),
-  cert: fs.readFileSync("./keys/server.cert"),
+  key: fs.readFileSync('./keys/server.key'),
+  cert: fs.readFileSync('./keys/server.cert')
 };
 
 var admin = require("firebase-admin");

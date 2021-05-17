@@ -42,6 +42,10 @@ module.exports = function (app) {
     );
 
   app
+    .route("/v2/trips/maxPrice")
+    .get(authController.verifyUser([EXPLORER]), trips.get_max_price);
+
+  app
     .route("/v2/trips/:tripId")
     .get(trips.read_a_trip_v2)
     .put(authController.verifyUser([MANAGER]), trips.update_a_trip_v2)

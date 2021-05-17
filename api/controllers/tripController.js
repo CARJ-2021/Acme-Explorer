@@ -532,3 +532,32 @@ exports.get_random_sponsorship = async function (req, res) {
     res.send("Trip not found");
   }
 };
+
+exports.get_max_price = async function (req, res) {
+  Trip.aggregate([
+    {
+      $project: {
+        price: {
+          $sum: "$stages.price",
+        },
+      },
+    },
+    {
+      $sort: {
+        price: -1,
+      },
+    },
+    {
+      $limit: 1,
+    },
+  ]).then((maxPrice, err) => {
+    if (err) {
+      console.log(err);
+      res.status(500);
+    } else {
+      console.log(maxPrice);
+      res.status(200);
+      res.send(maxPrice);
+    }
+  });
+};

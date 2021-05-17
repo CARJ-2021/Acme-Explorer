@@ -96,15 +96,15 @@ exports.login_an_actor = async function (req, res) {
   Actor.findOne({ email: emailParam }, function (err, actor) {
     if (err) {
       res.send(err);
-    } else if (actor.banned) {
-      res.status(401).json({ message: "User has been banned"});
     }
-
     // No actor found with that email as username
     else if (!actor) {
       res.status(401); //an access token isn’t provided, or is invalid
       res.json({ message: "forbidden", error: err });
     } else {
+      if (actor.banned) {
+        res.status(401).json({ message: "User has been banned"});
+      }
       // Make sure the password is correct
       actor.verifyPassword(password, async function (err, isMatch) {
         if (err) {

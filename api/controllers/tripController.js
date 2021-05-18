@@ -454,6 +454,7 @@ exports.searchFinder = (finderParams) => {
 
       // Configure search params and limits
       const searchParams = {
+        published: true,
         price: {
           $gte: finderParams.minPrice ? finderParams.minPrice : 0,
           $lte: finderParams.maxPrice ? finderParams.maxPrice : Infinity,

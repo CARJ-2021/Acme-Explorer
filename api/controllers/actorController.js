@@ -6,6 +6,8 @@ var admin = require("firebase-admin");
 var authController = require("./authController");
 const bcrypt = require("bcrypt");
 
+var finderController = require("./finderController");
+
 exports.list_all_actors = function (req, res) {
   Actor.find({}, function (err, actors) {
     if (err) {
@@ -74,6 +76,7 @@ exports.create_an_actor_v2 = function (req, res) {
         res.status(400).send(err);
         console.log(err);
       } else {
+        finderController.create_finder(actor._id);
         res.json(actor);
       }
     });
@@ -103,7 +106,7 @@ exports.login_an_actor = async function (req, res) {
       res.json({ message: "forbidden", error: err });
     } else {
       if (actor.banned) {
-        res.status(401).json({ message: "User has been banned"});
+        res.status(401).json({ message: "User has been banned" });
       }
       // Make sure the password is correct
       actor.verifyPassword(password, async function (err, isMatch) {
@@ -157,12 +160,11 @@ exports.update_a_verified_actor = function (req, res) {
       var idToken = req.headers["idtoken"];
       var authenticatedUserId = await authController.getUserId(idToken);
       if (authenticatedUserId == req.params.actorId) {
-
         // Password changed so we need to hash it
-        const salt = await bcrypt.genSalt(5)
-        const hash = await bcrypt.hash(req.body.password, salt)
-        req.body.password = hash
-        
+        const salt = await bcrypt.genSalt(5);
+        const hash = await bcrypt.hash(req.body.password, salt);
+        req.body.password = hash;
+
         Actor.findOneAndUpdate(
           { _id: req.params.actorId },
           req.body,

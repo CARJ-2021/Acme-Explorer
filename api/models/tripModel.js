@@ -72,8 +72,7 @@ var TripSchema = new Schema(
     ],
     pictures: [
       {
-        data: Buffer,
-        contentType: String,
+        type: String
       },
     ],
     rejectReason: {

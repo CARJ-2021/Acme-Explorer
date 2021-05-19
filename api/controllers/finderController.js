@@ -86,7 +86,7 @@ exports.read_my_finder = async function (req, res) {
         res.send(err);
       } else {
         // Remove trips if expired and return
-        finder.expirationDate < new Date() && (finder.trips = []);
+        //finder.expirationDate < new Date() && (finder.trips = []);
         for (let index = 0; index < finder.trips.length; index++) {
           const id = finder.trips[index];
           var trip = await Trip.findById(id);

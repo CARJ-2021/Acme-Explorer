@@ -28,7 +28,7 @@ exports.list_all_trips_v2 = async function (req, res) {
     var idToken = req.headers["idtoken"];
     var authenticatedUserId = await authController.getUserId(idToken);
     var actor = await Actor.findById(authenticatedUserId);
-    console.log("AAAAAAAA", actor.role)
+    console.log("AAAAAAAA", actor.role);
     if (actor.role.includes("MANAGER")) {
       Trip.find({}, function (err, trips) {
         if (err) {
@@ -476,7 +476,7 @@ exports.searchFinder = (finderParams) => {
             : "2200-01-00:00:00.000Z",
         },
       };
-
+      console.log(searchParams);
       // Add $text if keyword
       if (finderParams.keyword && finderParams.keyword !== "") {
         searchParams["$text"] = { $search: finderParams.keyword };
@@ -485,7 +485,7 @@ exports.searchFinder = (finderParams) => {
       // Execute query
       Trip.find(searchParams)
         .sort()
-        .limit(configuration?.findResult || 10)
+        .limit(Number(finderParams.limit) || 10)
         .exec(function (err, searchResult) {
           if (err) {
             reject(err);

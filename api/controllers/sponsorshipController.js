@@ -120,7 +120,7 @@ exports.update_a_sponsorship_v2 = async function (req, res) {
   var idToken = req.headers["idtoken"];
   var authenticatedUserId = await authController.getUserId(idToken);
   Sponsorship.findById(req.params.sponsorshipId, function (error, sponshp) {
-    if (error) res.send(err);
+    if (error) res.send(error);
     else if (sponshp == null) res.status(404).send("Sponsorship not found");
     else if (
       JSON.stringify(sponshp.sponsor) != JSON.stringify(authenticatedUserId)

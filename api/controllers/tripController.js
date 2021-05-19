@@ -411,6 +411,11 @@ exports.create_a_trip_v2 = async function (req, res) {
   var authenticatedUserId = await authController.getUserId(idToken);
   let ticker = await generate_ticker();
 
+  if (new Date(req.body.startDate) > new Date(req.body.endDate)) {
+    return res.status(401).send({ message: "Invalid date" });
+  }
+
+  
   var new_trip = new Trip(req.body);
   new_trip.manager = authenticatedUserId;
   new_trip.ticker = ticker;

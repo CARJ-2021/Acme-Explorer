@@ -19,7 +19,7 @@
     "links": [],
     "panels": [
       {
-        "datasource": "InfluxDB",
+        "datasource": null,
         "fieldConfig": {
           "defaults": {
             "color": {
@@ -167,7 +167,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": null,
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -280,7 +280,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": null,
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -410,7 +410,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": null,
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -540,7 +540,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": null,
         "description": "",
         "fieldConfig": {
           "defaults": {},
@@ -671,7 +671,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": null,
         "fieldConfig": {
           "defaults": {},
           "overrides": []

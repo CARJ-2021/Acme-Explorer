@@ -56,6 +56,8 @@ services:
     volumes:
       - 'grafana_volume:/var/lib/grafana'
       - './grafana/grafana.ini:/etc/grafana/grafana.ini'
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+      - './grafana/dashboards/:/etc/dashboards'
     restart: 'unless-stopped'
 
 volumes:

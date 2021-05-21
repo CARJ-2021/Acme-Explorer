@@ -412,7 +412,7 @@ exports.create_a_trip_v2 = async function (req, res) {
   let ticker = await generate_ticker();
 
   if (new Date(req.body.startDate) > new Date(req.body.endDate)) {
-    return res.status(401).send({ message: "Invalid date" });
+    return res.status(400).send({ message: "Invalid date" });
   }
 
   

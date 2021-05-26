@@ -11,6 +11,6 @@ module.exports = function (app) {
 
     app
         .route("/v2/configuration")
-        .get(authController.verifyUser(["ADMINISTRATOR"]), configuration.read_configuration)
+        .get(authController.verifyUser(["ADMINISTRATOR", "SPONSOR"]), configuration.read_configuration)
         .put(authController.verifyUser(["ADMINISTRATOR"]), configuration.update_configuration);
 };

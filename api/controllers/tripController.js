@@ -28,25 +28,26 @@ exports.list_all_trips_v2 = async function (req, res) {
     var idToken = req.headers["idtoken"];
     var authenticatedUserId = await authController.getUserId(idToken);
     var actor = await Actor.findById(authenticatedUserId);
-    console.log("AAAAAAAA", actor.role);
+    /** 
     if (actor.role.includes("MANAGER")) {
-      Trip.find({}, function (err, trips) {
+      Trip.find({ }, function (err, trips) {
         if (err) {
           res.send(err);
         } else {
           res.json(trips);
         }
       });
-    } else {
-      Trip.find({ published: true }, function (err, trips) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.json(trips);
-        }
-      });
-    }
-  } else {
+    } else {*/
+    Trip.find({ published: true }, function (err, trips) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(trips);
+      }
+    });
+  }
+  //}
+  else {
     Trip.find({ published: true }, function (err, trips) {
       if (err) {
         res.send(err);
@@ -415,7 +416,6 @@ exports.create_a_trip_v2 = async function (req, res) {
     return res.status(400).send({ message: "Invalid date" });
   }
 
-  
   var new_trip = new Trip(req.body);
   new_trip.manager = authenticatedUserId;
   new_trip.ticker = ticker;

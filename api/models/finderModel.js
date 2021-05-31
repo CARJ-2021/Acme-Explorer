@@ -6,28 +6,33 @@ var FinderSchema = new Schema(
   {
     keyword: {
       type: String,
+      default: ''
     },
     minPrice: {
       type: Number,
-      min: 0
+      min: 0,
+      default: 0
     },
     maxPrice: {
       type: Number,
-      min: 0,
+      min: 1,
       validate: [
         priceChecker,
         'The minimum price must be lower than the maximum price'
-      ]
-    },
-    minDate: {
-      type: Date,
+      ],
+      default: 1,
     },
     maxDate: {
       type: Date,
+      default: new Date(),
       validate: [
         dateChecker,
         'Minimum date must be lower than Maximum date'
       ]
+    },
+    minDate: {
+      type: Date,
+      default: new Date()
     },
     explorer: {
       type: Schema.Types.ObjectId,
